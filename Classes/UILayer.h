@@ -26,6 +26,7 @@
 	CCLabelTTF* messageLabel;
 	CCMenu* pauseMenu;
 	CCMenu* gameMenu;
+	CCLayerColor* gameMenuParent;
 }
 
 -(void) updateTeam1Score:(int)t1Score team2Score:(int)t2Score;

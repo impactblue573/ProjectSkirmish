@@ -23,7 +23,7 @@
 -(CCSprite*) addSprite:(NSString *)spriteName defaultFrame:(NSString*)frameName
 {
 	CCSprite* sprite = [CCSprite spriteWithSpriteFrame:[frameCache spriteFrameByName:frameName]];
-	//[sprite.texture setAliasTexParameters];
+	[sprite.texture setAntiAliasTexParameters];
 	[sprites setObject:sprite forKey:spriteName];	
 	[spriteSheet addChild:sprite];
 	return sprite;

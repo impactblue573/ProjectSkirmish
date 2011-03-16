@@ -19,9 +19,9 @@
 		startPosition = ccp(40.0f,150.0f);
 		size = b2Vec2(70.0f,80.0f);
 		offset = b2Vec2(-1.0f,-8.0f);
-		jumpSpeed = 13.0;
-		maxSpeed = 7.0;
+		jumpSpeed = 13.0;		
 		jumpForceMag = 3600.0;
+		maxSpeed = 7.0;
 		gunAnchorPoint = ccp(0.2,0.5);
 		gunOffset = CGPointMake(-5.0,-7.0);
 		muzzleOffset = CGPointMake(60.0,0);
@@ -33,6 +33,13 @@
 		pawnType = @"Ginja Ninja";
 	}
 	return self;
+}
+
+-(void) initializeFallAnimation:(AnimationManager*)animationManager
+{
+	//Fall Animation
+	NSArray* frameNames = [NSArray arrayWithObjects:@"Fall-1.png",@"Fall-2.png",nil];
+	[animationManager addAnimation:@"Fall" usingFrames:frameNames frameDelay:0.1];
 }
 
 @end

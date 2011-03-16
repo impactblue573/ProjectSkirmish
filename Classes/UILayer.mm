@@ -45,11 +45,17 @@
 	pauseMenu.position = ccp(screenSize.width-30,screenSize.height-10);
 	[self addChild:pauseMenu z:4];
 	
-	CCMenuItem* resumeMenuItem = [CCMenuItemFont itemFromString:@"Resume" target:self selector:@selector(hidePauseMenu:)];
-	CCMenuItem* quitMenuItem = [CCMenuItemFont itemFromString:@"Quit" target:self selector:@selector(quitGame:)];
-	quitMenuItem.position = ccp(0,-30);
-	gameMenu = [[CCMenu menuWithItems:resumeMenuItem,quitMenuItem,nil] retain];
-	gameMenu.position = ccp(screenSize.width/2,screenSize.height/2);
+	CCMenuItemFont* resumeMenuItem = [CCMenuItemFont itemFromString:@"Resume" target:self selector:@selector(hidePauseMenu:)];
+	[resumeMenuItem setColor:(ccColor3B){50,50,50}];
+	resumeMenuItem.position = ccp(0,15);
+	CCMenuItemFont* quitMenuItem = [CCMenuItemFont itemFromString:@"Quit" target:self selector:@selector(quitGame:)];
+	[quitMenuItem setColor:(ccColor3B){50,50,50}];
+	quitMenuItem.position = ccp(0,-15);
+	gameMenu = [CCMenu menuWithItems:resumeMenuItem,quitMenuItem,nil];
+	gameMenu.position = ccp(75,50);
+	gameMenuParent = [[CCLayerColor layerWithColor:(ccColor4B){255,255,255,200} width:150 height:100] retain];
+	gameMenuParent.position = ccp(screenSize.width/2 - 75,screenSize.height/2-50);
+	[gameMenuParent addChild:gameMenu];
 	return self;
 }
 
@@ -67,6 +73,7 @@
 
 -(void) updatePing:(float)ping
 {
+	return;
 	ping  = fabs(ping);
 	[pingLabel setString:[NSString stringWithFormat:@"%.0fms",ping]];
 }
@@ -84,12 +91,12 @@
 
 -(void) showPauseMenu:(id)sender
 {
-	[self addChild:gameMenu z:5];
+	[self addChild:gameMenuParent z:5];
 }
 
 -(void) hidePauseMenu:(id)sender
 {
-	[self removeChild:gameMenu cleanup:false];
+	[self removeChild:gameMenuParent cleanup:false];
 }
 
 -(void) quitGame:(id)sender

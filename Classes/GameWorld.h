@@ -27,10 +27,13 @@
 	ProjectilePool* projectilePool;
 	NSMutableArray* activeProjectiles;
 	NSString* serverPeerID;
+	TeamSpawnPoint teamASpawnPoint;
+	TeamSpawnPoint teamBSpawnPoint;
 }
 
+-(id) initWorld:(NSString*)worldName;
 -(b2Body*) addStaticBody:(CGPoint)pos ofSize:(b2Vec2)size withSprite:(CCSprite*)sprite usingFilter:(b2Filter)filter;
--(void) buildWorld;
+-(void) buildWorld:(NSString*)worldName;
 -(void) updateWorld:(ccTime)dt;
 -(void) updateProjectiles:(ccTime)dt;
 -(void) spawnProjectile:(Projectile*)proj;

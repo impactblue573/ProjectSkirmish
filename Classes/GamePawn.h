@@ -17,6 +17,7 @@
 #import "GameTeam.h"
 #import "PawnInfo.h"
 #import "SimpleAudioEngine.h"
+#import "AnimationManager.h"
 
 @class GameController;
 
@@ -95,6 +96,16 @@ typedef enum
 -(bool) isDead;
 -(void) takeDamage:(float)damage;
 -(PawnInfo*) getPawnInfo;
+-(void) initializeAnimations:(AnimationManager*)animationManager;
+-(void) initializeWalkAnimation:(AnimationManager*)animationManager;
+-(void) initializeStandAnimation:(AnimationManager*)animationManager;
+-(void) initializeJumpAnimation:(AnimationManager*)animationManager;
+-(void) initializeFallAnimation:(AnimationManager*)animationManager;
+-(void) initializeDeathAnimation:(AnimationManager*)animationManager;
+-(void) initializeGunWalkAnimation:(AnimationManager*)animationManager;
+-(void) initializeGunIdleAnimation:(AnimationManager*)animationManager;
+-(void) initializeGunShootAnimation:(AnimationManager*)animationManager;
+-(void) initializeGunDefaultAnimation:(AnimationManager*)animationManager;
 
 @property(readonly) GameController* controller;
 @property(assign) CCSprite* bodySprite;

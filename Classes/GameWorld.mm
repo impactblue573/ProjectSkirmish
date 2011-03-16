@@ -16,19 +16,18 @@
 #import "GameWorld.h"
 #import "Helper.h"
 #import "SoundManager.h"
-static bool debugDraw = false;
+static bool debugDraw = true;
 
 
 @implementation GameWorld
 
 @synthesize worldSize;
 
--(id) init
+-(id) initWorld:(NSString*)worldName
 {
 	if((self=[super init])) 
 	{
-		worldSize = CGSizeMake(2880.0f,640.0f);
-		[self buildWorld];
+		[self buildWorld:worldName];
 		gamePawnList = [[NSMutableArray alloc] init];
 		projectilePool = [[ProjectilePool alloc] init];		
 		activeProjectiles = [[NSMutableArray alloc] init];
@@ -36,8 +35,12 @@ static bool debugDraw = false;
 	return self;
 }
 
--(void) buildWorld
+-(void) buildWorld:(NSString*)worldName
 {
+	//Load World Property List
+	NSDictionary* pListData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",worldName]]];
+	worldSize = CGSizeMake([[pListData objectForKey:@"WorldWidth"] floatValue], [[pListData objectForKey:@"WorldHeight"] floatValue]);
+	
 	b2Vec2 gravity;
 	gravity.Set(0.0f, -20.0f);
 	
@@ -67,16 +70,16 @@ static bool debugDraw = false;
 	b2PolygonShape groundBox;		
 	b2Fixture* fixture;
 	
-	b2Vec2 topLeft = b2Vec2(0,worldSize.height/PTM_RATIO);
+	b2Vec2 topLeft = b2Vec2(0,(worldSize.height + 100)/PTM_RATIO);
 	b2Vec2 bottomLeft = b2Vec2(0,20.0f/PTM_RATIO);
-	b2Vec2 topRight = b2Vec2(worldSize.width/PTM_RATIO,worldSize.height/PTM_RATIO);
+	b2Vec2 topRight = b2Vec2(worldSize.width/PTM_RATIO,(worldSize.height + 100)/PTM_RATIO);
 	b2Vec2 bottomRight = b2Vec2(worldSize.width/PTM_RATIO,20.0f/PTM_RATIO);
 	// bottom
 	groundBox.SetAsEdge(bottomLeft,bottomRight);
 	fixture = groundBody->CreateFixture(&groundBox,0);
 	// top
-	groundBox.SetAsEdge(topLeft,topRight);
-	fixture = groundBody->CreateFixture(&groundBox,0);
+	//groundBox.SetAsEdge(topLeft,topRight);
+//	fixture = groundBody->CreateFixture(&groundBox,0);
 	
 	// left
 	groundBox.SetAsEdge(topLeft,bottomLeft);
@@ -86,91 +89,38 @@ static bool debugDraw = false;
 	groundBox.SetAsEdge(topRight,bottomRight);
 	fixture = groundBody->CreateFixture(&groundBox,0);
 	
-	//Background sprite
-	CCSprite* backgroundSprite1 = [CCSprite spriteWithFile:@"Farm1.png"];
-	backgroundSprite1.position = CGPointMake(750,320);
-	CCSprite* backgroundSprite2 = [CCSprite spriteWithFile:@"Farm2.png"];
-	backgroundSprite2.position = CGPointMake(2130,320);
-	if(!debugDraw)
+	//Load World Sprites
+	NSArray* worldSprites = (NSArray*)[pListData objectForKey:@"Sprites"];
+	for(uint i = 0; i < [worldSprites count];i++)
 	{
-		[self addChild:backgroundSprite1];
-		[self addChild:backgroundSprite2];
+		NSDictionary* spriteData = (NSDictionary*)[worldSprites objectAtIndex:i];
+		CCSprite* sprite = [CCSprite spriteWithFile:[spriteData objectForKey:@"SpriteName"]];
+		sprite.position = ccp([[spriteData objectForKey:@"PosX"] floatValue],[[spriteData objectForKey:@"PosY"] floatValue]);
+		[self addChild:sprite z:[[spriteData objectForKey:@"Z"] intValue]];		
 	}
 	
-	//Foreground Sprites
-	CCSprite* sprite = [CCSprite spriteWithFile:@"TreeLeaves.png"];
-	sprite.position = CGPointMake(1340,300);
-	[self addChild:sprite z:2];
+	//Load Blocks
+	NSArray* worldBlocks = (NSArray*)[pListData objectForKey:@"Blocks"];
+	for(uint i = 0; i < [worldBlocks count];i++)
+	{
+		NSDictionary* blockData = (NSDictionary*)[worldBlocks objectAtIndex:i];
+		b2Filter filter;
+		filter.maskBits = [[blockData objectForKey:@"MaskBits"] intValue];
+		filter.categoryBits = [[blockData objectForKey:@"CategoryBits"] intValue];
+		[self addStaticBody:CGPointMake([[blockData objectForKey:@"PosX"] floatValue],[[blockData objectForKey:@"PosY"] floatValue]) 
+			  ofSize:b2Vec2([[blockData objectForKey:@"Width"] floatValue],[[blockData objectForKey:@"Height"] floatValue]) 
+			  withSprite:nil 
+			  usingFilter:filter];
+	}
 	
-	//Add Some static boxes to jump on
-	b2Filter filter;
-	filter.categoryBits = 1;
-	//Team1 Safe Area
-	//Safe Block
-	filter.maskBits = 65535 - 3;
-	[self addStaticBody:CGPointMake(180,80) ofSize:b2Vec2(320,120) withSprite:nil usingFilter:filter];
+	//Load Spawn Points
+	NSDictionary* teamAData = [pListData objectForKey:@"TeamA"];
+	teamASpawnPoint.spawnPoint = ccp([[teamAData objectForKey:@"SpawnX"] floatValue], [[teamAData objectForKey:@"SpawnY"] floatValue]);
+	teamASpawnPoint.homeArea = (CGRect){ccp([[teamAData objectForKey:@"HomeX"] floatValue], [[teamAData objectForKey:@"HomeY"] floatValue]),CGSizeMake([[teamAData objectForKey:@"HomeWidth"] floatValue],[[teamAData objectForKey:@"HomeHeight"] floatValue]) };
 
-	//Frontwall
-	filter.maskBits = 1;
-	[self addStaticBody:CGPointMake(335,80) ofSize:b2Vec2(10, 120) withSprite:nil usingFilter:filter];
-
-	//Backwall
-	filter.maskBits = 65535;	
-	[self addStaticBody:CGPointMake(10,80) ofSize:b2Vec2(20, 120) withSprite:nil usingFilter:filter];
-	
-	//Roof
-	[self addStaticBody:CGPointMake(180,200) ofSize:b2Vec2(320,120) withSprite:nil usingFilter:filter];
-	
-	
-	//Team2 Safe Area
-	//Safe Block
-	filter.maskBits = 65535 - 5;
-	[self addStaticBody:CGPointMake(worldSize.width - 180,80) ofSize:b2Vec2(320,120) withSprite:nil usingFilter:filter];
-	
-	//Frontwall
-	filter.maskBits = 1;
-	[self addStaticBody:CGPointMake(worldSize.width - 335,80) ofSize:b2Vec2(10, 120) withSprite:nil usingFilter:filter];
-	
-	//Backwall
-	filter.maskBits = 65535;	
-	[self addStaticBody:CGPointMake(worldSize.width - 10,80) ofSize:b2Vec2(20, 120) withSprite:nil usingFilter:filter];
-	
-	//Roof
-	[self addStaticBody:CGPointMake(worldSize.width - 180,200) ofSize:b2Vec2(320,120) withSprite:nil usingFilter:filter];
-	
-	
-	//Haystack1	
-	[self addStaticBody:CGPointMake(818,42) ofSize:b2Vec2(178,44) withSprite:nil usingFilter:filter];
-	[self addStaticBody:CGPointMake(818,86) ofSize:b2Vec2(100,44) withSprite:nil usingFilter:filter];
-	
-	//Well	
-	[self addStaticBody:CGPointMake(1722,66) ofSize:b2Vec2(106,84) withSprite:nil usingFilter:filter];
-	[self addStaticBody:CGPointMake(1648,39) ofSize:b2Vec2(32,38) withSprite:nil usingFilter:filter];
-	[self addStaticBody:CGPointMake(1798,39) ofSize:b2Vec2(32,38) withSprite:nil usingFilter:filter];
-	filter.categoryBits = 8;
-	[self addStaticBody:CGPointMake(1722,192) ofSize:b2Vec2(114,4) withSprite:nil usingFilter:filter];
-	filter.categoryBits = 1;
-	//Rock
-	[self addStaticBody:CGPointMake(1400,44) ofSize:b2Vec2(108,48) withSprite:nil usingFilter:filter];
-	
-	//Branch1	
-	filter.categoryBits = 8;
-	[self addStaticBody:CGPointMake(1282,138) ofSize:b2Vec2(70,4) withSprite:nil usingFilter:filter];
-	//Branch2
-	[self addStaticBody:CGPointMake(1468,210) ofSize:b2Vec2(82,4) withSprite:nil usingFilter:filter];
-	//Branch3
-	[self addStaticBody:CGPointMake(1492,286) ofSize:b2Vec2(86,4) withSprite:nil usingFilter:filter];
-	//Branch 4
-	[self addStaticBody:CGPointMake(1472,344) ofSize:b2Vec2(66,4) withSprite:nil usingFilter:filter];
-	//Branch 5
-	[self addStaticBody:CGPointMake(1456,398) ofSize:b2Vec2(67,4) withSprite:nil usingFilter:filter];
-	//Branch 6
-	[self addStaticBody:CGPointMake(1245,307) ofSize:b2Vec2(65,4) withSprite:nil usingFilter:filter];
-	
-	//Left Fence
-	[self addStaticBody:CGPointMake(480,104) ofSize:b2Vec2(300,4) withSprite:nil usingFilter:filter];
-	//Right Fence
-	[self addStaticBody:CGPointMake(worldSize.width - 468,102) ofSize:b2Vec2(250,4) withSprite:nil usingFilter:filter];
+	NSDictionary* teamBData = [pListData objectForKey:@"TeamB"];
+	teamBSpawnPoint.spawnPoint = ccp([[teamBData objectForKey:@"SpawnX"] floatValue], [[teamBData objectForKey:@"SpawnY"] floatValue]);
+	teamBSpawnPoint.homeArea = (CGRect){ccp([[teamBData objectForKey:@"HomeX"] floatValue], [[teamBData objectForKey:@"HomeY"] floatValue]),CGSizeMake([[teamBData objectForKey:@"HomeWidth"] floatValue],[[teamBData objectForKey:@"HomeHeight"] floatValue]) };
 	
 	//Debug Draw Stuff
 	m_debugDraw = new GLESDebugDraw	( PTM_RATIO );
@@ -381,18 +331,12 @@ NSInteger sortByPawnPosition(id arg1,id arg2, void* reverse)
 
 -(TeamSpawnPoint) getTeamASpawnPoint
 {
-	TeamSpawnPoint spawn;
-	spawn.spawnPoint = ccp(100,100);
-	spawn.homeArea = (CGRect){ ccp(10,20),CGSizeMake(320,120) };
-	return spawn;
+	return teamASpawnPoint;
 }
 
 -(TeamSpawnPoint) getTeamBSpawnPoint
 {
-	TeamSpawnPoint spawn;
-	spawn.spawnPoint = ccp(worldSize.width-100,100);
-	spawn.homeArea = (CGRect){ ccp(worldSize.width - 330,20),CGSizeMake(320,120) };
-	return spawn;
+	return teamBSpawnPoint;
 }
 
 -(BattleInfo*) getBattleInfo

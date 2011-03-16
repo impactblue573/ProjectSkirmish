@@ -460,7 +460,7 @@ static GameWorld* CurrentGameWorld;
 -(void) initializeUI
 {
 	gameActive = true;
-	gameWorld = [GameWorld node];	
+	gameWorld = [[[GameWorld alloc] initWorld:@"Farm_World"] autorelease];	
 	CurrentGameWorld = gameWorld;
 	[self addChild: gameWorld];
 	uiLayer = [UILayer node];

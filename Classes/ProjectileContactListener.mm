@@ -31,8 +31,8 @@ void ProjectileContactListener::BeginContact(b2Contact* contact)
 		{
 			if(![pawn isDead])
 			{
-				[pawn.controller pawnHit:proj.damage];
-				if([pawn isDead])
+				bool killed = [pawn.controller pawnHit:proj.damage];
+				if(killed)
 					[proj.controller registerKill];
 			}
 		}

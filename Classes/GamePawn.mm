@@ -14,7 +14,7 @@
 @class GameScene;
 @implementation GamePawn
 
-@synthesize bodySprite,gunSprite,startPosition,physicsBody,size,aimAngle,facing,isFiring,fireInterval,spriteName,team,offset,controller,health,physicsState,healthUpdated;
+@synthesize bodySprite,gunSprite,pawnType,startPosition,physicsBody,size,aimAngle,facing,isFiring,fireInterval,spriteName,team,offset,controller,health,physicsState,healthUpdated;
 
 
 -(id) init
@@ -24,7 +24,7 @@
 	{
 		startPosition = ccp(40.0f,150.0f);
 		size = b2Vec2(64.0f,80.0f);
-		offset = b2Vec2(-4.0f,0.0f);
+		offset = b2Vec2(4.0f,0.0f);
 		jumpSpeed = 12.0;
 		maxSpeed = 6.0;
 		moveForceMag = 500.0;
@@ -240,7 +240,7 @@
 	//synchronize position with physics body	
 	b2Vec2 bodyPos = physicsBody->GetPosition();
 	CGPoint bodyPoint = CGPointMake( bodyPos.x * PTM_RATIO, bodyPos.y * PTM_RATIO);
-	bodySprite.position = bodyPoint;
+	bodySprite.position = ccp(bodyPoint.x + facing * offset.x,bodyPoint.y);
 	bodySprite.rotation = -1 * CC_RADIANS_TO_DEGREES(physicsBody->GetAngle());
 	if(facing == 1)
 		gunSprite.anchorPoint = gunAnchorPoint;

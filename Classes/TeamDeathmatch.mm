@@ -24,7 +24,9 @@
 	{
 		GameTeam* gameTeam = (GameTeam*)[teams objectAtIndex:i];
 		if(gameTeam.teamKills >= winScore)
+		{
 			return gameTeam;
+		}
 	}
 	return nil;
 }

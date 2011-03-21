@@ -11,6 +11,7 @@
 
 static GameMode gameMode;
 static bool isServer;
+static float difficultyFactor;
 static GameWorld* CurrentGameWorld;
 @implementation GameScene
 
@@ -24,6 +25,11 @@ static GameWorld* CurrentGameWorld;
 	[scene addChild:main];
 	// return the scene
 	return scene;
+}
+
++(float) getDifficultyFactor
+{
+	return difficultyFactor;
 }
 
 +(GameMode) CurrentGameMode
@@ -55,6 +61,7 @@ static GameWorld* CurrentGameWorld;
 {
 	if((self = ([super init])))
 	{		
+		difficultyFactor = 0.5f;
 		gameType = [[TeamDeathmatch alloc] initWithWinScore:30];
 		gameMode = gMode;
 		broadcastInterval = 0.02;
@@ -132,10 +139,10 @@ static GameWorld* CurrentGameWorld;
 	TapTarget* tapTarget = [[TapTarget alloc] initWithMinTouchDuration:0.02f];
 	
 	SneakyJoystickSkinnedBase* joystick = [[[SneakyJoystickSkinnedBase alloc] init] autorelease];
-	joystick.position = ccp(team == team1 ? 56 : 424,24);
+	joystick.position = ccp(team == team1 ? 84 : screenSize.width-84,36);
 	//joystick.backgroundSprite = [ColoredCircleSprite circleWithColor:ccc4(200, 200, 200, 128) radius:64];
-	joystick.thumbSprite = [ColoredCircleSprite circleWithColor:ccc4(180, 0, 0, 128) radius:24];
-	joystick.joystick = [[SneakyJoystick alloc] initWithRect:CGRectMake(0,0,64,64)];
+	joystick.thumbSprite = [ColoredCircleSprite circleWithColor:ccc4(180, 0, 0, 128) radius:30];
+	joystick.joystick = [[SneakyJoystick alloc] initWithRect:CGRectMake(0,0,96,96)];
 	
 	//add controls to UI
 	[uiLayer addChild:tapTarget];
@@ -246,7 +253,7 @@ static GameWorld* CurrentGameWorld;
 	botControllers = [[NSMutableArray alloc] init];
 	for(int i = 0; i < numBots; i++)
 	{
-		NSString* botName = [NSString stringWithFormat:@"Bot%d",i];
+		NSString* botName = [NSString stringWithFormat:@"%d",i];
 		GameTeam* team = team1.teamCount > team2.teamCount ? team2 : team1;
 		BotController* botController1 = [[BotController alloc] initInWorld:gameWorld usingPawn:nil asTeam:team withPlayerID:botName withPlayerName:botName];
 		[gameWorld spawnGamePawn:botController1.pawn];
@@ -258,17 +265,6 @@ static GameWorld* CurrentGameWorld;
 {
 	if(!gameActive)
 		return;
-	GameTeam* winningTeam = [gameType GetWinningTeam:[NSArray arrayWithObjects:team1,team2,nil]];
-	if(winningTeam != nil)
-	{
-		if(team1 == winningTeam)
-			[uiLayer showMessage:@"Red Team Wins!" withColor : ccc3(255,0,0)];
-		else
-			[uiLayer showMessage:@"Blue Team Wins!" withColor : ccc3(0,0,255)];
-		gameActive = false;
-		[self schedule:@selector(showLeaderboard:) interval:3];
-		return;
-	}
 	bool sendMatchInfo = false;
 	DataPacket* matchDataPacket = [[DataPacket alloc] init];
 	matchDataPacket.dataType = Data_MatchUpdate;
@@ -286,11 +282,12 @@ static GameWorld* CurrentGameWorld;
 	//if(lastBroadcast > broadcastInterval)
 		[self dispatchNetworkPlayerInput:netInput];
 	[netInput release];
-	if(playerController.pawn.healthUpdated && isServer)
+	if((playerController.pawn.healthUpdated || playerController.updated) && isServer)
 	{
 		sendMatchInfo = true;
 		[matchDataPacket.matchInfo addPawnHealth:playerController.pawn.health withKills:playerController.kills withDeaths:playerController.deaths withPlayerID:playerController.playerID];
 		playerController.pawn.healthUpdated = false;
+		playerController.updated = false;
 	}
 	
 	NSArray* keys = [networkPlayerControllers allKeys];
@@ -298,11 +295,12 @@ static GameWorld* CurrentGameWorld;
 	{
 		NetworkGameController* netController = [networkPlayerControllers objectForKey:[keys objectAtIndex:i]];
 		[netController updatePawn:dt];
-		if(netController.pawn.healthUpdated && isServer)
+		if((netController.pawn.healthUpdated || netController.updated) && isServer)
 		{
 			sendMatchInfo = true;
 			[matchDataPacket.matchInfo addPawnHealth:netController.pawn.health withKills:netController.kills withDeaths:netController.deaths withPlayerID:netController.playerID];
 			netController.pawn.healthUpdated = false;
+			netController.updated = false;
 		}
 	}
 	
@@ -317,11 +315,12 @@ static GameWorld* CurrentGameWorld;
 		//if(lastBroadcast > broadcastInterval)
 		[self dispatchNetworkPlayerInput:netInput];
 		[netInput release];
-		if(botController.pawn.healthUpdated && isServer)
+		if((botController.pawn.healthUpdated || botController.updated) && isServer)
 		{
 			sendMatchInfo = true;
 			[matchDataPacket.matchInfo addPawnHealth:botController.pawn.health withKills:botController.kills withDeaths:botController.deaths withPlayerID:botController.playerID];
 			botController.pawn.healthUpdated = false;
+			botController.updated = false;
 		}
 	}	
 	//[battleInfo release];
@@ -357,6 +356,19 @@ static GameWorld* CurrentGameWorld;
 		lastBroadcast = 0;
 	else
 		lastBroadcast += dt;
+	
+	//Check Game Completion
+	GameTeam* winningTeam = [gameType GetWinningTeam:[NSArray arrayWithObjects:team1,team2,nil]];
+	if(winningTeam != nil)
+	{
+		if(team1 == winningTeam)
+			[uiLayer showMessage:@"Red Team Wins!" withColor : ccc3(255,0,0)];
+		else
+			[uiLayer showMessage:@"Blue Team Wins!" withColor : ccc3(0,0,255)];
+		gameActive = false;
+		[self schedule:@selector(showLeaderboard:) interval:3];
+		return;
+	}	
 }
 
 //-(void) dispatchNetworkPlayerInputs:(NSMutableArray*)netInputs;
@@ -474,7 +486,7 @@ static GameWorld* CurrentGameWorld;
 	[self initializeUI];
 	[self initializeTeams];
 	[self initializePlayer];
-	[self initializeBots:7];
+	[self initializeBots:6];
 	[self schedule: @selector(tick:)];
 	[self playBackgroundMusic];
 }
@@ -494,6 +506,11 @@ static GameWorld* CurrentGameWorld;
 -(void) onQuitGame
 {
 	[self endGame:0];
+}
+
+-(NSMutableArray*) getLeaderboardEntries
+{
+	return [self generateTeamLeaderboard];
 }
 
 //GameKit stuff
@@ -790,9 +807,7 @@ static GameWorld* CurrentGameWorld;
 	
 	//Match Update
 	if(packet.dataType == Data_MatchUpdate)
-	{
-		team1.teamKills = [packet.matchInfo.team1Score intValue];
-		team2.teamKills = [packet.matchInfo.team2Score intValue];	
+	{	
 		GameController* controller;
 		for(uint i = 0; i < [packet.matchInfo.pawnHealths count]; i++)
 		{
@@ -811,8 +826,8 @@ static GameWorld* CurrentGameWorld;
 			if(controller != nil)
 			{
 				controller.pawn.health = [health intValue];
-				controller.kills = [kills intValue];
-				controller.deaths = [deaths intValue];
+				controller.kills = controller.kills < [kills intValue] ? [kills intValue] : controller.kills;
+				controller.deaths = controller.deaths < [deaths intValue] ? [deaths intValue] : controller.deaths;
 				continue;
 			}
 			for(uint b = 0; b < [botControllers count]; b++)
@@ -821,13 +836,15 @@ static GameWorld* CurrentGameWorld;
 				if([controller.playerID isEqualToString:playerID])
 				{
 					controller.pawn.health = [health intValue];
-					controller.kills = [kills intValue];
-					controller.deaths = [deaths intValue];
+					controller.kills = controller.kills < [kills intValue] ? [kills intValue] : controller.kills;
+					controller.deaths = controller.deaths < [deaths intValue] ? [deaths intValue] : controller.deaths;
 					break;
 				}
 			}
 			
 		}
+		team1.teamKills = [packet.matchInfo.team1Score intValue];
+		team2.teamKills = [packet.matchInfo.team2Score intValue];
 	}
 	/*[packet release];
 	[response release];

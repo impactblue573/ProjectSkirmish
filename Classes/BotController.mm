@@ -7,7 +7,7 @@
 //
 
 #import "BotController.h"
-
+#import "GameScene.h"
 
 @implementation BotController
 
@@ -15,9 +15,10 @@
 
 -(id) init
 {
+	mishotFactor = 250;
 	netMoveInterval = 0.1f;
 	netJumpInterval = 0.2f;
-	int ai = random()%3;
+	int ai = arc4random()%3;
 	if(ai == 0)
 		aiType = AI_Commando;
 	else if(ai == 1)
@@ -28,8 +29,26 @@
 	return [super init];
 }
 
+-(NSString*) getAIAsString
+{
+	if(aiType == AI_Commando)
+		return @"Com";
+	else if(aiType == AI_Sniper)
+		return @"Sni";
+	else
+		return @"Nin";
+}
+
+-(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName;
+{
+	self = [super initInWorld:world usingPawn:pType asTeam:t withPlayerID:pID withPlayerName:nil];
+	playerName = [[NSString stringWithFormat:@"%@ %@ %@",pawn.pawnType,[self getAIAsString],pName] retain];
+	return self;
+}
+
 -(NetworkPlayerInput*) processBattleInfo:(BattleInfo*)battleInfo delta:(float)dt
 {
+	float difficulty = [GameScene getDifficultyFactor];
 	NetworkPlayerInput* netInput = [[NetworkPlayerInput alloc] init];
 	netInput.playerID = playerID;
 	
@@ -129,8 +148,12 @@
 								netInput.hasJump = [NSNumber numberWithBool:true];
 						}				
 						
-						if(timeSinceLastShot >= shootInterval)
+						if(timeSinceLastShot >= pawn.fireInterval / difficulty)
 						{
+							float arc4 = arc4random() % 100;
+							float random = (arc4 - 50) / 100.0f;
+							float absMod = random * mishotFactor * (1.0f-difficulty);
+							pos = ccp(pos.x, pos.y + absMod);
 							[pawn fire:pos];
 							timeSinceLastShot = 0;
 							netInput.shootPointX = [NSNumber numberWithFloat:pos.x];

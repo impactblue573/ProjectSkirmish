@@ -123,4 +123,5 @@ typedef enum
 @property(assign) float health;
 @property(readonly) PhysicsState physicsState;
 @property(assign) bool healthUpdated;
+@property(assign) NSString* pawnType;
 @end

@@ -56,7 +56,7 @@
 		3F7FED3512CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FED3412CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm */; };
 		3F7FEE5912CDAC4800B71665 /* PaintballSplatParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FEE5812CDAC4800B71665 /* PaintballSplatParticleSystem.mm */; };
 		3F93F2B912D1FFDA0008E721 /* Farm.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F93F2B812D1FFDA0008E721 /* Farm.png */; };
-		3FA5226E1325921B006B162A /* GinjaNinja.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FA5226D1325921B006B162A /* GinjaNinja.mm */; };
+		3FA5226E1325921B006B162A /* GinjaNinjaPawn.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FA5226D1325921B006B162A /* GinjaNinjaPawn.mm */; };
 		3FA522AD13262220006B162A /* GinjaNinja.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FA522AB13262220006B162A /* GinjaNinja.plist */; };
 		3FA522AE13262220006B162A /* GinjaNinja.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FA522AC13262220006B162A /* GinjaNinja.png */; };
 		3FA6BAA512D454480045E40D /* NetworkGameController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FA6BAA412D454480045E40D /* NetworkGameController.mm */; };
@@ -498,8 +498,8 @@
 		3F7FEE5712CDAC4800B71665 /* PaintballSplatParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintballSplatParticleSystem.h; sourceTree = "<group>"; };
 		3F7FEE5812CDAC4800B71665 /* PaintballSplatParticleSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaintballSplatParticleSystem.mm; sourceTree = "<group>"; };
 		3F93F2B812D1FFDA0008E721 /* Farm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Farm.png; path = Illustrations/Farm.png; sourceTree = SOURCE_ROOT; };
-		3FA5226C1325921B006B162A /* GinjaNinja.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GinjaNinja.h; sourceTree = "<group>"; };
-		3FA5226D1325921B006B162A /* GinjaNinja.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GinjaNinja.mm; sourceTree = "<group>"; };
+		3FA5226C1325921B006B162A /* GinjaNinjaPawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GinjaNinjaPawn.h; sourceTree = "<group>"; };
+		3FA5226D1325921B006B162A /* GinjaNinjaPawn.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GinjaNinjaPawn.mm; sourceTree = "<group>"; };
 		3FA522AB13262220006B162A /* GinjaNinja.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GinjaNinja.plist; path = Illustrations/GinjaNinja.plist; sourceTree = SOURCE_ROOT; };
 		3FA522AC13262220006B162A /* GinjaNinja.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GinjaNinja.png; path = Illustrations/GinjaNinja.png; sourceTree = SOURCE_ROOT; };
 		3FA6BAA312D454480045E40D /* NetworkGameController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkGameController.h; sourceTree = "<group>"; };
@@ -1213,8 +1213,8 @@
 				3F3723B712D1446B00E1BBBC /* BullseyePawn.mm */,
 				3FEF1A8712D5FD8700F2689B /* PawnInfo.h */,
 				3FEF1A8812D5FD8700F2689B /* PawnInfo.mm */,
-				3FA5226C1325921B006B162A /* GinjaNinja.h */,
-				3FA5226D1325921B006B162A /* GinjaNinja.mm */,
+				3FA5226C1325921B006B162A /* GinjaNinjaPawn.h */,
+				3FA5226D1325921B006B162A /* GinjaNinjaPawn.mm */,
 			);
 			name = Pawn;
 			sourceTree = "<group>";
@@ -2047,7 +2047,7 @@
 				3FC9B06D12E68B5300552220 /* SoundManager.mm in Sources */,
 				3FF3B95A131E7379000B7F06 /* GameType.mm in Sources */,
 				3FF3B95D131E7503000B7F06 /* TeamDeathmatch.mm in Sources */,
-				3FA5226E1325921B006B162A /* GinjaNinja.mm in Sources */,
+				3FA5226E1325921B006B162A /* GinjaNinjaPawn.mm in Sources */,
 				3F3CF3E71328B8040030611B /* Leaderboard.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

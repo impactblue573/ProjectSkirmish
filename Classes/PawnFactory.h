@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "GamePawn.h"
 #import "BullseyePawn.h"
-#import "GinjaNinja.h"
+#import "GinjaNinjaPawn.h"
 
 @class GameController;
 

@@ -59,6 +59,7 @@ typedef enum
 +(bool) isServer;
 +(bool) isInPlayerView:(CGPoint)pawnPos;
 +(ViewPort) getViewPort;
++(float) getDifficultyFactor;
 -(id) initWithGameMode:(GameMode)mode;
 -(void) initializeUI;
 -(void) initializePlayer;

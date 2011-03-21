@@ -11,7 +11,7 @@
 
 @implementation GameController
 
-@synthesize pawn,playerID,pawnType,deaths,kills,team,playerName;
+@synthesize pawn,playerID,pawnType,deaths,kills,team,playerName,updated;
 
 -(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName;
 {
@@ -108,16 +108,19 @@
 	}
 }
 
--(void) pawnHit:(float)damage
+/*Returns true if the hit killed the pawn*/
+-(bool) pawnHit:(float)damage
 {
-	if(![pawn isDead])
+	if(![pawn isDead] && pawn.health > 0)
 	{
 		[pawn takeDamage:damage];
 		if(pawn.health <= 0)
 		{
 			[self killPawn];
+			return true;
 		}
 	}
+	return false;
 }
 
 -(void) killPawn
@@ -127,6 +130,7 @@
 	respawnCountBegun = true;
 	deaths++;
 	team.teamDeaths++;
+	updated = true;
 }
 
 -(void) registerKill
@@ -134,6 +138,7 @@
 	kills++;
 	team.teamKills++;
 	team.updated = true;
+	updated = true;
 }
 
 -(LeaderboardEntry) getLeaderboardEntry

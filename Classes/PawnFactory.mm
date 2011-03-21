@@ -13,7 +13,7 @@
 
 +(GamePawn*) initializePawn
 {
-	int p = random()%100;
+	int p = arc4random()%100;
 	if(p <= 33)
 	{
 		return [[GamePawn alloc] init];
@@ -24,7 +24,7 @@
 	}
 	else
 	{
-		return [[GinjaNinja alloc] init];
+		return [[GinjaNinjaPawn alloc] init];
 	}
 }
 
@@ -35,7 +35,7 @@
 	else if([pawnType  isEqualToString:@"Bullseye"])
 		return [[BullseyePawn alloc] init];
 	else if([pawnType  isEqualToString:@"Ginja Ninja"])
-		return [[GinjaNinja alloc] init];
+		return [[GinjaNinjaPawn alloc] init];
 	return [[GamePawn alloc] init];
 }
 @end

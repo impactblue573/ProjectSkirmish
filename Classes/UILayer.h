@@ -9,14 +9,17 @@
 #import "cocos2d.h"
 #import "GLES-Render.h"
 #import "SneakyJoystick.h"
+#import "Leaderboard.h"
 
 @protocol UILayerProtocol
 
 -(void) onQuitGame;
+-(NSMutableArray*) getLeaderboardEntries;
 
 @end
 
 @interface UILayer : CCLayer {
+	CGSize screenSize;
 	id<UILayerProtocol> delegate;
 	CCLabelTTF* team1ScoreLabel;
 	CCLabelTTF* team2ScoreLabel;
@@ -27,6 +30,8 @@
 	CCMenu* pauseMenu;
 	CCMenu* gameMenu;
 	CCLayerColor* gameMenuParent;
+	Leaderboard* leaderboard;
+	bool pauseMenuVisible;
 }
 
 -(void) updateTeam1Score:(int)t1Score team2Score:(int)t2Score;

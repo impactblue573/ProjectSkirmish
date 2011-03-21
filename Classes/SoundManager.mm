@@ -9,6 +9,7 @@
 #import "SoundManager.h"
 #import "GameScene.h"
 
+static bool enabled = true;
 
 @implementation SoundManager
 static SoundManager* sharedSoundManager;
@@ -22,6 +23,8 @@ static SoundManager* sharedSoundManager;
 
 -(void) playSound:(NSString *)sound atPosition:(CGPoint)position
 {
+	if(!enabled)
+		return;
 	ViewPort vp = [GameScene getViewPort];
 	CGPoint center = ccp(vp.position.x + vp.dimensions.width/2,vp.position.y + vp.dimensions.height/2);
 	float deltaX = position.x - center.x;

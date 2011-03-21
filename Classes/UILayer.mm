@@ -8,13 +8,12 @@
 
 #import "UILayer.h"
 
-
 @implementation UILayer
 @synthesize delegate;
 -(id) init
 {
 	self = [super init];
-	CGSize screenSize = [CCDirector sharedDirector].winSize;
+	screenSize = [CCDirector sharedDirector].winSize;
 	team1ScoreLabel = [CCLabelTTF labelWithString:@"0" dimensions:CGSizeMake(50,50) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:32];
 	[team1ScoreLabel setColor:ccc3(255,0,0)];
 	team1ScoreLabel.position = ccp( screenSize.width/2-50, screenSize.height-30);
@@ -45,16 +44,17 @@
 	pauseMenu.position = ccp(screenSize.width-30,screenSize.height-10);
 	[self addChild:pauseMenu z:4];
 	
+	int menuWidth = screenSize.width - 80;
 	CCMenuItemFont* resumeMenuItem = [CCMenuItemFont itemFromString:@"Resume" target:self selector:@selector(hidePauseMenu:)];
 	[resumeMenuItem setColor:(ccColor3B){50,50,50}];
-	resumeMenuItem.position = ccp(0,15);
+	resumeMenuItem.position = ccp(-50,0);
 	CCMenuItemFont* quitMenuItem = [CCMenuItemFont itemFromString:@"Quit" target:self selector:@selector(quitGame:)];
 	[quitMenuItem setColor:(ccColor3B){50,50,50}];
-	quitMenuItem.position = ccp(0,-15);
+	quitMenuItem.position = ccp(50,0);
 	gameMenu = [CCMenu menuWithItems:resumeMenuItem,quitMenuItem,nil];
-	gameMenu.position = ccp(75,50);
-	gameMenuParent = [[CCLayerColor layerWithColor:(ccColor4B){255,255,255,200} width:150 height:100] retain];
-	gameMenuParent.position = ccp(screenSize.width/2 - 75,screenSize.height/2-50);
+	gameMenu.position = ccp(menuWidth/2,17);
+	gameMenuParent = [[CCLayerColor layerWithColor:(ccColor4B){255,255,255,200} width:menuWidth height:34] retain];
+	gameMenuParent.position = ccp(40,6);
 	[gameMenuParent addChild:gameMenu];
 	return self;
 }
@@ -91,12 +91,26 @@
 
 -(void) showPauseMenu:(id)sender
 {
-	[self addChild:gameMenuParent z:5];
+	if(!pauseMenuVisible)
+	{
+		pauseMenuVisible = true;
+		NSArray* leaderboardEntries = [delegate getLeaderboardEntries];
+		leaderboard = [[Leaderboard alloc] initWithLeaderboardEntries:leaderboardEntries];
+		leaderboard.position = ccp(40,40);
+		[self addChild:leaderboard z:4];
+		[self addChild:gameMenuParent z:5];
+	}
+	else {
+		[self hidePauseMenu:nil];
+	}
+
 }
 
 -(void) hidePauseMenu:(id)sender
 {
+	[self removeChild:leaderboard cleanup:true];
 	[self removeChild:gameMenuParent cleanup:false];
+	pauseMenuVisible = false;
 }
 
 -(void) quitGame:(id)sender

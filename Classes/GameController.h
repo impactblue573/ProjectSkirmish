@@ -38,13 +38,14 @@
 	float networkSyncInterval;
 	int deaths;
 	int kills;
+	bool updated;
 }
 
 -(id) initInWorld:(GameWorld *)world usingPawn:(NSString*)pType asTeam:(GameTeam*)team withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName;
 -(void) initializeGamePawn;
 -(void) updatePawn:(ccTime)dt;
 -(void) initializeAnimations;
--(void) pawnHit:(float)damage;
+-(bool) pawnHit:(float)damage;
 -(void) killPawn;
 -(void) registerKill;
 -(LeaderboardEntry) getLeaderboardEntry;
@@ -56,5 +57,6 @@
 @property(assign) int kills;
 @property(assign) GameTeam* team;
 @property(assign) NSString* playerName;
+@property(assign) bool updated;
 
 @end

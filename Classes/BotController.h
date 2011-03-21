@@ -22,6 +22,7 @@ typedef enum
 	AIType aiType;
 	float timeSinceLastShot;
 	float shootInterval;
+	int mishotFactor;
 }
 
 @property(assign) AIType aiType;

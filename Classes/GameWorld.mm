@@ -16,7 +16,7 @@
 #import "GameWorld.h"
 #import "Helper.h"
 #import "SoundManager.h"
-static bool debugDraw = true;
+static bool debugDraw = false;
 
 
 @implementation GameWorld
@@ -90,13 +90,16 @@ static bool debugDraw = true;
 	fixture = groundBody->CreateFixture(&groundBox,0);
 	
 	//Load World Sprites
-	NSArray* worldSprites = (NSArray*)[pListData objectForKey:@"Sprites"];
-	for(uint i = 0; i < [worldSprites count];i++)
+	if(!debugDraw)
 	{
-		NSDictionary* spriteData = (NSDictionary*)[worldSprites objectAtIndex:i];
-		CCSprite* sprite = [CCSprite spriteWithFile:[spriteData objectForKey:@"SpriteName"]];
-		sprite.position = ccp([[spriteData objectForKey:@"PosX"] floatValue],[[spriteData objectForKey:@"PosY"] floatValue]);
-		[self addChild:sprite z:[[spriteData objectForKey:@"Z"] intValue]];		
+		NSArray* worldSprites = (NSArray*)[pListData objectForKey:@"Sprites"];
+		for(uint i = 0; i < [worldSprites count];i++)
+		{
+			NSDictionary* spriteData = (NSDictionary*)[worldSprites objectAtIndex:i];
+			CCSprite* sprite = [CCSprite spriteWithFile:[spriteData objectForKey:@"SpriteName"]];
+			sprite.position = ccp([[spriteData objectForKey:@"PosX"] floatValue],[[spriteData objectForKey:@"PosY"] floatValue]);
+			[self addChild:sprite z:[[spriteData objectForKey:@"Z"] intValue]];		
+		}
 	}
 	
 	//Load Blocks
@@ -108,9 +111,9 @@ static bool debugDraw = true;
 		filter.maskBits = [[blockData objectForKey:@"MaskBits"] intValue];
 		filter.categoryBits = [[blockData objectForKey:@"CategoryBits"] intValue];
 		[self addStaticBody:CGPointMake([[blockData objectForKey:@"PosX"] floatValue],[[blockData objectForKey:@"PosY"] floatValue]) 
-			  ofSize:b2Vec2([[blockData objectForKey:@"Width"] floatValue],[[blockData objectForKey:@"Height"] floatValue]) 
-			  withSprite:nil 
-			  usingFilter:filter];
+					 ofSize:b2Vec2([[blockData objectForKey:@"Width"] floatValue],[[blockData objectForKey:@"Height"] floatValue]) 
+				 withSprite:nil 
+				usingFilter:filter];
 	}
 	
 	//Load Spawn Points
@@ -210,7 +213,7 @@ static bool debugDraw = true;
 	
 	// Define another box shape for our dynamic body.
 	b2Vec2 center;
-	center.Set(pawn.offset.x/PTM_RATIO,pawn.offset.y/PTM_RATIO);
+	center.Set(0,pawn.offset.y/PTM_RATIO);
 	b2PolygonShape dynamicBox;
 	dynamicBox.SetAsBox(pawn.size.x/2/PTM_RATIO, pawn.size.y/2/PTM_RATIO,center,0);//These are mid points for our 1m box
 	

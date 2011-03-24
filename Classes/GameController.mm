@@ -8,6 +8,7 @@
 
 #import "GameController.h"
 #import "GameWorld.h"
+#import "GameScene.h"
 
 @implementation GameController
 
@@ -128,9 +129,12 @@
 	[pawn killPawn];
 	timeSinceDeath = 0;
 	respawnCountBegun = true;
-	deaths++;
-	team.teamDeaths++;
-	updated = true;
+	if([GameScene isServer] || [GameScene CurrentGameMode] == Game_Single)
+	{
+		deaths++;
+		team.teamDeaths++;
+		updated = true;
+	}
 }
 
 -(void) registerKill

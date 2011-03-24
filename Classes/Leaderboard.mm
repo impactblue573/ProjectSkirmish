@@ -60,7 +60,7 @@
 		NSString* killFormat = entry.kills ? @"+%d" : @"%d";
 
 		killLabel = [CCLabelTTF  labelWithString:[NSString stringWithFormat:killFormat,entry.kills] dimensions:CGSizeMake(playerColumnWidth/2,20) alignment:CCTextAlignmentRight fontName:@"Marker Felt" fontSize:18];
-		[killLabel setColor:(ccColor3B){50,255,50}];
+		[killLabel setColor:(ccColor3B){50,200,50}];
 		killLabel.position = ccp(width/2 + 20,topOffset);
 		
 		deathLabel = [CCLabelTTF  labelWithString:[NSString stringWithFormat:deathFormat,entry.deaths] dimensions:CGSizeMake(playerColumnWidth/2,20) alignment:CCTextAlignmentRight fontName:@"Marker Felt" fontSize:18];

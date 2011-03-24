@@ -55,10 +55,21 @@
 		[playerTextField setTextColor:[UIColor whiteColor]];
 		[playerTextField setFont:[UIFont fontWithName:@"Marker Felt" size:22]];
 		
+		//World Select
+		worldPicker = [[[WorldPicker alloc] init] retain];
+		[worldPicker setTarget:self selector:@selector(onWorldSelect:)];
+		worldLabel = [[CCLabelTTF labelWithString:@"World:" fontName:@"Marker Felt" fontSize:22] retain];
+		worldLabel.position = ccp(34,120);
+		worldLauncher = [CCMenuItemFont itemFromString:@"The Farm" target:self selector:@selector(launchWorldSelector:)];
+		worldLauncher.anchorPoint = ccp(0,0.5);
+		worldLauncherMenu = [[CCMenu menuWithItems:worldLauncher,nil] retain];
+		worldLauncherMenu.position = ccp(110,120);
+		selectedWorld = @"Farm_World";
+		
 		//Num Bot Scroller
 		botLabel = [[CCLabelTTF labelWithString:@"Num Bots:" fontName:@"Marker Felt" fontSize:22] retain];
 		botLabel.position = ccp(50,90);
-		botDial = [[[DialList alloc] initWithList:[NSArray arrayWithObjects: @"0",@"1",@"2",@"3",@"4",nil] withWidth:70] retain];
+		botDial = [[[DialList alloc] initWithList:[NSArray arrayWithObjects: @"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil] withWidth:70] retain];
 		botDial.position = ccp(140,90);
 		
 		//team select
@@ -75,10 +86,16 @@
 		teamMenu.position = ccp(140,60);
 		
 		//character select
+		characterPicker = [[[CharacterPicker alloc] init] retain];
+		[characterPicker setTarget:self selector:@selector(onCharacterSelect:)];
+		
 		CCLabelTTF* characterLabel = [CCLabelTTF labelWithString:@"Character:" fontName:@"Marker Felt" fontSize:22];
 		characterLabel.position = ccp(54,30);
-		characterDial = [[DialList alloc] initWithList:[NSArray arrayWithObjects:@"Lambo",@"Bullseye",@"Ginja Ninja",nil] withWidth:140];
-		characterDial.position = ccp(140,30);
+		characterLauncher = [CCMenuItemFont itemFromString:@"Lambo" target:self selector:@selector(launchCharacterSelector:)];
+		characterLauncher.anchorPoint = ccp(0,0.5);
+		CCMenu* characterLauncherMenu = [CCMenu menuWithItems:characterLauncher,nil];
+		characterLauncherMenu.position = ccp(140,30);
+		selectedCharacter = @"Lambo";
 		
 		playersJoinedLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(screensize.width,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:24];
 		playersJoinedLabel.position = ccp(screensize.width/2,screensize.height-30);
@@ -91,7 +108,7 @@
 		[pendingGameMenuLayer addChild:teamLabel];
 		[pendingGameMenuLayer addChild:teamMenu];
 		[pendingGameMenuLayer addChild:characterLabel];
-		[pendingGameMenuLayer addChild:characterDial];
+		[pendingGameMenuLayer addChild:characterLauncherMenu];
 	}
 	return self;
 }
@@ -107,15 +124,23 @@
 		[playersJoinedLabel setString:@""];
 }
 
+-(void) showPlayerNameField:(bool)show
+{
+	if(show)
+		[[[[CCDirector sharedDirector] openGLView] window] addSubview:playerTextField] ;
+	else
+		[playerTextField removeFromSuperview];
+}
+
 -(void) hostGameMenuTouched:(id) sender
 {
-	[[[[CCDirector sharedDirector] openGLView] window] addSubview:playerTextField] ;
+	[self showPlayerNameField:true];
 	[delegate hostGame];
 }
 
 -(void) joinGameMenuTouched:(id) sender
 {
-	[[[[CCDirector sharedDirector] openGLView] window] addSubview:playerTextField] ;
+	[self showPlayerNameField:true];	
 	[delegate joinGame];
 }
 
@@ -187,9 +212,26 @@
 	return selectedTeam;
 }
 
+-(void) launchCharacterSelector:(id)menuItem
+{
+	[self showPlayerNameField:false];
+	[self addChild:characterPicker z:5];
+}
+
+-(void) launchWorldSelector:(id)menuItem
+{
+	[self showPlayerNameField:false];
+	[self addChild:worldPicker z:5];
+}
+
 -(NSString*) getSelectedCharacter
 {
-	return [characterDial getSelectedValue];
+	return selectedCharacter;
+}
+
+-(NSString*) getSelectedWorld
+{
+	return selectedWorld;
 }
 
 -(int) getNumBots
@@ -212,6 +254,21 @@
 	}
 }
 
+-(void) showWorld:(bool)show
+{
+	if(show)
+	{
+		if([pendingGameMenuLayer getChildByTag:3] == nil)			
+			[pendingGameMenuLayer addChild:worldLabel z:0 tag:3];
+		if([pendingGameMenuLayer getChildByTag:4] == nil)
+			[pendingGameMenuLayer addChild:worldLauncherMenu z:0 tag:4];
+	}
+	else {
+		[pendingGameMenuLayer removeChild:worldLabel cleanup:false];
+		[pendingGameMenuLayer removeChild:worldLauncherMenu cleanup:false];
+	}
+}
+
 -(NSString*) getPlayerName
 {
 	return playerTextField.text;
@@ -219,7 +276,7 @@
 
 -(void) clearTextFields
 {
-	[playerTextField removeFromSuperview];
+	[self showPlayerNameField:false];
 }
 
 -(void) dealloc
@@ -245,6 +302,22 @@
 		return true;
 	}
 	return false;
+}
+
+-(void) onCharacterSelect:(SlideListItem)item
+{
+	selectedCharacter = [NSString stringWithString:item.key];
+	[characterLauncher setString:item.key];
+	[self removeChild:characterPicker cleanup:false];
+	[self showPlayerNameField:true];
+}
+
+-(void) onWorldSelect:(SlideListItem)item
+{
+	selectedWorld = [NSString stringWithString:item.key];
+	[worldLauncher setString:item.text];
+	[self removeChild:worldPicker cleanup:false];
+	[self showPlayerNameField:true];
 }
 
 @end

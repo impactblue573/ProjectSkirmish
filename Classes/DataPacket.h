@@ -27,7 +27,7 @@ typedef enum
 	NSDate* sendTime;
 	NSMutableArray* pawnInitData;
 	NetworkPlayerInput* playerInput;
-	//NSMutableArray* playerInputs;
+	NSString* worldName;
 	MatchInfo* matchInfo;
 }
 
@@ -36,6 +36,7 @@ typedef enum
 @property(assign) NetworkPlayerInput* playerInput;
 @property(assign) MatchInfo* matchInfo;
 @property(assign) NSDate* sendTime;
+@property(assign) NSString* worldName;
 //@property(assign) NSMutableArray* playerInputs;
 
 @end

@@ -83,7 +83,11 @@ static GameWorld* CurrentGameWorld;
 			[self addChild:localPlayUI];
 		}
 		else
-			[self startSinglePlay];
+		{
+			singlePlayWorldPicker = [[WorldPicker alloc] init];
+			[singlePlayWorldPicker setTarget:self selector:@selector(onWorldSelect:)];
+			[self addChild:singlePlayWorldPicker z:5];
+		}
 	}
 	return self;
 }
@@ -116,9 +120,9 @@ static GameWorld* CurrentGameWorld;
 	team2.teamColor = (ccColor3B){0,0,255};
 }
 
--(void) initializePlayer
+-(void) initializePlayer:(NSString*)pType
 {
-	[self initializePlayerWithPawnType:nil onTeam:team1 withName:@"LocalPlayer"];
+	[self initializePlayerWithPawnType:pType onTeam:team1 withName:@"LocalPlayer"];
 }
 
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name
@@ -472,7 +476,7 @@ static GameWorld* CurrentGameWorld;
 -(void) initializeUI
 {
 	gameActive = true;
-	gameWorld = [[[GameWorld alloc] initWorld:@"Farm_World"] autorelease];	
+	gameWorld = [[[GameWorld alloc] initWorld:worldName] autorelease];	
 	CurrentGameWorld = gameWorld;
 	[self addChild: gameWorld];
 	uiLayer = [UILayer node];
@@ -481,11 +485,11 @@ static GameWorld* CurrentGameWorld;
 }
 
 //Single Player
--(void) startSinglePlay
+-(void) startSinglePlay:(NSString*)pType
 {
 	[self initializeUI];
 	[self initializeTeams];
-	[self initializePlayer];
+	[self initializePlayer:pType];
 	[self initializeBots:6];
 	[self schedule: @selector(tick:)];
 	[self playBackgroundMusic];
@@ -615,6 +619,8 @@ static GameWorld* CurrentGameWorld;
 		[localPlayUI setPlayersJoined:0];
 		[localPlayUI setStartMenuVisible:false];
 		[localPlayUI showBots:true];
+		[localPlayUI showWorld:true];
+
 	}
 }
 
@@ -639,6 +645,7 @@ static GameWorld* CurrentGameWorld;
 		[localPlayUI setPlayersJoinedVisible:false];
 		[localPlayUI setStartMenuVisible:false];
 		[localPlayUI showBots:false];
+		[localPlayUI showWorld:false];
 	}
 }
 
@@ -665,11 +672,12 @@ static GameWorld* CurrentGameWorld;
 -(void) startGame
 {	
 	hostNumBots = [localPlayUI getNumBots];
+	worldName = [NSString stringWithString:[localPlayUI getSelectedWorld]];
 	[self initializeGame];
 	DataPacket* packet = [[DataPacket alloc] init];
 	packet.dataType = Data_InitPawnRequest;
 	packet.playerInput = [[NetworkPlayerInput alloc] init];
-	packet.playerInput.playerID = @"Hello";
+	packet.worldName = worldName;
 	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
 	[gkHelper sendDataToAllPeers:[DataHelper serializeDataPacket:packet] withMode:GKSendDataReliable];
 } 
@@ -746,6 +754,7 @@ static GameWorld* CurrentGameWorld;
 	if(packet.dataType == Data_InitPawnRequest)
 	{
 		[localPlayUI clearTextFields];
+		worldName = [NSString stringWithString:packet.worldName];
 		[self initializeGame];		
 		serverPeerID = peer;
 		response.dataType = Data_InitPawnResponse;
@@ -850,6 +859,24 @@ static GameWorld* CurrentGameWorld;
 	[response release];
 	packet = nil;
 	response = nil;*/
+}
+
+
+#pragma mark SlideListProtocol
+-(void) onCharacterSelect:(SlideListItem)item
+{
+	[self removeChild:singlePlayCharacterPicker cleanup:true];
+	[self startSinglePlay:item.key];
+}
+
+-(void) onWorldSelect:(SlideListItem)item
+{
+	[self removeChild:singlePlayWorldPicker cleanup:true];
+	worldName = [NSString stringWithString:item.key];
+	singlePlayCharacterPicker = [[CharacterPicker alloc] init];
+	[singlePlayCharacterPicker setTarget:self selector:@selector(onCharacterSelect:)];
+	[self addChild:singlePlayCharacterPicker z:5];
+	
 }
 
 @end

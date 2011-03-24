@@ -10,14 +10,18 @@
 
 @implementation DataPacket
 
-@synthesize dataType, pawnInitData, playerInput, matchInfo,sendTime;
+@synthesize dataType, pawnInitData, playerInput, matchInfo,sendTime,worldName;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 	NSValue* dataTypeVal = [NSValue valueWithBytes:&dataType objCType:@encode(DataType)];
 	[aCoder encodeObject:dataTypeVal];
+	if(dataType == Data_InitPawnRequest)
+		[aCoder encodeObject:[NSKeyedArchiver archivedDataWithRootObject:worldName]];
 	if(dataType == Data_InitPawnResponse || dataType == Data_SynchPawnRequest)
+	{
 		[aCoder encodeObject:[NSKeyedArchiver archivedDataWithRootObject:pawnInitData]];	
+	}
 	if(dataType == Data_PawnUpdate)
 	{
 		[aCoder encodeObject:playerInput];	
@@ -32,6 +36,11 @@
 {
 	NSValue* dataTypeVal = [aDecoder decodeObject];
 	[dataTypeVal getValue:&dataType];
+	if(dataType == Data_InitPawnRequest)
+	{
+		worldName = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)[aDecoder decodeObject]];
+		[worldName retain];
+	}
 	if(dataType == Data_InitPawnResponse || dataType == Data_SynchPawnRequest)
 	{ 
 		pawnInitData = [NSKeyedUnarchiver unarchiveObjectWithData:(NSData*)[aDecoder decodeObject]];

@@ -55,6 +55,17 @@
 		3F5C467912CEBF8000EA310A /* BattleInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C467812CEBF8000EA310A /* BattleInfo.mm */; };
 		3F7FED3512CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FED3412CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm */; };
 		3F7FEE5912CDAC4800B71665 /* PaintballSplatParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FEE5812CDAC4800B71665 /* PaintballSplatParticleSystem.mm */; };
+		3F929418133883440004619D /* SlideList.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F929417133883440004619D /* SlideList.mm */; };
+		3F92943D13388D610004619D /* SlideListMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F92943C13388D610004619D /* SlideListMenuItem.mm */; };
+		3F92945A133898CE0004619D /* GinjaNinjaProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F929459133898CE0004619D /* GinjaNinjaProfile.png */; };
+		3F92950813395BA60004619D /* BullseyeProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F92950713395BA60004619D /* BullseyeProfile.png */; };
+		3F92950A13395C760004619D /* LamboProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F92950913395C760004619D /* LamboProfile.png */; };
+		3F92956F1339639E0004619D /* Arrow-Right-Active.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F92956B1339639E0004619D /* Arrow-Right-Active.png */; };
+		3F9295701339639E0004619D /* Arrow-Right.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F92956C1339639E0004619D /* Arrow-Right.png */; };
+		3F9295C2133970E60004619D /* Arrow-Right-Disabled.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9295C1133970E60004619D /* Arrow-Right-Disabled.png */; };
+		3F9295ED133978A50004619D /* CharacterPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9295EC133978A50004619D /* CharacterPicker.mm */; };
+		3F9296631339DE890004619D /* TheFarmProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F9296621339DE890004619D /* TheFarmProfile.png */; };
+		3F9296661339DE9A0004619D /* WorldPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9296651339DE9A0004619D /* WorldPicker.mm */; };
 		3F93F2B912D1FFDA0008E721 /* Farm.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F93F2B812D1FFDA0008E721 /* Farm.png */; };
 		3FA5226E1325921B006B162A /* GinjaNinjaPawn.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FA5226D1325921B006B162A /* GinjaNinjaPawn.mm */; };
 		3FA522AD13262220006B162A /* GinjaNinja.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FA522AB13262220006B162A /* GinjaNinja.plist */; };
@@ -497,6 +508,21 @@
 		3F7FED3412CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaintballExplodeParticleSystem.mm; sourceTree = "<group>"; };
 		3F7FEE5712CDAC4800B71665 /* PaintballSplatParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintballSplatParticleSystem.h; sourceTree = "<group>"; };
 		3F7FEE5812CDAC4800B71665 /* PaintballSplatParticleSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaintballSplatParticleSystem.mm; sourceTree = "<group>"; };
+		3F929416133883440004619D /* SlideList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideList.h; sourceTree = "<group>"; };
+		3F929417133883440004619D /* SlideList.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SlideList.mm; sourceTree = "<group>"; };
+		3F92943B13388D610004619D /* SlideListMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideListMenuItem.h; sourceTree = "<group>"; };
+		3F92943C13388D610004619D /* SlideListMenuItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SlideListMenuItem.mm; sourceTree = "<group>"; };
+		3F929459133898CE0004619D /* GinjaNinjaProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GinjaNinjaProfile.png; path = Illustrations/GinjaNinjaProfile.png; sourceTree = SOURCE_ROOT; };
+		3F92950713395BA60004619D /* BullseyeProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BullseyeProfile.png; path = Illustrations/BullseyeProfile.png; sourceTree = SOURCE_ROOT; };
+		3F92950913395C760004619D /* LamboProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LamboProfile.png; path = Illustrations/LamboProfile.png; sourceTree = SOURCE_ROOT; };
+		3F92956B1339639E0004619D /* Arrow-Right-Active.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Arrow-Right-Active.png"; path = "Illustrations/Arrow-Right-Active.png"; sourceTree = SOURCE_ROOT; };
+		3F92956C1339639E0004619D /* Arrow-Right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Arrow-Right.png"; path = "Illustrations/Arrow-Right.png"; sourceTree = SOURCE_ROOT; };
+		3F9295C1133970E60004619D /* Arrow-Right-Disabled.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Arrow-Right-Disabled.png"; path = "Illustrations/Arrow-Right-Disabled.png"; sourceTree = SOURCE_ROOT; };
+		3F9295EB133978A50004619D /* CharacterPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CharacterPicker.h; sourceTree = "<group>"; };
+		3F9295EC133978A50004619D /* CharacterPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CharacterPicker.mm; sourceTree = "<group>"; };
+		3F9296621339DE890004619D /* TheFarmProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = TheFarmProfile.png; path = Illustrations/TheFarmProfile.png; sourceTree = SOURCE_ROOT; };
+		3F9296641339DE9A0004619D /* WorldPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldPicker.h; sourceTree = "<group>"; };
+		3F9296651339DE9A0004619D /* WorldPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WorldPicker.mm; sourceTree = "<group>"; };
 		3F93F2B812D1FFDA0008E721 /* Farm.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Farm.png; path = Illustrations/Farm.png; sourceTree = SOURCE_ROOT; };
 		3FA5226C1325921B006B162A /* GinjaNinjaPawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GinjaNinjaPawn.h; sourceTree = "<group>"; };
 		3FA5226D1325921B006B162A /* GinjaNinjaPawn.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GinjaNinjaPawn.mm; sourceTree = "<group>"; };
@@ -1026,6 +1052,7 @@
 		3F3CF891132DA04F0030611B /* FarmWorld */ = {
 			isa = PBXGroup;
 			children = (
+				3F9296621339DE890004619D /* TheFarmProfile.png */,
 				3F3CF9161330238E0030611B /* Clouds1.png */,
 				3F3CF9171330238E0030611B /* Clouds2.png */,
 				3F3CF8BA132ED1150030611B /* LeftHouseWall.png */,
@@ -1068,7 +1095,13 @@
 			isa = PBXGroup;
 			children = (
 				3F3EF31B12D86ADB00534A05 /* DownArrow.png */,
+				3F929459133898CE0004619D /* GinjaNinjaProfile.png */,
+				3F92950713395BA60004619D /* BullseyeProfile.png */,
 				3F3EF31C12D86ADB00534A05 /* DownArrowSelected.png */,
+				3F92950913395C760004619D /* LamboProfile.png */,
+				3F9295C1133970E60004619D /* Arrow-Right-Disabled.png */,
+				3F92956B1339639E0004619D /* Arrow-Right-Active.png */,
+				3F92956C1339639E0004619D /* Arrow-Right.png */,
 				3F3EF31D12D86ADB00534A05 /* UpArrow.png */,
 				3F3EF31E12D86ADB00534A05 /* UpArrowSelected.png */,
 			);
@@ -1091,6 +1124,14 @@
 				3F3EF31612D8640D00534A05 /* DialList.mm */,
 				3F3CF3E51328B8040030611B /* Leaderboard.h */,
 				3F3CF3E61328B8040030611B /* Leaderboard.mm */,
+				3F929416133883440004619D /* SlideList.h */,
+				3F929417133883440004619D /* SlideList.mm */,
+				3F92943B13388D610004619D /* SlideListMenuItem.h */,
+				3F92943C13388D610004619D /* SlideListMenuItem.mm */,
+				3F9295EB133978A50004619D /* CharacterPicker.h */,
+				3F9295EC133978A50004619D /* CharacterPicker.mm */,
+				3F9296641339DE9A0004619D /* WorldPicker.h */,
+				3F9296651339DE9A0004619D /* WorldPicker.mm */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -1983,6 +2024,13 @@
 				3F3CF8BD132ED1150030611B /* RightHouseWall.png in Resources */,
 				3F3CF9181330238E0030611B /* Clouds1.png in Resources */,
 				3F3CF9191330238E0030611B /* Clouds2.png in Resources */,
+				3F92945A133898CE0004619D /* GinjaNinjaProfile.png in Resources */,
+				3F92950813395BA60004619D /* BullseyeProfile.png in Resources */,
+				3F92950A13395C760004619D /* LamboProfile.png in Resources */,
+				3F92956F1339639E0004619D /* Arrow-Right-Active.png in Resources */,
+				3F9295701339639E0004619D /* Arrow-Right.png in Resources */,
+				3F9295C2133970E60004619D /* Arrow-Right-Disabled.png in Resources */,
+				3F9296631339DE890004619D /* TheFarmProfile.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2049,6 +2097,10 @@
 				3FF3B95D131E7503000B7F06 /* TeamDeathmatch.mm in Sources */,
 				3FA5226E1325921B006B162A /* GinjaNinjaPawn.mm in Sources */,
 				3F3CF3E71328B8040030611B /* Leaderboard.mm in Sources */,
+				3F929418133883440004619D /* SlideList.mm in Sources */,
+				3F92943D13388D610004619D /* SlideListMenuItem.mm in Sources */,
+				3F9295ED133978A50004619D /* CharacterPicker.mm in Sources */,
+				3F9296661339DE9A0004619D /* WorldPicker.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

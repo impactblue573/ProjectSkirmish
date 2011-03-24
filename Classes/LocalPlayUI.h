@@ -8,6 +8,8 @@
 
 #import "cocos2d.h"
 #import "DialList.h"
+#import "CharacterPicker.h"
+#import "WorldPicker.h"
 
 @protocol LocalPlayUIProtocol
 
@@ -31,10 +33,16 @@
 	CCMenuItemFont* teamAButton;
 	CCMenuItemFont* teamBButton;
 	UITextField* playerTextField;
-	DialList* characterDial;
+	CCMenuItemFont* characterLauncher;
 	DialList* botDial;
 	CCLabelTTF* botLabel;
+	CCLabelTTF* worldLabel;
+	CCMenu* worldLauncherMenu;
+	CCMenuItemFont* worldLauncher;
+	CharacterPicker* characterPicker;
+	WorldPicker* worldPicker;
 	NSString* selectedCharacter;
+	NSString* selectedWorld;
 	float selectedTeam;
 }
 
@@ -47,8 +55,13 @@
 -(int) getSelectedTeam;
 -(NSString*) getPlayerName;
 -(NSString*) getSelectedCharacter;
+-(NSString*) getSelectedWorld;
 -(int) getNumBots;
 -(void) showBots:(bool)show;
+-(void) showWorld:(bool)show;
 -(void) clearTextFields;
+-(void) onCharacterSelect:(SlideListItem)item;
+-(void) onWorldSelect:(SlideListItem)item;
+
 @property (nonatomic, retain) id<LocalPlayUIProtocol> delegate;
 @end

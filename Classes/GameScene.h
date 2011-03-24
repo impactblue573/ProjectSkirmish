@@ -23,6 +23,8 @@
 #import <GameKit/GameKit.h>
 #import "TeamDeathmatch.h"
 #import "Leaderboard.h"
+#import "CharacterPicker.h"
+#import "WorldPicker.h"
 
 typedef enum
 {
@@ -44,6 +46,7 @@ typedef enum
 	OnlinePlayUI* onlinePlayUI;
 	LocalPlayUI* localPlayUI;
 	NSString* serverPeerID;
+	NSString* worldName;
 	uint clientInitCount;
 	uint clientSyncCount;
 	float lastBroadcast;
@@ -52,6 +55,9 @@ typedef enum
 	NSDate* sendPacketTime;
 	bool gameActive;
 	GameType* gameType;
+	CharacterPicker* singlePlayCharacterPicker;
+	WorldPicker* singlePlayWorldPicker;
+
 }
 
 +(id) sceneWithGameMode:(GameMode)mode;
@@ -62,14 +68,14 @@ typedef enum
 +(float) getDifficultyFactor;
 -(id) initWithGameMode:(GameMode)mode;
 -(void) initializeUI;
--(void) initializePlayer;
+-(void) initializePlayer:(NSString*)pType;
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name;
 -(void) initializeBots:(int)numBots;
 -(void) updateViewport;
 -(void) loadSprites;
 -(NSMutableArray*) generateTeamLeaderboard;
 -(void) initializeTeams;
--(void) startSinglePlay;
+-(void) startSinglePlay:(NSString*)pType;
 -(void) receiveData:(NSData *)data fromPeer:(NSString *)peer inSession: (GKSession *)session context:(void *)context;
 -(void) startGameScheduler;
 -(void) dispatchNetworkPlayerInput:(NetworkPlayerInput*)netInput;
@@ -78,6 +84,9 @@ typedef enum
 -(void) playBackgroundMusic;
 -(void) stopBackgroundMusic;
 -(void) onQuitGame;
+
+-(void) onCharacterSelect:(SlideListItem)item;
+-(void) onWorldSelect:(SlideListItem)item;
 
 
 @end

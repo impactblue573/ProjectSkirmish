@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "GamePawn.h"
+#import "LamboPawn.h"
 #import "BullseyePawn.h"
 #import "GinjaNinjaPawn.h"
 

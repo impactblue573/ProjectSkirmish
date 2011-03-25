@@ -27,6 +27,11 @@
 		3F1A175C12C9BBE2004D9D4B /* Helper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A175B12C9BBE2004D9D4B /* Helper.mm */; };
 		3F21030F12D541FC00A52945 /* TitleScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F21030E12D541FC00A52945 /* TitleScene.mm */; };
 		3F21037212D54AD500A52945 /* OnlinePlayUI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F21037112D54AD500A52945 /* OnlinePlayUI.mm */; };
+		3F35234C133B1FDC00DFECB2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F35234B133B1FDC00DFECB2 /* Icon.png */; };
+		3F352351133C10E300DFECB2 /* LamboClassic.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F35234F133C10E300DFECB2 /* LamboClassic.plist */; };
+		3F352352133C10E300DFECB2 /* LamboClassic.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F352350133C10E300DFECB2 /* LamboClassic.png */; };
+		3F352357133C11C400DFECB2 /* LamboPawn.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F352356133C11C400DFECB2 /* LamboPawn.mm */; };
+		3F3523AA133C51D200DFECB2 /* Icon512.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F3523A9133C51D200DFECB2 /* Icon512.png */; };
 		3F35F29B12CA1D100082D2DD /* SneakyButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F35F29812CA1D100082D2DD /* SneakyButton.m */; };
 		3F35F29C12CA1D100082D2DD /* SneakyButtonSkinnedBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F35F29A12CA1D100082D2DD /* SneakyButtonSkinnedBase.m */; };
 		3F35F3C012CA9CEC0082D2DD /* JumpButtonPressed.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F35F3BE12CA9CEC0082D2DD /* JumpButtonPressed.png */; };
@@ -231,7 +236,6 @@
 		50F4144810692EE7002A0D5E /* blocks.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144310692EE7002A0D5E /* blocks.png */; };
 		50F4144910692EE7002A0D5E /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144410692EE7002A0D5E /* Default.png */; };
 		50F4144A10692EE7002A0D5E /* fps_images.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144510692EE7002A0D5E /* fps_images.png */; };
-		50F4144B10692EE7002A0D5E /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 50F4144610692EE7002A0D5E /* Icon.png */; };
 		DC6640030F83B3EA000B3E49 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */; };
 		DC6640050F83B3EA000B3E49 /* OpenAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DC6640040F83B3EA000B3E49 /* OpenAL.framework */; };
 		DCCBF1B70F6022AE0040855A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1B60F6022AE0040855A /* CoreGraphics.framework */; };
@@ -239,11 +243,6 @@
 		DCCBF1BB0F6022AE0040855A /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */; };
 		DCCBF1BD0F6022AE0040855A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */; };
 		DCCBF1BF0F6022AE0040855A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DCCBF1BE0F6022AE0040855A /* UIKit.framework */; };
-		E02BB544126CA5DA006E46A2 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E02BB53E126CA5DA006E46A2 /* Icon@2x.png */; };
-		E02BB545126CA5DA006E46A2 /* Icon-Small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E02BB53F126CA5DA006E46A2 /* Icon-Small@2x.png */; };
-		E02BB546126CA5DA006E46A2 /* Icon-Small.png in Resources */ = {isa = PBXBuildFile; fileRef = E02BB540126CA5DA006E46A2 /* Icon-Small.png */; };
-		E02BB547126CA5DA006E46A2 /* Icon-Small-50.png in Resources */ = {isa = PBXBuildFile; fileRef = E02BB541126CA5DA006E46A2 /* Icon-Small-50.png */; };
-		E02BB548126CA5DA006E46A2 /* Icon-72.png in Resources */ = {isa = PBXBuildFile; fileRef = E02BB542126CA5DA006E46A2 /* Icon-72.png */; };
 		E02BB96A126CC28A006E46A2 /* CCAction.h in Headers */ = {isa = PBXBuildFile; fileRef = E02BB8C0126CC28A006E46A2 /* CCAction.h */; };
 		E02BB96B126CC28A006E46A2 /* CCAction.m in Sources */ = {isa = PBXBuildFile; fileRef = E02BB8C1126CC28A006E46A2 /* CCAction.m */; };
 		E02BB96C126CC28A006E46A2 /* CCActionCamera.h in Headers */ = {isa = PBXBuildFile; fileRef = E02BB8C2126CC28A006E46A2 /* CCActionCamera.h */; };
@@ -464,6 +463,12 @@
 		3F21030E12D541FC00A52945 /* TitleScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TitleScene.mm; sourceTree = "<group>"; };
 		3F21037012D54AD500A52945 /* OnlinePlayUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlinePlayUI.h; sourceTree = "<group>"; };
 		3F21037112D54AD500A52945 /* OnlinePlayUI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlinePlayUI.mm; sourceTree = "<group>"; };
+		3F35234B133B1FDC00DFECB2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Illustrations/Icon.png; sourceTree = SOURCE_ROOT; };
+		3F35234F133C10E300DFECB2 /* LamboClassic.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LamboClassic.plist; path = Illustrations/Lambo/Classic/LamboClassic.plist; sourceTree = SOURCE_ROOT; };
+		3F352350133C10E300DFECB2 /* LamboClassic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LamboClassic.png; path = Illustrations/Lambo/Classic/LamboClassic.png; sourceTree = SOURCE_ROOT; };
+		3F352355133C11C400DFECB2 /* LamboPawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LamboPawn.h; sourceTree = "<group>"; };
+		3F352356133C11C400DFECB2 /* LamboPawn.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LamboPawn.mm; sourceTree = "<group>"; };
+		3F3523A9133C51D200DFECB2 /* Icon512.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon512.png; path = Illustrations/Icon512.png; sourceTree = SOURCE_ROOT; };
 		3F35F29712CA1D100082D2DD /* SneakyButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyButton.h; sourceTree = "<group>"; };
 		3F35F29812CA1D100082D2DD /* SneakyButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SneakyButton.m; sourceTree = "<group>"; };
 		3F35F29912CA1D100082D2DD /* SneakyButtonSkinnedBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SneakyButtonSkinnedBase.h; sourceTree = "<group>"; };
@@ -705,7 +710,6 @@
 		50F4144310692EE7002A0D5E /* blocks.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blocks.png; sourceTree = "<group>"; };
 		50F4144410692EE7002A0D5E /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		50F4144510692EE7002A0D5E /* fps_images.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fps_images.png; sourceTree = "<group>"; };
-		50F4144610692EE7002A0D5E /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		50F4144710692EE7002A0D5E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DC6640020F83B3EA000B3E49 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		DC6640040F83B3EA000B3E49 /* OpenAL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenAL.framework; path = System/Library/Frameworks/OpenAL.framework; sourceTree = SDKROOT; };
@@ -714,11 +718,6 @@
 		DCCBF1BA0F6022AE0040855A /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		DCCBF1BC0F6022AE0040855A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		DCCBF1BE0F6022AE0040855A /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		E02BB53E126CA5DA006E46A2 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
-		E02BB53F126CA5DA006E46A2 /* Icon-Small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small@2x.png"; sourceTree = "<group>"; };
-		E02BB540126CA5DA006E46A2 /* Icon-Small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small.png"; sourceTree = "<group>"; };
-		E02BB541126CA5DA006E46A2 /* Icon-Small-50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-Small-50.png"; sourceTree = "<group>"; };
-		E02BB542126CA5DA006E46A2 /* Icon-72.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-72.png"; sourceTree = "<group>"; };
 		E02BB8C0126CC28A006E46A2 /* CCAction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCAction.h; sourceTree = "<group>"; };
 		E02BB8C1126CC28A006E46A2 /* CCAction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CCAction.m; sourceTree = "<group>"; };
 		E02BB8C2126CC28A006E46A2 /* CCActionCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CCActionCamera.h; sourceTree = "<group>"; };
@@ -1083,6 +1082,8 @@
 			children = (
 				3FC9B02012E66FE100552220 /* Lambo.png */,
 				3FC9B02112E66FE100552220 /* Lambo.plist */,
+				3F35234F133C10E300DFECB2 /* LamboClassic.plist */,
+				3F352350133C10E300DFECB2 /* LamboClassic.png */,
 				3F3723B112D1444200E1BBBC /* Bullseye.plist */,
 				3F3723B212D1444200E1BBBC /* Bullseye.png */,
 				3FA522AB13262220006B162A /* GinjaNinja.plist */,
@@ -1256,6 +1257,8 @@
 				3FEF1A8812D5FD8700F2689B /* PawnInfo.mm */,
 				3FA5226C1325921B006B162A /* GinjaNinjaPawn.h */,
 				3FA5226D1325921B006B162A /* GinjaNinjaPawn.mm */,
+				3F352355133C11C400DFECB2 /* LamboPawn.h */,
+				3F352356133C11C400DFECB2 /* LamboPawn.mm */,
 			);
 			name = Pawn;
 			sourceTree = "<group>";
@@ -1538,15 +1541,11 @@
 				3F1A152212C8B577004D9D4B /* FieldBackground.png */,
 				3F1A152312C8B577004D9D4B /* FloatingLedge.png */,
 				E02BBA10126CC29D006E46A2 /* iTunesArtwork */,
-				E02BB53E126CA5DA006E46A2 /* Icon@2x.png */,
-				E02BB53F126CA5DA006E46A2 /* Icon-Small@2x.png */,
-				E02BB540126CA5DA006E46A2 /* Icon-Small.png */,
-				E02BB541126CA5DA006E46A2 /* Icon-Small-50.png */,
-				E02BB542126CA5DA006E46A2 /* Icon-72.png */,
+				3F3523A9133C51D200DFECB2 /* Icon512.png */,
 				50F4144310692EE7002A0D5E /* blocks.png */,
 				50F4144410692EE7002A0D5E /* Default.png */,
 				50F4144510692EE7002A0D5E /* fps_images.png */,
-				50F4144610692EE7002A0D5E /* Icon.png */,
+				3F35234B133B1FDC00DFECB2 /* Icon.png */,
 				50F4144710692EE7002A0D5E /* Info.plist */,
 			);
 			path = Resources;
@@ -1987,12 +1986,6 @@
 				50F4144810692EE7002A0D5E /* blocks.png in Resources */,
 				50F4144910692EE7002A0D5E /* Default.png in Resources */,
 				50F4144A10692EE7002A0D5E /* fps_images.png in Resources */,
-				50F4144B10692EE7002A0D5E /* Icon.png in Resources */,
-				E02BB544126CA5DA006E46A2 /* Icon@2x.png in Resources */,
-				E02BB545126CA5DA006E46A2 /* Icon-Small@2x.png in Resources */,
-				E02BB546126CA5DA006E46A2 /* Icon-Small.png in Resources */,
-				E02BB547126CA5DA006E46A2 /* Icon-Small-50.png in Resources */,
-				E02BB548126CA5DA006E46A2 /* Icon-72.png in Resources */,
 				E02BBA11126CC29D006E46A2 /* iTunesArtwork in Resources */,
 				3F1A152512C8B577004D9D4B /* FieldBackground.png in Resources */,
 				3F1A152612C8B577004D9D4B /* FloatingLedge.png in Resources */,
@@ -2031,6 +2024,10 @@
 				3F9295701339639E0004619D /* Arrow-Right.png in Resources */,
 				3F9295C2133970E60004619D /* Arrow-Right-Disabled.png in Resources */,
 				3F9296631339DE890004619D /* TheFarmProfile.png in Resources */,
+				3F35234C133B1FDC00DFECB2 /* Icon.png in Resources */,
+				3F352351133C10E300DFECB2 /* LamboClassic.plist in Resources */,
+				3F352352133C10E300DFECB2 /* LamboClassic.png in Resources */,
+				3F3523AA133C51D200DFECB2 /* Icon512.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2101,6 +2098,7 @@
 				3F92943D13388D610004619D /* SlideListMenuItem.mm in Sources */,
 				3F9295ED133978A50004619D /* CharacterPicker.mm in Sources */,
 				3F9296661339DE9A0004619D /* WorldPicker.mm in Sources */,
+				3F352357133C11C400DFECB2 /* LamboPawn.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2375,6 +2373,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
+				PRODUCT_NAME = "Proj Skirmish";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

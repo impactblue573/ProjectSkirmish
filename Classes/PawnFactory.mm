@@ -16,7 +16,7 @@
 	int p = arc4random()%100;
 	if(p <= 33)
 	{
-		return [[GamePawn alloc] init];
+		return [[LamboPawn alloc] init];
 	}
 	else if(p <= 66)
 	{
@@ -31,7 +31,7 @@
 +(GamePawn*) initializePawnType:(NSString *)pawnType
 {
 	if([pawnType isEqualToString:@"Lambo"])
-		return [[GamePawn alloc] init];
+		return [[LamboPawn alloc] init];
 	else if([pawnType  isEqualToString:@"Bullseye"])
 		return [[BullseyePawn alloc] init];
 	else if([pawnType  isEqualToString:@"Ginja Ninja"])

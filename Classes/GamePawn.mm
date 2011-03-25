@@ -41,8 +41,8 @@
 		fireInterval = 0.4f;
 		zeroAimInterval = 1.0f;
 		moveForceInterval = 0.1;
-		spriteName = @"Lambo";
-		pawnType = @"Lambo";
+		spriteName = @"LamboClassic";
+		pawnType = @"LamboClassic";
 		physicsState = Physics_Walking;
 		pawnState = Pawn_Alive;
 		health = 100;

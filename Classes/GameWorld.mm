@@ -27,6 +27,8 @@ static bool debugDraw = false;
 {
 	if((self=[super init])) 
 	{
+        minTimeStep = 1.0f/60.0f;
+        currentTimeStep = 0;
 		[self buildWorld:worldName];
 		gamePawnList = [[NSMutableArray alloc] init];
 		projectilePool = [[ProjectilePool alloc] init];		
@@ -46,7 +48,7 @@ static bool debugDraw = false;
 	
 	// Do we want to let bodies sleep?
 	// This will speed up the physics simulation
-	bool doSleep = false;
+	bool doSleep = true;
 	
 	// Construct a world object, which will hold and simulate the rigid bodies.
 	ProjectileContactListener* listener = new ProjectileContactListener();
@@ -237,9 +239,15 @@ static bool debugDraw = false;
 
 -(void) updateWorld:(ccTime) dt
 {
-	int32 velocityIterations = 4;
+	int32 velocityIterations = 16;
 	int32 positionIterations = 1;
-	physicsWorld->Step(dt, velocityIterations, positionIterations);
+    //currentTimeStep += dt;
+    //if(currentTimeStep > minTimeStep)
+    //{
+        physicsWorld->Step(dt, velocityIterations, positionIterations);
+        physicsWorld->ClearForces();
+    //    currentTimeStep = 0;
+    //}
 	[self updateProjectiles:dt];
 	//[self synchronizePawnPhysics];
 }
@@ -247,8 +255,8 @@ static bool debugDraw = false;
 -(void) updateProjectiles:(ccTime)dt
 {
 	//ViewPort variables
-	CGSize s = [CCDirector sharedDirector].winSize;
-	CGPoint p = ccp(-self.position.x,-self.position.y);
+//	CGSize s = [CCDirector sharedDirector].winSize;
+//	CGPoint p = ccp(-self.position.x,-self.position.y);
 	//Spawn pending projectiles
 	Projectile* proj;
 	while((proj = [projectilePool getNextProjectile]))

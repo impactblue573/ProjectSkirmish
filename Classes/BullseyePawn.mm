@@ -20,13 +20,13 @@
 		size = b2Vec2(74.0f,84.0f);
 		offset = b2Vec2(0.0f,-8.0f);
 		jumpSpeed = 11.0;
-		maxSpeed = 5.0;
-		jumpForceMag = 3200.0;
+		maxSpeed = 4.5;
+		jumpForceMag = 3600.0;
 		gunAnchorPoint = ccp(0.2,0.5);
 		gunOffset = CGPointMake(-10.0,-20.0);
 		muzzleOffset = CGPointMake(60.0,0);
 		tiltPosition = CGPointMake(-10.0,-20.0);
-		fireForce = 6.0f;
+		fireForce = 4.0f;
 		fireInterval = 0.6f;		
 		fireDamage = 15;
 		spriteName = @"Bullseye";

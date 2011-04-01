@@ -2,18 +2,20 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleShortVersionString</key>
+	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>Proj Skirmish</string>
+	<string>ProjSkirmish</string>
 	<key>CFBundleExecutable</key>
-	<string>${EXECUTABLE_NAME}</string>
+	<string>ProjectSkirmish</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>Icon files</key>
 	<array>
 		<string>Icon.png</string>
-		<string>Icon512.png</string>
+		<string>Icon-ipad.png</string>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.projectskirmish</string>

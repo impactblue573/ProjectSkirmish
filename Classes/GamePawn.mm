@@ -14,7 +14,7 @@
 @class GameScene;
 @implementation GamePawn
 
-@synthesize bodySprite,gunSprite,pawnType,startPosition,physicsBody,size,aimAngle,facing,isFiring,fireInterval,spriteName,team,offset,controller,health,physicsState,healthUpdated;
+@synthesize bodySprite,gunSprite,pawnType,startPosition,physicsBody,size,aimAngle,facing,isFiring,fireInterval,spriteName,team,offset,controller,health,physicsState,healthUpdated,walkDirection;
 
 
 -(id) init
@@ -26,7 +26,7 @@
 		size = b2Vec2(64.0f,80.0f);
 		offset = b2Vec2(4.0f,0.0f);
 		jumpSpeed = 12.0;
-		maxSpeed = 6.0;
+		maxSpeed = 5.5;
 		moveForceMag = 500.0;
 		airMoveForceMag = 1000.0;
 		jumpForceMag = 3200.0;
@@ -34,7 +34,7 @@
 		gunOffset = CGPointMake(-10.0,-20.0);
 		muzzleOffset = CGPointMake(60.0,0);
 		tiltPosition = CGPointMake(-10.0,-20.0);
-		fireForce = 4.0f;
+		fireForce = 3.0f;
 		aimAngle = 0.0f;
 		facing = 1;
 		isFiring = NO;
@@ -90,21 +90,10 @@
 
 -(bool) walk:(b2Vec2) direction
 {
-	if(pawnState == Pawn_Alive)
+	if(pawnState == Pawn_Alive && walkDirection != direction.x)
 	{
-		if(lastMoveForce > moveForceInterval)
-		{
-			b2Vec2 velocity = [self velocity];	
-			b2Vec2 moveForce = b2Vec2(direction.x * (velocity.y > 0 ? airMoveForceMag : moveForceMag),0);
-			physicsBody->ApplyForce(moveForce,physicsBody->GetPosition());
-			
-			if(direction.x > 0.1)
-				facing = 1;
-			else if(direction.x < -0.1) 
-				facing = -1;
-			lastMoveForce = 0;
-			return true;
-		}
+		walkDirection = direction.x;
+		return true;
 	}
 	return false;
 }
@@ -117,6 +106,8 @@
 		physicsBody->ApplyForce(b2Vec2(0.0,jumpForceMag),physicsBody->GetPosition());
 		physicsState = Physics_Jumping;
 		//play sound effect
+		b2Vec2 vel = [self velocity];
+		[self setVelocity:b2Vec2(vel.x,0.1)];
 		b2Vec2 pos = [self position];
 		if([GameScene isInPlayerView:ccp(pos.x,pos.y)] || [controller isKindOfClass:[PlayerController class]])
 		{
@@ -155,14 +146,6 @@
 		[projectilePool queueProjectile:projectile];
 		//Play Sound Effect
 		[[SoundManager sharedManager] playSound:@"Paintball-Shot.aif" atPosition:ccp(bodyPos.x,bodyPos.y)];
-		//if([GameScene isInPlayerView:ccp(bodyPos.x,bodyPos.y)] || [controller isKindOfClass:[PlayerController class]])
-//		{
-//			[[SimpleAudioEngine sharedEngine] playEffect:@"Paintball-Shot.aif"];
-//		}
-//		else 
-//		{
-//			[[SimpleAudioEngine sharedEngine] playEffect:@"Paintball-Shot-Distant.aif"];
-//		}
 
 		return true;
 	}
@@ -229,10 +212,24 @@
 	if(lastMoveForce < moveForceInterval*2)
 		lastMoveForce += dt;
 	
+	//Auto move
+	if(lastMoveForce > moveForceInterval && walkDirection != 0)
+	{
+		b2Vec2 velocity = [self velocity];	
+		b2Vec2 moveForce = b2Vec2(walkDirection * (velocity.y > 0 ? airMoveForceMag : moveForceMag),0);
+		physicsBody->ApplyForce(moveForce,physicsBody->GetPosition());
+		
+		if(walkDirection > 0.1)
+			facing = 1;
+		else if(walkDirection < -0.1) 
+			facing = -1;
+		lastMoveForce = 0;
+	}
+	
 	b2Vec2 velocity = [self velocity];
-	if(velocity.y > 0.1)
+	if(velocity.y > 0.05)
 		physicsState = Physics_Jumping;
-	else if(velocity.y < -0.1)
+	else if(velocity.y < -0.05)
 		physicsState = Physics_Falling;
 	else if(velocity.y == 0 && (physicsState == Physics_Falling || physicsState == Physics_Jumping))
 		physicsState = Physics_Walking;
@@ -284,6 +281,7 @@
 		physicsBody->SetAngularVelocity(facing * (physicsState == Physics_Walking ? 30 : 10));
 		b2Vec2 pos = [self position];
 		[[SoundManager sharedManager] playSound:@"TakeHit.aif" atPosition:ccp(pos.x,pos.y)];
+		walkDirection = 0;
 		//[controller alertDeath];
 	}
 }

@@ -27,6 +27,7 @@
 	CCLabelTTF* ammoLabel;
 	CCLabelTTF* pingLabel;
 	CCLabelTTF* messageLabel;
+	CCMenuItemFont* resumeMenuItem;
 	CCMenu* pauseMenu;
 	CCMenu* gameMenu;
 	CCLayerColor* gameMenuParent;
@@ -42,6 +43,9 @@
 -(void) showPauseMenu:(id)sender;
 -(void) hidePauseMenu:(id)sender;
 -(void) quitGame:(id)sender;
+-(void) showCompletitionScreen;
+-(void) hideResume;
+-(void) hidePauseMenuItem;
 
 @property(assign) id<UILayerProtocol> delegate;
 @end

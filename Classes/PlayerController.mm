@@ -67,20 +67,16 @@
 	b2Vec2 moveVec = b2Vec2(0,0);
 	b2Vec2 jumpVec = b2Vec2(0,0);
 
-	if(fabsf(inputVec.x) > 0.3f)
-	{
-		moveVec.x = fabsf(inputVec.x)/inputVec.x;	
-		//limit movement when in air
-		if(pVelocity.y > 0)
-			moveVec.x /= 3;
-		if(smartClient)
-			[pawn walk:moveVec];
-		if(timeSinceLastNetMove > netMoveInterval)
-		{
-			netInput.moveVector = [NSNumber numberWithFloat:moveVec.x];
-			timeSinceLastNetMove = 0;
-		}
+	moveVec.x = inputVec.x < 0.2 && inputVec.x > -0.2 ? 0 : fabsf(inputVec.x)/inputVec.x;	
+
+	//Do some optimization here...
+	if(timeSinceLastNetMove > netMoveInterval)
+	{	
+		netInput.moveVector = [NSNumber numberWithFloat:moveVec.x];
+		timeSinceLastNetMove = 0;
 	}
+	if(smartClient)
+		[pawn walk:moveVec];
 
 	if(inputVec.y > 0.5)
 	{		
@@ -116,25 +112,32 @@
 }
 
 //Client Synchronization...since they are smart clients we only sync the movements not the position, velocity and shooting
--(void) processNetworkInput:(NetworkPlayerInput*)input
+-(void) processNetworkInput:(NetworkPlayerInput*)input packetID:(int)packetID
 {
-	if(![pawn isDead])
-	{
-		
-		//if(![GameScene isServer])
-		//	pawn.health = input.health;
-		
-		if(pawn.health != 0)
-		{			
-			if(input.hasJump)
-				[pawn jump];
-			if(input.moveVector != nil)
-			{
-				[pawn walk:b2Vec2([input.moveVector floatValue],0)];
-			}
+//	if((packetID < receivedPacketID && receivedPacketID > packetIDLimit-200) || packetID > receivedPacketID)
+//	{
+//		receivedPacketID = packetID;
+		if(![pawn isDead])
+		{
+			
+			//if(![GameScene isServer])
+			//	pawn.health = input.health;
+			
+			if(pawn.health != 0)
+			{			
+				if(input.hasJump)
+					[pawn jump];
+				if(input.moveVector != nil)
+				{
+					[pawn walk:b2Vec2([input.moveVector floatValue],0)];
+				}
+			}			
 		}
-		
-	}
+//	}
+//	else {
+//		NSLog(@"Packet out of order ignoring...%d | %d",receivedPacketID,packetID);
+//	}
+
 }
 
 @end

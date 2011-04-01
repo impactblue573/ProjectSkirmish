@@ -65,6 +65,7 @@ typedef enum
 	float fireDamage;
 	float lastMoveForce;
 	float moveForceInterval;
+	float walkDirection;
 	GameTeam* team;
 	GameController* controller;
 	ProjectilePool* projectilePool;
@@ -124,4 +125,5 @@ typedef enum
 @property(readonly) PhysicsState physicsState;
 @property(assign) bool healthUpdated;
 @property(assign) NSString* pawnType;
+@property(readonly) float walkDirection;
 @end

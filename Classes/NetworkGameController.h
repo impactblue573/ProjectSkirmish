@@ -17,7 +17,13 @@
 	float timeSinceLastNetMove;
 	float netJumpInterval;
 	float timeSinceLastNetJump;
+	float lastNetworkSync;
+	float networkSyncInterval;
+	int sentPacketID;
+	int receivedPacketID;
 }
 
--(void) processNetworkInput:(NetworkPlayerInput*)input;
+-(void) processNetworkInput:(NetworkPlayerInput*)input packetID:(int)packetID;
+-(int) incrementPacketID;
+@property(assign) int sentPacketID;
 @end

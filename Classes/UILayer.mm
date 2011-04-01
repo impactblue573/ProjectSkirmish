@@ -30,7 +30,7 @@
 	[self addChild:healthLabel z:0];
 	
 	pingLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(50,20) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:20];
-	pingLabel.position = ccp( screenSize.width-25, screenSize.height-10);
+	pingLabel.position = ccp( screenSize.width-25, 10);
 	[self addChild:pingLabel z:0];
 	
 	messageLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(screenSize.width,40) alignment:UITextAlignmentCenter fontName:@"Marker Felt" fontSize:32];
@@ -45,7 +45,7 @@
 	[self addChild:pauseMenu z:4];
 	
 	int menuWidth = screenSize.width - 80;
-	CCMenuItemFont* resumeMenuItem = [CCMenuItemFont itemFromString:@"Resume" target:self selector:@selector(hidePauseMenu:)];
+	resumeMenuItem = [CCMenuItemFont itemFromString:@"Resume" target:self selector:@selector(hidePauseMenu:)];
 	[resumeMenuItem setColor:(ccColor3B){50,50,50}];
 	resumeMenuItem.position = ccp(-50,0);
 	CCMenuItemFont* quitMenuItem = [CCMenuItemFont itemFromString:@"Quit" target:self selector:@selector(quitGame:)];
@@ -89,6 +89,14 @@
 	[messageLabel setColor:color];
 }
 
+-(void) showCompletitionScreen
+{
+    [self hideResume];
+	[self hidePauseMenuItem];
+    if(!pauseMenuVisible)
+        [self showPauseMenu:nil];
+}
+
 -(void) showPauseMenu:(id)sender
 {
 	if(!pauseMenuVisible)
@@ -111,6 +119,16 @@
 	[self removeChild:leaderboard cleanup:true];
 	[self removeChild:gameMenuParent cleanup:false];
 	pauseMenuVisible = false;
+}
+
+-(void) hideResume
+{
+	[gameMenu removeChild:resumeMenuItem cleanup:true];
+}
+
+-(void) hidePauseMenuItem
+{
+	[self removeChild:pauseMenu cleanup:true];
 }
 
 -(void) quitGame:(id)sender

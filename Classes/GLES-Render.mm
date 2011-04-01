@@ -43,32 +43,32 @@ GLESDebugDraw::GLESDebugDraw( float32 ratio )
 
 void GLESDebugDraw::DrawPolygon(const b2Vec2* old_vertices, int32 vertexCount, const b2Color& color)
 {
-	b2Vec2 vertices[vertexCount];
-	for( int i=0;i<vertexCount;i++) {
-		vertices[i] = old_vertices[i];
-		vertices[i] *= mRatio;
-	}
-
-	glColor4f(color.r, color.g, color.b,1);
-	glVertexPointer(2, GL_FLOAT, 0, vertices);
-	glDrawArrays(GL_LINE_LOOP, 0, vertexCount);	
+//	b2Vec2 vertices[vertexCount];
+//	for( int i=0;i<vertexCount;i++) {
+//		vertices[i] = old_vertices[i];
+//		vertices[i] *= mRatio;
+//	}
+//
+//	glColor4f(color.r, color.g, color.b,1);
+//	glVertexPointer(2, GL_FLOAT, 0, vertices);
+//	glDrawArrays(GL_LINE_LOOP, 0, vertexCount);	
 }
 
 void GLESDebugDraw::DrawSolidPolygon(const b2Vec2* old_vertices, int32 vertexCount, const b2Color& color)
 {
-	b2Vec2 vertices[vertexCount];
-	for( int i=0;i<vertexCount;i++) {
-		vertices[i] = old_vertices[i];
-		vertices[i] *= mRatio;
-	}
-	
-	glVertexPointer(2, GL_FLOAT, 0, vertices);
-	
-	glColor4f(color.r*0.5f, color.g*0.5f, color.b*0.5f,0.5f);
-	glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
-	
-	glColor4f(color.r, color.g, color.b,1);
-	glDrawArrays(GL_LINE_LOOP, 0, vertexCount);
+//	b2Vec2 vertices[vertexCount];
+//	for( int i=0;i<vertexCount;i++) {
+//		vertices[i] = old_vertices[i];
+//		vertices[i] *= mRatio;
+//	}
+//	
+//	glVertexPointer(2, GL_FLOAT, 0, vertices);
+//	
+//	glColor4f(color.r*0.5f, color.g*0.5f, color.b*0.5f,0.5f);
+//	glDrawArrays(GL_TRIANGLE_FAN, 0, vertexCount);
+//	
+//	glColor4f(color.r, color.g, color.b,1);
+//	glDrawArrays(GL_LINE_LOOP, 0, vertexCount);
 }
 
 void GLESDebugDraw::DrawCircle(const b2Vec2& center, float32 radius, const b2Color& color)

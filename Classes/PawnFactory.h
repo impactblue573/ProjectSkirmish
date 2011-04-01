@@ -10,6 +10,7 @@
 #import "LamboPawn.h"
 #import "BullseyePawn.h"
 #import "GinjaNinjaPawn.h"
+#import "PorcusMaximusPawn.h"
 
 @class GameController;
 

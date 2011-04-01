@@ -34,8 +34,6 @@
 	bool respawnCountBegun;
 	NSString* playerID;
 	NSString* playerName;
-	float lastNetworkSync;
-	float networkSyncInterval;
 	int deaths;
 	int kills;
 	bool updated;

@@ -29,6 +29,8 @@
 	NSString* serverPeerID;
 	TeamSpawnPoint teamASpawnPoint;
 	TeamSpawnPoint teamBSpawnPoint;
+    float minTimeStep;
+    float currentTimeStep;
 }
 
 -(id) initWorld:(NSString*)worldName;

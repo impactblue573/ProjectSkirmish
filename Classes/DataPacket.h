@@ -19,6 +19,8 @@ typedef enum
 	Data_StartGame = 5,
 	Data_PawnUpdate = 6,
 	Data_MatchUpdate,
+	Data_Ping,
+	Data_PingResponse
 } DataType;
 
 @interface DataPacket : NSObject<NSCoding> {
@@ -29,6 +31,7 @@ typedef enum
 	NetworkPlayerInput* playerInput;
 	NSString* worldName;
 	MatchInfo* matchInfo;
+	int pingID;
 }
 
 @property(assign) DataType dataType;
@@ -37,6 +40,7 @@ typedef enum
 @property(assign) MatchInfo* matchInfo;
 @property(assign) NSDate* sendTime;
 @property(assign) NSString* worldName;
+@property(assign) int pingID;
 //@property(assign) NSMutableArray* playerInputs;
 
 @end

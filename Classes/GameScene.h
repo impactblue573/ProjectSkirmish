@@ -51,6 +51,11 @@ typedef enum
 	uint clientSyncCount;
 	float lastBroadcast;
 	float broadcastInterval;
+	float pingInterval;
+	float timeSinceLastPing;
+	NSTimeInterval latestPing;
+	float latestPingID;
+	NSDate* pingSentTime;
 	int hostNumBots;
 	NSDate* sendPacketTime;
 	bool gameActive;
@@ -78,9 +83,9 @@ typedef enum
 -(void) startSinglePlay:(NSString*)pType;
 -(void) receiveData:(NSData *)data fromPeer:(NSString *)peer inSession: (GKSession *)session context:(void *)context;
 -(void) startGameScheduler;
--(void) dispatchNetworkPlayerInput:(NetworkPlayerInput*)netInput;
+-(void) dispatchNetworkPlayerInput:(NetworkPlayerInput*)netInput;// packetID:(int)packetID;
 //-(void) dispatchNetworkPlayerInputs:(NSMutableArray*)netInputs;
--(void) processNetworkPlayerInput:(NetworkPlayerInput*)netInput;
+-(void) processNetworkPlayerInput:(NetworkPlayerInput*)netInput packetID:(int)packetID;
 -(void) playBackgroundMusic;
 -(void) stopBackgroundMusic;
 -(void) onQuitGame;

@@ -11,13 +11,14 @@
 
 static GameMode gameMode;
 static bool isServer;
+static bool doPing = false;
 static float difficultyFactor;
 static GameWorld* CurrentGameWorld;
 @implementation GameScene
 
 +(id) sceneWithGameMode:(GameMode)gameMode
 {
-	srandom([[NSDate date] timeIntervalSince1970]);
+	//srandom([[NSDate date] timeIntervalSince1970]);
 	// 'scene' is an autorelease object.
 	CCScene* scene = [CCScene node];
 
@@ -34,7 +35,7 @@ static GameWorld* CurrentGameWorld;
 
 +(GameMode) CurrentGameMode
 {
-	return gameMode;	
+	return gameMode;
 }
 
 +(bool) isInPlayerView:(CGPoint)pawnPos
@@ -65,6 +66,7 @@ static GameWorld* CurrentGameWorld;
 		gameType = [[TeamDeathmatch alloc] initWithWinScore:30];
 		gameMode = gMode;
 		broadcastInterval = 0.02;
+		pingInterval = 5;
 		screenSize = [CCDirector sharedDirector].winSize;
 		playerList = [[NSMutableArray alloc] init];
 		if(gameMode == Game_Online)
@@ -145,7 +147,7 @@ static GameWorld* CurrentGameWorld;
 	SneakyJoystickSkinnedBase* joystick = [[[SneakyJoystickSkinnedBase alloc] init] autorelease];
 	joystick.position = ccp(team == team1 ? 84 : screenSize.width-84,36);
 	//joystick.backgroundSprite = [ColoredCircleSprite circleWithColor:ccc4(200, 200, 200, 128) radius:64];
-	joystick.thumbSprite = [ColoredCircleSprite circleWithColor:ccc4(180, 0, 0, 128) radius:30];
+	joystick.thumbSprite = [ColoredCircleSprite circleWithColor:ccc4(team == team1 ? 180:0, 0, team == team1 ? 0:180, 128) radius:30];
 	joystick.joystick = [[SneakyJoystick alloc] initWithRect:CGRectMake(0,0,96,96)];
 	
 	//add controls to UI
@@ -190,8 +192,7 @@ static GameWorld* CurrentGameWorld;
 	NSArray* array = (NSArray*)[self generateTeamLeaderboard];
 	Leaderboard* leaderboard = [[Leaderboard alloc] initWithLeaderboardEntries:array];
 	leaderboard.position = ccp(40,40);
-	[uiLayer addChild:leaderboard];
-	[self schedule:@selector(endGame:) interval:8];
+	[uiLayer showCompletitionScreen];
 }
 
 -(NSMutableArray*) generateTeamLeaderboard
@@ -284,7 +285,7 @@ static GameWorld* CurrentGameWorld;
 	[playerController processCamera:dt];
 	[playerController updatePawn:dt];
 	//if(lastBroadcast > broadcastInterval)
-		[self dispatchNetworkPlayerInput:netInput];
+	[self dispatchNetworkPlayerInput:netInput];
 	[netInput release];
 	if((playerController.pawn.healthUpdated || playerController.updated) && isServer)
 	{
@@ -361,6 +362,23 @@ static GameWorld* CurrentGameWorld;
 	else
 		lastBroadcast += dt;
 	
+	//Ping if necessary
+	if(doPing && !isServer && gameMode != Game_Single && timeSinceLastPing > pingInterval)
+	{
+		timeSinceLastPing = 0;
+		DataPacket* pingPacket = [[DataPacket alloc] init];
+		pingPacket.dataType = Data_Ping;
+		pingPacket.pingID = random() % 1000;
+		latestPingID = pingPacket.pingID;
+		[[GameKitHelper sharedGameKitHelper] sendData:[DataHelper serializeDataPacket:pingPacket] toPeer:serverPeerID withMode:GKSendDataUnreliable];
+		pingSentTime = [[NSDate date] retain];
+	}
+	else 
+	{
+		timeSinceLastPing += dt;
+	}
+
+	
 	//Check Game Completion
 	GameTeam* winningTeam = [gameType GetWinningTeam:[NSArray arrayWithObjects:team1,team2,nil]];
 	if(winningTeam != nil)
@@ -369,7 +387,7 @@ static GameWorld* CurrentGameWorld;
 			[uiLayer showMessage:@"Red Team Wins!" withColor : ccc3(255,0,0)];
 		else
 			[uiLayer showMessage:@"Blue Team Wins!" withColor : ccc3(0,0,255)];
-		gameActive = false;
+		gameActive =	false;
 		[self schedule:@selector(showLeaderboard:) interval:3];
 		return;
 	}	
@@ -390,14 +408,14 @@ static GameWorld* CurrentGameWorld;
 //	[packet release];
 //}
 
--(void) dispatchNetworkPlayerInput:(NetworkPlayerInput*)netInput;
+-(void) dispatchNetworkPlayerInput:(NetworkPlayerInput*)netInput// packetID:(int)packetID;
 {
 	if(netInput.hasJump || netInput.moveVector || netInput.shootPointX || netInput.positionX)
 	{
 		DataPacket* packet = [[DataPacket alloc] init];
 		packet.dataType = Data_PawnUpdate;
 		packet.playerInput = netInput;
-		packet.sendTime = [NSDate date];
+		//packet.packetID = packetID;
 		if(gameMode == Game_Local)
 		{
 			if(isServer)
@@ -406,28 +424,28 @@ static GameWorld* CurrentGameWorld;
 				[[GameKitHelper sharedGameKitHelper] sendData:[DataHelper serializeDataPacket:packet] toPeer:serverPeerID withMode:GKSendDataUnreliable];
 		}
 		[packet release];
-		if(!isServer)
-		{
-			//if(sendPacketTime == nil)
-			//	[sendPacketTime	 release];
-			sendPacketTime = [[NSDate date] retain];
-		}
+		//if(!isServer)
+//		{
+//			//if(sendPacketTime == nil)
+//			//	[sendPacketTime	 release];
+//			sendPacketTime = [[NSDate date] retain];
+//		}
 	}
 }
 
--(void) processNetworkPlayerInput:(NetworkPlayerInput *)netInput
+-(void) processNetworkPlayerInput:(NetworkPlayerInput *)netInput packetID:(int)packetID
 {
 	NSString* peerID = [[GameKitHelper sharedGameKitHelper] getPeerID];
 	if([netInput.playerID isEqualToString:peerID])
 	{
-		if(sendPacketTime != nil)
+		/*if(sendPacketTime != nil)
 		{
 			float ping = 1000 * [[NSDate date] timeIntervalSinceDate:sendPacketTime];
 			[uiLayer updatePing:ping];
 			[sendPacketTime release];
 			sendPacketTime = nil;
-		}
-		[playerController processNetworkInput:netInput];
+		}*/
+		[playerController processNetworkInput:netInput packetID:packetID];
 	}
 	else
 	{
@@ -439,7 +457,7 @@ static GameWorld* CurrentGameWorld;
 			{
 				[self dispatchNetworkPlayerInput:netInput];
 			}
-			[controller processNetworkInput:netInput];				
+			[controller processNetworkInput:netInput packetID:packetID];				
 		}
 	}	
 	[netInput release];
@@ -490,14 +508,14 @@ static GameWorld* CurrentGameWorld;
 	[self initializeUI];
 	[self initializeTeams];
 	[self initializePlayer:pType];
-	[self initializeBots:6];
+	[self initializeBots:9];
 	[self schedule: @selector(tick:)];
 	[self playBackgroundMusic];
 }
 
 -(void) playBackgroundMusic
 {
-	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"BackgroundMusic.aif" loop:true];
+	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Twinkle.aif" loop:true];
 	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.4];
 }
 
@@ -809,7 +827,7 @@ static GameWorld* CurrentGameWorld;
 	if(packet.dataType == Data_PawnUpdate)
 	{
 		if(packet.playerInput != nil)
-			[self processNetworkPlayerInput:packet.playerInput];
+			[self processNetworkPlayerInput:packet.playerInput packetID:0];
 		//for(uint i = 0; i < [packet.playerInputs count];i++)
 		//[self processNetworkPlayerInput:[packet.playerInputs objectAtIndex:i]];
 	}
@@ -854,6 +872,22 @@ static GameWorld* CurrentGameWorld;
 		}
 		team1.teamKills = [packet.matchInfo.team1Score intValue];
 		team2.teamKills = [packet.matchInfo.team2Score intValue];
+	}
+	
+	if(packet.dataType == Data_Ping)
+	{
+		packet.dataType = Data_PingResponse;
+		[[GameKitHelper sharedGameKitHelper] sendData:[DataHelper serializeDataPacket:packet] toPeer:peer withMode:GKSendDataUnreliable];
+	}
+	
+	if(packet.dataType == Data_PingResponse)
+	{
+		if(latestPingID == packet.pingID && pingSentTime != nil)
+		{
+			latestPing = [[NSDate date] timeIntervalSinceDate:pingSentTime];
+			[uiLayer updatePing:latestPing*1000];
+
+		}
 	}
 	/*[packet release];
 	[response release];

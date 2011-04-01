@@ -146,7 +146,12 @@
 								netInput.moveVector = [NSNumber numberWithFloat:moveVec.x];
 							if([pawn jump])
 								netInput.hasJump = [NSNumber numberWithBool:true];
-						}				
+						}		
+						else {
+							if([pawn walk:b2Vec2(0,0)])
+								netInput.moveVector = [NSNumber numberWithFloat:0];
+						}
+
 						
 						if(timeSinceLastShot >= pawn.fireInterval / difficulty)
 						{

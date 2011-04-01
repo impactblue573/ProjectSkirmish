@@ -31,7 +31,6 @@
 
 -(id) init
 {	
-	networkSyncInterval = 0.3;
 	respawnTime = 5.0;
 	deaths = 0;
 	kills = 0;

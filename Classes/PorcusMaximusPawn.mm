@@ -14,16 +14,28 @@
 -(id) init
 {
     self = [super init];
-    gunOffset = CGPointMake(-14.0,-16.0);
     size = b2Vec2(54.0f,80.0f);
-    offset = b2Vec2(0.0f,-14.0f);
     fireForce = 3.0f;
     fireDamage = 12;
     jumpSpeed = 12.0;
     maxSpeed = 5.0;
     jumpForceMag = 3000.0;
-    spriteName = @"PorcusMaximus";
     pawnType = @"Porcus Maximus";
+    
+    //apply randomisation to alternate costumer
+    int rand = arc4random()%100;
+    if(rand > 50)
+    {
+        spriteName = @"PorcusMaximusAlternate";
+        gunOffset = CGPointMake(-14.0,-11.0);
+        offset = b2Vec2(0.0f,-6.0f);  
+    }
+    else
+    {
+        spriteName = @"PorcusMaximus";
+        gunOffset = CGPointMake(-14.0,-16.0);
+        offset = b2Vec2(0.0f,-14.0f);  
+    }
     return self;
 }
 

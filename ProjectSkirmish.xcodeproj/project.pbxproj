@@ -27,6 +27,8 @@
 		3F1A175C12C9BBE2004D9D4B /* Helper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A175B12C9BBE2004D9D4B /* Helper.mm */; };
 		3F21030F12D541FC00A52945 /* TitleScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F21030E12D541FC00A52945 /* TitleScene.mm */; };
 		3F21037212D54AD500A52945 /* OnlinePlayUI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F21037112D54AD500A52945 /* OnlinePlayUI.mm */; };
+		3F2B5ADD1369623500E6B217 /* PorcusMaximusAlternate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F2B5ADB1369623500E6B217 /* PorcusMaximusAlternate.plist */; };
+		3F2B5ADE1369623500E6B217 /* PorcusMaximusAlternate.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F2B5ADC1369623500E6B217 /* PorcusMaximusAlternate.png */; };
 		3F35234C133B1FDC00DFECB2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F35234B133B1FDC00DFECB2 /* Icon.png */; };
 		3F352351133C10E300DFECB2 /* LamboClassic.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F35234F133C10E300DFECB2 /* LamboClassic.plist */; };
 		3F352352133C10E300DFECB2 /* LamboClassic.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F352350133C10E300DFECB2 /* LamboClassic.png */; };
@@ -468,6 +470,8 @@
 		3F21030E12D541FC00A52945 /* TitleScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TitleScene.mm; sourceTree = "<group>"; };
 		3F21037012D54AD500A52945 /* OnlinePlayUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlinePlayUI.h; sourceTree = "<group>"; };
 		3F21037112D54AD500A52945 /* OnlinePlayUI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = OnlinePlayUI.mm; sourceTree = "<group>"; };
+		3F2B5ADB1369623500E6B217 /* PorcusMaximusAlternate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PorcusMaximusAlternate.plist; path = Illustrations/PorcusMaximus/Alternate/PorcusMaximusAlternate.plist; sourceTree = SOURCE_ROOT; };
+		3F2B5ADC1369623500E6B217 /* PorcusMaximusAlternate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PorcusMaximusAlternate.png; path = Illustrations/PorcusMaximus/Alternate/PorcusMaximusAlternate.png; sourceTree = SOURCE_ROOT; };
 		3F35234B133B1FDC00DFECB2 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = Illustrations/Icon.png; sourceTree = SOURCE_ROOT; };
 		3F35234F133C10E300DFECB2 /* LamboClassic.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LamboClassic.plist; path = Illustrations/Lambo/Classic/LamboClassic.plist; sourceTree = SOURCE_ROOT; };
 		3F352350133C10E300DFECB2 /* LamboClassic.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LamboClassic.png; path = Illustrations/Lambo/Classic/LamboClassic.png; sourceTree = SOURCE_ROOT; };
@@ -1093,6 +1097,8 @@
 			isa = PBXGroup;
 			children = (
 				3FC9B02012E66FE100552220 /* Lambo.png */,
+				3F2B5ADB1369623500E6B217 /* PorcusMaximusAlternate.plist */,
+				3F2B5ADC1369623500E6B217 /* PorcusMaximusAlternate.png */,
 				3FC9B02112E66FE100552220 /* Lambo.plist */,
 				3F44984813442CC400742129 /* PorcusMaximus.plist */,
 				3F44984913442CC400742129 /* PorcusMaximus.png */,
@@ -2049,6 +2055,8 @@
 				3F44984B13442CC400742129 /* PorcusMaximus.png in Resources */,
 				3F44985213446AF700742129 /* PorcusMaximusProfile.png in Resources */,
 				3FFE41811345718800F23FEE /* Twinkle.aif in Resources */,
+				3F2B5ADD1369623500E6B217 /* PorcusMaximusAlternate.plist in Resources */,
+				3F2B5ADE1369623500E6B217 /* PorcusMaximusAlternate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

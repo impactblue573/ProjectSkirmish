@@ -63,6 +63,14 @@
 		3F44984B13442CC400742129 /* PorcusMaximus.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F44984913442CC400742129 /* PorcusMaximus.png */; };
 		3F44985013442EB500742129 /* PorcusMaximusPawn.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F44984F13442EB500742129 /* PorcusMaximusPawn.mm */; };
 		3F44985213446AF700742129 /* PorcusMaximusProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F44985113446AF700742129 /* PorcusMaximusProfile.png */; };
+		3F5C1E421377C7610029D4EE /* PowerupFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E411377C7610029D4EE /* PowerupFactory.mm */; };
+		3F5C1E451378C5790029D4EE /* ProteinPowerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E441378C5790029D4EE /* ProteinPowerup.mm */; };
+		3F5C1E481378DDD90029D4EE /* WingsPowerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E471378DDD90029D4EE /* WingsPowerup.mm */; };
+		3F5C1E4B1379051C0029D4EE /* WindwalkPowerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E4A1379051C0029D4EE /* WindwalkPowerup.mm */; };
+		3F5C1E4E13790F630029D4EE /* PowerupManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E4D13790F630029D4EE /* PowerupManager.mm */; };
+		3F5C1E52137A06D40029D4EE /* Cupcake1.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C1E4F137A06D40029D4EE /* Cupcake1.png */; };
+		3F5C1E53137A06D40029D4EE /* Cupcake2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C1E50137A06D40029D4EE /* Cupcake2.png */; };
+		3F5C1E54137A06D40029D4EE /* Cupcake3.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F5C1E51137A06D40029D4EE /* Cupcake3.png */; };
 		3F5C467612CEBECA00EA310A /* BotController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C467512CEBECA00EA310A /* BotController.mm */; };
 		3F5C467912CEBF8000EA310A /* BattleInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C467812CEBF8000EA310A /* BattleInfo.mm */; };
 		3F7FED3512CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FED3412CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm */; };
@@ -99,10 +107,10 @@
 		3FC9AFD212E664A300552220 /* Paintball-Impact.aif in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9AFD112E664A300552220 /* Paintball-Impact.aif */; };
 		3FC9B02212E66FE100552220 /* Lambo.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9B02012E66FE100552220 /* Lambo.png */; };
 		3FC9B02312E66FE100552220 /* Lambo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9B02112E66FE100552220 /* Lambo.plist */; };
-		3FC9B03B12E66FE100552220 /* BackgroundMusic.aif in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9B03A12E66FE100552220 /* BackgroundMusic.aif */; };
 		3FC9B05112E686F100552220 /* TakeHit.aif in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9B05012E686F100552220 /* TakeHit.aif */; };
 		3FC9B06D12E68B5300552220 /* SoundManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9B06C12E68B5300552220 /* SoundManager.mm */; };
 		3FD2380712DBF6D900EB3932 /* ProjectilePool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FD2380612DBF6D900EB3932 /* ProjectilePool.mm */; };
+		3FE7766313775EDA0059DAB9 /* Powerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FE7766213775EDA0059DAB9 /* Powerup.mm */; };
 		3FEF14A112D56AD500F2689B /* LocalPlayUI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF14A012D56AD500F2689B /* LocalPlayUI.mm */; };
 		3FEF19C012D5EFB700F2689B /* DataHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF19BF12D5EFB700F2689B /* DataHelper.mm */; };
 		3FEF19F712D5F43A00F2689B /* DataPacket.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF19F612D5F43A00F2689B /* DataPacket.mm */; };
@@ -520,6 +528,19 @@
 		3F44984C13442D0300742129 /* PorcusMaximusPawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PorcusMaximusPawn.h; sourceTree = "<group>"; };
 		3F44984F13442EB500742129 /* PorcusMaximusPawn.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PorcusMaximusPawn.mm; sourceTree = "<group>"; };
 		3F44985113446AF700742129 /* PorcusMaximusProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PorcusMaximusProfile.png; path = Illustrations/PorcusMaximusProfile.png; sourceTree = SOURCE_ROOT; };
+		3F5C1E401377C7610029D4EE /* PowerupFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerupFactory.h; sourceTree = "<group>"; };
+		3F5C1E411377C7610029D4EE /* PowerupFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PowerupFactory.mm; sourceTree = "<group>"; };
+		3F5C1E431378C5790029D4EE /* ProteinPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProteinPowerup.h; sourceTree = "<group>"; };
+		3F5C1E441378C5790029D4EE /* ProteinPowerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProteinPowerup.mm; sourceTree = "<group>"; };
+		3F5C1E461378DDD90029D4EE /* WingsPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WingsPowerup.h; sourceTree = "<group>"; };
+		3F5C1E471378DDD90029D4EE /* WingsPowerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WingsPowerup.mm; sourceTree = "<group>"; };
+		3F5C1E491379051C0029D4EE /* WindwalkPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WindwalkPowerup.h; sourceTree = "<group>"; };
+		3F5C1E4A1379051C0029D4EE /* WindwalkPowerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WindwalkPowerup.mm; sourceTree = "<group>"; };
+		3F5C1E4C13790F630029D4EE /* PowerupManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerupManager.h; sourceTree = "<group>"; };
+		3F5C1E4D13790F630029D4EE /* PowerupManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PowerupManager.mm; sourceTree = "<group>"; };
+		3F5C1E4F137A06D40029D4EE /* Cupcake1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cupcake1.png; path = Illustrations/Cupcake1.png; sourceTree = SOURCE_ROOT; };
+		3F5C1E50137A06D40029D4EE /* Cupcake2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cupcake2.png; path = Illustrations/Cupcake2.png; sourceTree = SOURCE_ROOT; };
+		3F5C1E51137A06D40029D4EE /* Cupcake3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Cupcake3.png; path = Illustrations/Cupcake3.png; sourceTree = SOURCE_ROOT; };
 		3F5C467412CEBECA00EA310A /* BotController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BotController.h; sourceTree = "<group>"; };
 		3F5C467512CEBECA00EA310A /* BotController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BotController.mm; sourceTree = "<group>"; };
 		3F5C467712CEBF8000EA310A /* BattleInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BattleInfo.h; sourceTree = "<group>"; };
@@ -574,12 +595,13 @@
 		3FC9AFD112E664A300552220 /* Paintball-Impact.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = "Paintball-Impact.aif"; path = "Sound/Paintball-Impact.aif"; sourceTree = SOURCE_ROOT; };
 		3FC9B02012E66FE100552220 /* Lambo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Lambo.png; path = Illustrations/Lambo.png; sourceTree = SOURCE_ROOT; };
 		3FC9B02112E66FE100552220 /* Lambo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Lambo.plist; path = Illustrations/Lambo.plist; sourceTree = SOURCE_ROOT; };
-		3FC9B03A12E66FE100552220 /* BackgroundMusic.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = BackgroundMusic.aif; path = Sound/BackgroundMusic.aif; sourceTree = SOURCE_ROOT; };
 		3FC9B05012E686F100552220 /* TakeHit.aif */ = {isa = PBXFileReference; lastKnownFileType = file; name = TakeHit.aif; path = Sound/TakeHit.aif; sourceTree = SOURCE_ROOT; };
 		3FC9B06B12E68B5300552220 /* SoundManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SoundManager.h; sourceTree = "<group>"; };
 		3FC9B06C12E68B5300552220 /* SoundManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SoundManager.mm; sourceTree = "<group>"; };
 		3FD2380512DBF6D900EB3932 /* ProjectilePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectilePool.h; sourceTree = "<group>"; };
 		3FD2380612DBF6D900EB3932 /* ProjectilePool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProjectilePool.mm; sourceTree = "<group>"; };
+		3FE7766113775EDA0059DAB9 /* Powerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Powerup.h; sourceTree = "<group>"; };
+		3FE7766213775EDA0059DAB9 /* Powerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Powerup.mm; sourceTree = "<group>"; };
 		3FEF149F12D56AD500F2689B /* LocalPlayUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalPlayUI.h; sourceTree = "<group>"; };
 		3FEF14A012D56AD500F2689B /* LocalPlayUI.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LocalPlayUI.mm; sourceTree = "<group>"; };
 		3FEF19BE12D5EFB700F2689B /* DataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DataHelper.h; sourceTree = "<group>"; };
@@ -1006,6 +1028,7 @@
 		2D500B1D0D5A766B00DBA0E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				3FE7766013775E580059DAB9 /* Powerup */,
 				3F3CF418132912C90030611B /* Shared */,
 				3FF3B956131E7363000B7F06 /* GameType */,
 				3FC9B06A12E68B4300552220 /* Sound */,
@@ -1085,7 +1108,6 @@
 			children = (
 				3FC9B05012E686F100552220 /* TakeHit.aif */,
 				3FFE41801345718800F23FEE /* Twinkle.aif */,
-				3FC9B03A12E66FE100552220 /* BackgroundMusic.aif */,
 				3FC9AFD112E664A300552220 /* Paintball-Impact.aif */,
 				3FC9AFB512E65F3100552220 /* Paintball-Shot-Distant.aif */,
 				3FC9AF9A12E65D3800552220 /* Paintball-Shot.aif */,
@@ -1133,6 +1155,9 @@
 		3F3CF895132DA0C30030611B /* Sprites */ = {
 			isa = PBXGroup;
 			children = (
+				3F5C1E4F137A06D40029D4EE /* Cupcake1.png */,
+				3F5C1E50137A06D40029D4EE /* Cupcake2.png */,
+				3F5C1E51137A06D40029D4EE /* Cupcake3.png */,
 				3FC214A9131C57BC0012E780 /* Paintball_Blue.png */,
 				3FC214AA131C57BC0012E780 /* Paintball_Red.png */,
 			);
@@ -1211,6 +1236,25 @@
 				3FC9B06C12E68B5300552220 /* SoundManager.mm */,
 			);
 			name = Sound;
+			sourceTree = "<group>";
+		};
+		3FE7766013775E580059DAB9 /* Powerup */ = {
+			isa = PBXGroup;
+			children = (
+				3FE7766113775EDA0059DAB9 /* Powerup.h */,
+				3FE7766213775EDA0059DAB9 /* Powerup.mm */,
+				3F5C1E401377C7610029D4EE /* PowerupFactory.h */,
+				3F5C1E411377C7610029D4EE /* PowerupFactory.mm */,
+				3F5C1E431378C5790029D4EE /* ProteinPowerup.h */,
+				3F5C1E441378C5790029D4EE /* ProteinPowerup.mm */,
+				3F5C1E461378DDD90029D4EE /* WingsPowerup.h */,
+				3F5C1E471378DDD90029D4EE /* WingsPowerup.mm */,
+				3F5C1E491379051C0029D4EE /* WindwalkPowerup.h */,
+				3F5C1E4A1379051C0029D4EE /* WindwalkPowerup.mm */,
+				3F5C1E4C13790F630029D4EE /* PowerupManager.h */,
+				3F5C1E4D13790F630029D4EE /* PowerupManager.mm */,
+			);
+			name = Powerup;
 			sourceTree = "<group>";
 		};
 		3FEF19F412D5F42C00F2689B /* Data */ = {
@@ -2028,7 +2072,6 @@
 				3FC9AFD212E664A300552220 /* Paintball-Impact.aif in Resources */,
 				3FC9B02212E66FE100552220 /* Lambo.png in Resources */,
 				3FC9B02312E66FE100552220 /* Lambo.plist in Resources */,
-				3FC9B03B12E66FE100552220 /* BackgroundMusic.aif in Resources */,
 				3FC9B05112E686F100552220 /* TakeHit.aif in Resources */,
 				3FC214AB131C57BC0012E780 /* Paintball_Blue.png in Resources */,
 				3FC214AC131C57BC0012E780 /* Paintball_Red.png in Resources */,
@@ -2057,6 +2100,9 @@
 				3FFE41811345718800F23FEE /* Twinkle.aif in Resources */,
 				3F2B5ADD1369623500E6B217 /* PorcusMaximusAlternate.plist in Resources */,
 				3F2B5ADE1369623500E6B217 /* PorcusMaximusAlternate.png in Resources */,
+				3F5C1E52137A06D40029D4EE /* Cupcake1.png in Resources */,
+				3F5C1E53137A06D40029D4EE /* Cupcake2.png in Resources */,
+				3F5C1E54137A06D40029D4EE /* Cupcake3.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2129,6 +2175,12 @@
 				3F9296661339DE9A0004619D /* WorldPicker.mm in Sources */,
 				3F352357133C11C400DFECB2 /* LamboPawn.mm in Sources */,
 				3F44985013442EB500742129 /* PorcusMaximusPawn.mm in Sources */,
+				3FE7766313775EDA0059DAB9 /* Powerup.mm in Sources */,
+				3F5C1E421377C7610029D4EE /* PowerupFactory.mm in Sources */,
+				3F5C1E451378C5790029D4EE /* ProteinPowerup.mm in Sources */,
+				3F5C1E481378DDD90029D4EE /* WingsPowerup.mm in Sources */,
+				3F5C1E4B1379051C0029D4EE /* WindwalkPowerup.mm in Sources */,
+				3F5C1E4E13790F630029D4EE /* PowerupManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -11,12 +11,13 @@
 
 @implementation PawnInfo
 
-@synthesize playerID, pawnType, teamID, playerName;
+@synthesize playerID, pawnType, teamID, playerName, spriteVariation;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
 	[aCoder encodeObject:self.playerID];
 	[aCoder encodeObject:self.pawnType];
+    [aCoder encodeObject:self.spriteVariation];
 	[aCoder encodeObject:self.teamID];
 	[aCoder encodeObject:self.playerName];
 }
@@ -25,6 +26,7 @@
 {
 	self.playerID = [[aDecoder decodeObject] retain];
 	self.pawnType = [[aDecoder decodeObject] retain];
+    self.spriteVariation = [[aDecoder decodeObject] retain];
 	self.teamID = [[aDecoder decodeObject] retain];
 	self.playerName = [[aDecoder decodeObject] retain];
 	return self;

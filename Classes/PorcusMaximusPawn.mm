@@ -26,17 +26,32 @@
     int rand = arc4random()%100;
     if(rand > 50)
     {
-        spriteName = @"PorcusMaximusAlternate";
-        gunOffset = CGPointMake(-14.0,-11.0);
-        offset = b2Vec2(0.0f,-6.0f);  
+        [self setVariation:1]; 
     }
     else
     {
-        spriteName = @"PorcusMaximus";
-        gunOffset = CGPointMake(-14.0,-16.0);
-        offset = b2Vec2(0.0f,-14.0f);  
+        [self setVariation:2]; 
     }
     return self;
+}
+
+-(void) setVariation:(int)variation
+{
+    [super setVariation:variation];
+    switch(spriteVariation)
+    {
+        case 1:
+            spriteName = @"PorcusMaximusAlternate";
+            gunOffset = CGPointMake(-14.0,-11.0);
+            offset = b2Vec2(0.0f,-6.0f);  
+            break;
+        default:
+        case 2:
+            spriteVariation = 1;
+            spriteName = @"PorcusMaximus";
+            gunOffset = CGPointMake(-14.0,-16.0);
+            offset = b2Vec2(0.0f,-14.0f);  
+    }
 }
 
 -(void) initializeJumpAnimation:(AnimationManager*)animationManager

@@ -37,7 +37,18 @@ static int packetIDLimit = 4000;
 				{
 					b2Vec2 vel = b2Vec2([input.velocityX floatValue],[input.velocityY floatValue]);
 					CGPoint pos = ccp([input.positionX floatValue],[input.positionY floatValue]);
-					[pawn setPosition:pos];
+                    b2Vec2 pawnPos = [pawn position];
+                    float delta = sqrtf(powf(pos.x - pawnPos.x,2) + powf(pos.y - pawnPos.y, 2));
+                    if(delta > 40)
+                    {
+                        [pawn setPosition:pos];
+                    }
+                    else if (delta > 4)
+                    {
+                        pos = ccp(pawnPos.x + (pos.x - pawnPos.x) * 0.1, pawnPos.y + (pos.y - pawnPos.y) * 0.1);
+                        [pawn setPosition:pos];
+                    }
+					
 					[pawn setVelocity:vel];
 				}
 

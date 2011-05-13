@@ -17,6 +17,10 @@
 #import "BattleInfo.h"
 #import "ProjectileContactListener.h"
 #import "OneSideContactFilter.h"
+#import "PowerupManager.h"
+
+@class PowerupFactory;
+@class PowerupManager;
 
 @interface GameWorld : CCLayer 
 {
@@ -31,6 +35,7 @@
 	TeamSpawnPoint teamBSpawnPoint;
     float minTimeStep;
     float currentTimeStep;
+    PowerupManager* powerupManager;
 }
 
 -(id) initWorld:(NSString*)worldName;
@@ -45,6 +50,8 @@
 -(BattleInfo*) getBattleInfo;
 -(TeamSpawnPoint) getTeamASpawnPoint;
 -(TeamSpawnPoint) getTeamBSpawnPoint;
+-(void) destroyPhysicsBody:(b2Body*)body;
+-(void) spawnPowerup:(PowerupFactory*)powerup;
 
 @property CGSize worldSize;
 @end

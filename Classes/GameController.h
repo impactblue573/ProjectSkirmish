@@ -36,10 +36,12 @@
 	NSString* playerName;
 	int deaths;
 	int kills;
+    int spriteVariation;
 	bool updated;
 }
 
 -(id) initInWorld:(GameWorld *)world usingPawn:(NSString*)pType asTeam:(GameTeam*)team withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName;
+-(id) initInWorld:(GameWorld *)world usingPawn:(NSString*)pType asTeam:(GameTeam*)team withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName usingVariation:(int)variation;
 -(void) initializeGamePawn;
 -(void) updatePawn:(ccTime)dt;
 -(void) initializeAnimations;

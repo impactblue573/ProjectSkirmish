@@ -4,7 +4,6 @@
 <dict>
 	<key>frames</key>
 	<dict>
-		
 		<key>Death.png</key>
 		<dict>
 			<key>aliases</key>
@@ -24,7 +23,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Default.png</key>
 		<dict>
 			<key>aliases</key>
@@ -44,7 +42,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Fall-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -52,7 +49,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 98}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -2.5}</string>
 			<key>spriteSize</key>
 			<string>{60, 98}</string>
 			<key>spriteSourceSize</key>
@@ -64,7 +61,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Fall-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -72,7 +68,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 95}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -1}</string>
 			<key>spriteSize</key>
 			<string>{60, 95}</string>
 			<key>spriteSourceSize</key>
@@ -84,7 +80,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Fall-3.png</key>
 		<dict>
 			<key>aliases</key>
@@ -92,7 +87,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 96}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -1.5}</string>
 			<key>spriteSize</key>
 			<string>{60, 96}</string>
 			<key>spriteSourceSize</key>
@@ -104,7 +99,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Idle-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -124,7 +118,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Idle-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -144,7 +137,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Idle-3.png</key>
 		<dict>
 			<key>aliases</key>
@@ -164,7 +156,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Shoot-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -184,7 +175,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Shoot-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -204,7 +194,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Shoot-3.png</key>
 		<dict>
 			<key>aliases</key>
@@ -224,7 +213,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Swing-Left-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -244,7 +232,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Swing-Left-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -264,7 +251,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Swing-Right-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -284,7 +270,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun-Swing-Right-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -304,7 +289,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Gun.png</key>
 		<dict>
 			<key>aliases</key>
@@ -324,7 +308,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Jump-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -332,7 +315,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 96}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -1.5}</string>
 			<key>spriteSize</key>
 			<string>{60, 96}</string>
 			<key>spriteSourceSize</key>
@@ -344,7 +327,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Jump-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -352,7 +334,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 98}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -2.5}</string>
 			<key>spriteSize</key>
 			<string>{60, 98}</string>
 			<key>spriteSourceSize</key>
@@ -364,7 +346,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Jump-3.png</key>
 		<dict>
 			<key>aliases</key>
@@ -372,7 +353,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 101}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -4}</string>
 			<key>spriteSize</key>
 			<string>{60, 101}</string>
 			<key>spriteSourceSize</key>
@@ -384,7 +365,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Stand-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -404,7 +384,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Stand-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -424,7 +403,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Stand-3.png</key>
 		<dict>
 			<key>aliases</key>
@@ -444,7 +422,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Stand-4.png</key>
 		<dict>
 			<key>aliases</key>
@@ -464,7 +441,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Walk-Left-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -472,7 +448,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 94}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -0.5}</string>
 			<key>spriteSize</key>
 			<string>{60, 94}</string>
 			<key>spriteSourceSize</key>
@@ -484,7 +460,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Walk-Left-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -492,7 +467,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 95}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -1}</string>
 			<key>spriteSize</key>
 			<string>{60, 95}</string>
 			<key>spriteSourceSize</key>
@@ -504,7 +479,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Walk-Right-1.png</key>
 		<dict>
 			<key>aliases</key>
@@ -512,7 +486,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 94}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -0.5}</string>
 			<key>spriteSize</key>
 			<string>{60, 94}</string>
 			<key>spriteSourceSize</key>
@@ -524,7 +498,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 		<key>Walk-Right-2.png</key>
 		<dict>
 			<key>aliases</key>
@@ -532,7 +505,7 @@
 			<key>spriteColorRect</key>
 			<string>{{0, 0}, {60, 95}}</string>
 			<key>spriteOffset</key>
-			<string>{0, -0}</string>
+			<string>{0, -1}</string>
 			<key>spriteSize</key>
 			<string>{60, 95}</string>
 			<key>spriteSourceSize</key>
@@ -544,7 +517,6 @@
 			<key>textureRotated</key>
 			<false/>
 		</dict>
-		
 	</dict>
 	<key>metadata</key>
 	<dict>

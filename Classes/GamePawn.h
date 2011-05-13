@@ -18,6 +18,7 @@
 #import "PawnInfo.h"
 #import "SimpleAudioEngine.h"
 #import "AnimationManager.h"
+#import "Powerup.h"
 
 @class GameController;
 
@@ -66,6 +67,7 @@ typedef enum
 	float lastMoveForce;
 	float moveForceInterval;
 	float walkDirection;
+    int spriteVariation;
 	GameTeam* team;
 	GameController* controller;
 	ProjectilePool* projectilePool;
@@ -74,6 +76,7 @@ typedef enum
 	PawnState pawnState;
 	NSString* pawnType;
 	bool healthUpdated;
+    NSMutableArray* powerups;
 }
 
 -(id) initForController:(GameController*)ctrl;
@@ -107,6 +110,12 @@ typedef enum
 -(void) initializeGunIdleAnimation:(AnimationManager*)animationManager;
 -(void) initializeGunShootAnimation:(AnimationManager*)animationManager;
 -(void) initializeGunDefaultAnimation:(AnimationManager*)animationManager;
+-(void) processPowerups:(ccTime)dt;
+-(void) equipPowerup:(Powerup*)powerup;
+-(void) unequipPowerup:(Powerup*)powerup;
+-(void) clearPowerups;
+-(void) setVariation:(int)variation;
+
 
 @property(readonly) GameController* controller;
 @property(assign) CCSprite* bodySprite;

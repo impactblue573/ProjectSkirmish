@@ -661,6 +661,49 @@
 			<integer>65</integer>
 		</dict>
 	</array>
+	<key>Powerups</key>
+	<array>
+		<dict>
+			<key>PosX</key>
+			<integer>1400</integer>
+			<key>PosY</key>
+			<integer>110</integer>
+			<key>SpriteName</key>
+			<string>Cupcake1.png</string>
+			<key>Type</key>
+			<string>Wings</string>
+		</dict>
+		<dict>
+			<key>PosX</key>
+			<integer>150</integer>
+			<key>PosY</key>
+			<integer>280</integer>
+			<key>SpriteName</key>
+			<string>Cupcake2.png</string>
+			<key>Type</key>
+			<string>Protein</string>
+		</dict>
+		<dict>
+			<key>PosX</key>
+			<integer>2730</integer>
+			<key>PosY</key>
+			<integer>280</integer>
+			<key>SpriteName</key>
+			<string>Cupcake2.png</string>
+			<key>Type</key>
+			<string>Protein</string>
+		</dict>
+		<dict>
+			<key>PosX</key>
+			<integer>1340</integer>
+			<key>PosY</key>
+			<integer>580</integer>
+			<key>SpriteName</key>
+			<string>Cupcake3.png</string>
+			<key>Type</key>
+			<string>Windwalk</string>
+		</dict>
+	</array>
 	<key>Sprites</key>
 	<array>
 		<dict>
@@ -675,7 +718,7 @@
 		</dict>
 		<dict>
 			<key>PosX</key>
-			<integer>2120</integer>
+			<integer>2130</integer>
 			<key>PosY</key>
 			<integer>320</integer>
 			<key>SpriteName</key>
@@ -705,7 +748,7 @@
 		</dict>
 		<dict>
 			<key>PosX</key>
-			<integer>1338</integer>
+			<integer>1334</integer>
 			<key>PosY</key>
 			<integer>283</integer>
 			<key>SpriteName</key>
@@ -725,7 +768,7 @@
 		</dict>
 		<dict>
 			<key>PosX</key>
-			<integer>2726</integer>
+			<integer>2736</integer>
 			<key>PosY</key>
 			<integer>103</integer>
 			<key>SpriteName</key>

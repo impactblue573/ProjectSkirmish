@@ -14,7 +14,12 @@
 
 @synthesize pawn,playerID,pawnType,deaths,kills,team,playerName,updated;
 
--(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName;
+-(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName
+{
+    return [self initInWorld:world usingPawn:pType asTeam:t withPlayerID:pID withPlayerName:pName usingVariation:1];
+}
+
+-(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName usingVariation:(int)variation
 {
 	if(pID != nil)
 		self.playerID = [[NSMutableString alloc ] initWithString:pID];
@@ -22,6 +27,7 @@
 		self.playerName = [[NSMutableString alloc ] initWithString:pName];
 	gameWorld = world;
 	team = t;
+    spriteVariation = variation;
 	if(pType != nil)
 		self.pawnType = [[NSMutableString alloc ] initWithString:pType];
 	self = [self init];
@@ -44,6 +50,7 @@
 	pawn = pawnType == nil ? [PawnFactory initializePawn] : [PawnFactory initializePawnType:pawnType];
 	[pawn setGameController:self];
 	pawn.team = team;
+    [pawn setVariation:spriteVariation];
 	team.teamCount++;
 	//[animationManager playLoopAnimation:@"Idle" forSprite:@"Body"];
 }
@@ -90,6 +97,7 @@
 	}
 	
 	[pawn synchronizePawnPhysics:dt];
+    [pawn processPowerups:dt];
 	
 	if(![pawn isDead])
 	{

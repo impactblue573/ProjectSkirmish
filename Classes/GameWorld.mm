@@ -11,7 +11,7 @@
 //	2 - Team 1
 //  4 - Team 2 
 //  8 - One Sided World Boxes
-//
+//  16 - Powerups
 
 #import "GameWorld.h"
 #import "Helper.h"
@@ -28,13 +28,18 @@ static bool debugDraw = false;
 	if((self=[super init])) 
 	{
         minTimeStep = 1.0f/60.0f;
-        currentTimeStep = 0;
+        currentTimeStep = 0;        
 		[self buildWorld:worldName];
 		gamePawnList = [[NSMutableArray alloc] init];
 		projectilePool = [[ProjectilePool alloc] init];		
 		activeProjectiles = [[NSMutableArray alloc] init];
 	}
 	return self;
+}
+
+-(void) destroyPhysicsBody:(b2Body*)body
+{
+    physicsWorld->DestroyBody(body);
 }
 
 -(void) buildWorld:(NSString*)worldName
@@ -127,6 +132,17 @@ static bool debugDraw = false;
 	teamBSpawnPoint.spawnPoint = ccp([[teamBData objectForKey:@"SpawnX"] floatValue], [[teamBData objectForKey:@"SpawnY"] floatValue]);
 	teamBSpawnPoint.homeArea = (CGRect){ccp([[teamBData objectForKey:@"HomeX"] floatValue], [[teamBData objectForKey:@"HomeY"] floatValue]),CGSizeMake([[teamBData objectForKey:@"HomeWidth"] floatValue],[[teamBData objectForKey:@"HomeHeight"] floatValue]) };
 	
+    //Load Powerups
+    NSArray* powerupList = [pListData objectForKey:@"Powerups"];
+    powerupManager = [[PowerupManager alloc] initWithWorld:self];
+    for(uint i = 0; i < [powerupList count]; i++)
+    {
+        NSDictionary* powerupData = [powerupList objectAtIndex:i];
+        PowerupType type = [PowerupFactory parsePowerupType:[powerupData objectForKey:@"Type"]];
+        PowerupFactory* powerup = [[PowerupFactory alloc] initWithPowerupType:type spriteName:[powerupData objectForKey:@"SpriteName"] position:CGPointMake([[powerupData objectForKey:@"PosX"] floatValue], [[powerupData objectForKey:@"PosY"] floatValue])];
+        [powerupManager addPowerupFactory:powerup];
+    }
+    
 	//Debug Draw Stuff
 	m_debugDraw = new GLESDebugDraw	( PTM_RATIO );
 	physicsWorld->SetDebugDraw(m_debugDraw);
@@ -249,6 +265,7 @@ static bool debugDraw = false;
     //    currentTimeStep = 0;
     //}
 	[self updateProjectiles:dt];
+    [powerupManager processPowerups:dt];
 	//[self synchronizePawnPhysics];
 }
 
@@ -300,6 +317,16 @@ static bool debugDraw = false;
 	}
 }
 
+-(void) spawnPowerup:(PowerupFactory*)powerup
+{
+    b2Filter filter;
+    filter.categoryBits = 16;
+    filter.maskBits = 65535-4;
+
+    powerup.physicsBody = [self addStaticBody:powerup.position ofSize:b2Vec2(powerup.size.width,powerup.size.height) withSprite:powerup.sprite usingFilter:filter];
+    powerup.physicsBody->SetUserData(powerup);
+}
+
 -(void) spawnProjectile:(Projectile*)proj
 {
 	proj.sprite.position = ccp(proj.launchPosition.x, proj.launchPosition.y);
@@ -323,7 +350,7 @@ static bool debugDraw = false;
 	fixtureDef.density = proj.mass;
 	fixtureDef.friction = 0.1f;
 	fixtureDef.filter.categoryBits = proj.teamIndex + 1;
-	fixtureDef.filter.maskBits = 65535 - proj.teamIndex - 8;
+	fixtureDef.filter.maskBits = 65535 - proj.teamIndex - 8 - 16;
 	proj.physicsBody->CreateFixture(&fixtureDef);
 	proj.physicsBody->ApplyForce(b2Vec2(proj.launchForce.x,proj.launchForce.y), pos);
 }

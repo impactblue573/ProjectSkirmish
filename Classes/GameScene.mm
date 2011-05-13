@@ -8,6 +8,7 @@
 
 #import "GameScene.h"
 #import "DataHelper.h"
+#import "PowerupFactory.h"
 
 static GameMode gameMode;
 static bool isServer;
@@ -65,7 +66,7 @@ static GameWorld* CurrentGameWorld;
 		difficultyFactor = 0.5f;
 		gameType = [[TeamDeathmatch alloc] initWithWinScore:30];
 		gameMode = gMode;
-		broadcastInterval = 0.02;
+		broadcastInterval = 0;
 		pingInterval = 5;
 		screenSize = [CCDirector sharedDirector].winSize;
 		playerList = [[NSMutableArray alloc] init];
@@ -129,6 +130,11 @@ static GameWorld* CurrentGameWorld;
 
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name
 {
+    [self initializePlayerWithPawnType:pType onTeam:team withName:name usingVariation:1];
+}
+
+-(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name usingVariation:(int)variation
+{
 	NSString* playerID = @"LocalPlayer";
 	if(gameMode == Game_Online)
 	{
@@ -178,7 +184,7 @@ static GameWorld* CurrentGameWorld;
 		PawnInfo* info = [pawnInfo objectAtIndex:i];
 		if(![info.playerID isEqualToString:peerID])
 		{
-			NetworkGameController* controller = [[NetworkGameController alloc] initInWorld:gameWorld usingPawn:info.pawnType asTeam:([info.teamID intValue] == 2 ? team1:team2) withPlayerID:info.playerID withPlayerName:info.playerName];
+			NetworkGameController* controller = [[NetworkGameController alloc] initInWorld:gameWorld usingPawn:info.pawnType asTeam:([info.teamID intValue] == 2 ? team1:team2) withPlayerID:info.playerID withPlayerName:info.playerName usingVariation:[info.spriteVariation intValue]];
 			[networkPlayerControllers setObject:controller forKey:info.playerID];
 			[gameWorld spawnGamePawn:controller.pawn];
 		}
@@ -357,10 +363,10 @@ static GameWorld* CurrentGameWorld;
 	[self updateViewport];
 	
 	//Reset broadcast interval
-	if(lastBroadcast > broadcastInterval)
-		lastBroadcast = 0;
-	else
-		lastBroadcast += dt;
+//	if(lastBroadcast > broadcastInterval)
+//		lastBroadcast = 0;
+//	else
+//		lastBroadcast += dt;
 	
 	//Ping if necessary
 	if(doPing && !isServer && gameMode != Game_Single && timeSinceLastPing > pingInterval)
@@ -488,7 +494,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) startGameScheduler
 {
-	[self schedule: @selector(tick:)];
+	[self schedule: @selector(tick:) interval:1.0/60.0];
 }
 
 -(void) initializeUI

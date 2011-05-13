@@ -47,8 +47,15 @@
 		pawnState = Pawn_Alive;
 		health = 100;
 		fireDamage = 10;
+        powerups = [[NSMutableArray alloc] init];
+        spriteVariation = 1;
 	}
 	return self;
+}
+
+-(void) setVariation:(int)variation
+{
+    spriteVariation = variation;
 }
 
 -(id) initForController:(GameController*)ctrl
@@ -211,11 +218,10 @@
 {
 	if(lastMoveForce < moveForceInterval*2)
 		lastMoveForce += dt;
-	
+	b2Vec2 velocity = [self velocity];	
 	//Auto move
-	if(lastMoveForce > moveForceInterval && walkDirection != 0)
-	{
-		b2Vec2 velocity = [self velocity];	
+	if(lastMoveForce > moveForceInterval)
+	{		
 		b2Vec2 moveForce = b2Vec2(walkDirection * (velocity.y > 0 ? airMoveForceMag : moveForceMag),0);
 		physicsBody->ApplyForce(moveForce,physicsBody->GetPosition());
 		
@@ -226,7 +232,6 @@
 		lastMoveForce = 0;
 	}
 	
-	b2Vec2 velocity = [self velocity];
 	if(velocity.y > 0.05)
 		physicsState = Physics_Jumping;
 	else if(velocity.y < -0.05)
@@ -295,6 +300,58 @@
 	//[[SoundManager sharedManager] playSound:@"TakeHit.aif" atPosition:ccp(pos.x,pos.y)];
 }
 
+-(void) processPowerups:(ccTime)dt
+{
+    for(uint i = 0; i < [powerups count]; i++)
+    {
+        Powerup* powerup = [powerups objectAtIndex:i];
+        [powerup step:dt];
+        if(powerup.expired)
+        {
+            [self unequipPowerup:powerup];
+            [powerups removeObjectAtIndex:i];
+            i--;
+        }
+    }
+}
+
+-(void) equipPowerup:(Powerup *)powerup
+{
+    if(powerup != nil)
+    {
+        [powerup retain];
+        fireDamage *= powerup.damageFactor;
+        //moveForceMag *= powerup.moveFactor;
+        maxSpeed *= powerup.moveFactor;
+        jumpForceMag *= powerup.jumpFactor;
+        jumpSpeed *= powerup.jumpFactor;        
+        [powerups addObject:powerup];
+    }
+}
+
+-(void) unequipPowerup:(Powerup*)powerup
+{
+    if(powerup != nil)
+    {
+        fireDamage /= powerup.damageFactor;
+        //moveForceMag /= powerup.moveFactor;
+        maxSpeed /= powerup.moveFactor;
+        jumpForceMag /= powerup.jumpFactor;
+        jumpSpeed /= powerup.jumpFactor; 
+        [powerup release];
+    }
+}
+
+-(void) clearPowerups
+{
+    for(uint i = 0; i < [powerups count]; i++)
+    {
+        Powerup* powerup = [powerups objectAtIndex:i];
+        [self unequipPowerup:powerup];
+    }
+    [powerups removeAllObjects];
+}
+
 -(void) reset
 {
 	aimAngle = 0.0f;
@@ -303,6 +360,7 @@
 	physicsState = Physics_Walking;
 	pawnState = Pawn_Alive;
 	health = 100;
+    [self clearPowerups];
 }
 
 -(bool) isDead
@@ -314,6 +372,7 @@
 {
 	PawnInfo* info = [[[PawnInfo alloc] init] retain];
 	info.pawnType = pawnType;
+    info.spriteVariation = [NSNumber numberWithInt:spriteVariation];
 	info.teamID = [NSNumber numberWithInt:team.teamIndex];
 	info.playerID = controller.playerID;
 	info.playerName = controller.playerName;

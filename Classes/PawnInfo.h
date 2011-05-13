@@ -12,6 +12,7 @@
 @interface PawnInfo : NSObject <NSCoding> {
 	NSString* pawnType;
 	NSNumber* teamID;
+    NSNumber* spriteVariation;
 	NSString* playerID;
 	NSString* playerName;
 }
@@ -20,5 +21,5 @@
 @property(assign) NSString* playerID;
 @property(assign) NSNumber* teamID;
 @property(assign) NSString* playerName;
-
+@property(assign) NSNumber* spriteVariation;
 @end

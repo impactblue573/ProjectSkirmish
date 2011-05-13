@@ -10,7 +10,7 @@
 
 @implementation DataPacket
 
-@synthesize dataType, pawnInitData, playerInput, matchInfo,sendTime,worldName,pingID;
+@synthesize dataType, pawnInitData, playerInput, matchInfo,sendTime,worldName,pingID,powerupEvent;
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
@@ -31,6 +31,8 @@
 		[aCoder encodeObject:matchInfo];
 	if(dataType == Data_Ping || dataType == Data_PingResponse)
 		[aCoder encodeObject:[NSNumber numberWithInt:pingID]];
+    if(dataType == Data_PowerupEvent)
+        [aCoder encodeObject:powerupEvent];
 }
 	 
 - (id)initWithCoder:(NSCoder *)aDecoder
@@ -59,6 +61,8 @@
 	}
 	if(dataType == Data_Ping || dataType == Data_PingResponse)
 		pingID = [[aDecoder decodeObject] intValue];
+    if(dataType == Data_PowerupEvent)
+        powerupEvent = [[aDecoder decodeObject] retain];
 	
 	return self;
 }

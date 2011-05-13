@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "NetworkPlayerInput.h"
 #import "MatchInfo.h"
+#import "PowerupEvent.h"
 
 typedef enum
 {
@@ -20,7 +21,8 @@ typedef enum
 	Data_PawnUpdate = 6,
 	Data_MatchUpdate,
 	Data_Ping,
-	Data_PingResponse
+	Data_PingResponse,
+    Data_PowerupEvent,
 } DataType;
 
 @interface DataPacket : NSObject<NSCoding> {
@@ -31,6 +33,7 @@ typedef enum
 	NetworkPlayerInput* playerInput;
 	NSString* worldName;
 	MatchInfo* matchInfo;
+    PowerupEvent* powerupEvent;
 	int pingID;
 }
 
@@ -41,6 +44,7 @@ typedef enum
 @property(assign) NSDate* sendTime;
 @property(assign) NSString* worldName;
 @property(assign) int pingID;
+@property(assign) PowerupEvent* powerupEvent;
 //@property(assign) NSMutableArray* playerInputs;
 
 @end

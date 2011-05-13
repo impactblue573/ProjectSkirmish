@@ -87,6 +87,8 @@ typedef enum
 -(void) dispatchNetworkPlayerInput:(NetworkPlayerInput*)netInput;// packetID:(int)packetID;
 //-(void) dispatchNetworkPlayerInputs:(NSMutableArray*)netInputs;
 -(void) processNetworkPlayerInput:(NetworkPlayerInput*)netInput packetID:(int)packetID;
+-(void) processPowerupEvent:(PowerupEvent*)powerupEvent;
+
 -(void) playBackgroundMusic;
 -(void) stopBackgroundMusic;
 -(void) onQuitGame;

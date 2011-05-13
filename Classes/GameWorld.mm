@@ -16,12 +16,15 @@
 #import "GameWorld.h"
 #import "Helper.h"
 #import "SoundManager.h"
+#import "GameScene.h"
+
 static bool debugDraw = false;
 
+@class GameScene;
 
 @implementation GameWorld
 
-@synthesize worldSize;
+@synthesize worldSize, powerupManager;
 
 -(id) initWorld:(NSString*)worldName
 {
@@ -133,13 +136,14 @@ static bool debugDraw = false;
 	teamBSpawnPoint.homeArea = (CGRect){ccp([[teamBData objectForKey:@"HomeX"] floatValue], [[teamBData objectForKey:@"HomeY"] floatValue]),CGSizeMake([[teamBData objectForKey:@"HomeWidth"] floatValue],[[teamBData objectForKey:@"HomeHeight"] floatValue]) };
 	
     //Load Powerups
+    bool createDummyPowerups = [GameScene CurrentGameMode] != Game_Single && [GameScene isServer] == false;
     NSArray* powerupList = [pListData objectForKey:@"Powerups"];
     powerupManager = [[PowerupManager alloc] initWithWorld:self];
     for(uint i = 0; i < [powerupList count]; i++)
     {
         NSDictionary* powerupData = [powerupList objectAtIndex:i];
         PowerupType type = [PowerupFactory parsePowerupType:[powerupData objectForKey:@"Type"]];
-        PowerupFactory* powerup = [[PowerupFactory alloc] initWithPowerupType:type spriteName:[powerupData objectForKey:@"SpriteName"] position:CGPointMake([[powerupData objectForKey:@"PosX"] floatValue], [[powerupData objectForKey:@"PosY"] floatValue])];
+        PowerupFactory* powerup = [[PowerupFactory alloc] initWithPowerupType:type spriteName:[powerupData objectForKey:@"SpriteName"] position:CGPointMake([[powerupData objectForKey:@"PosX"] floatValue], [[powerupData objectForKey:@"PosY"] floatValue]) withID:i isDummy:createDummyPowerups];
         [powerupManager addPowerupFactory:powerup];
     }
     

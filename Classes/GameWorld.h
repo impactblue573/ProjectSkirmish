@@ -18,6 +18,7 @@
 #import "ProjectileContactListener.h"
 #import "OneSideContactFilter.h"
 #import "PowerupManager.h"
+#import "PowerupEvent.h"
 
 @class PowerupFactory;
 @class PowerupManager;
@@ -54,4 +55,5 @@
 -(void) spawnPowerup:(PowerupFactory*)powerup;
 
 @property CGSize worldSize;
+@property(readonly) PowerupManager* powerupManager;
 @end

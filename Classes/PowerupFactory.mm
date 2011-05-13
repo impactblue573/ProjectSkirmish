@@ -13,7 +13,7 @@
 
 @implementation PowerupFactory
 
-@synthesize physicsBody, size, state,sprite,position,deactiveTime;
+@synthesize physicsBody, size, state,sprite,position,deactiveTime,powerupId;
 
 +(PowerupType) parsePowerupType:(NSString *)pType
 {
@@ -32,9 +32,10 @@
     return Random;
 }
 
--(id) initWithPowerupType:(PowerupType)pType spriteName:(NSString*)sName position:(CGPoint)pos
+-(id) initWithPowerupType:(PowerupType)pType spriteName:(NSString*)sName position:(CGPoint)pos withID:(int)pId isDummy:(bool)dummy
 {
     self = [super init];
+    powerupId = pId;
     powerupType = pType;
     respawnTime = 20.0;
     deactiveTime = 0.0;
@@ -49,6 +50,7 @@
     position = pos;
     spriteName = [NSString stringWithString:sName];
     sprite = [[CCSprite spriteWithFile:spriteName] retain];
+    isDummy = dummy;
     return self;
 }
 
@@ -92,10 +94,13 @@
     switch(state)
     {
         case Deactive:
-            deactiveTime += dt;
-            if(deactiveTime >= respawnTime)
+            if(!isDummy)
             {
-                [self reset];   
+                deactiveTime += dt;
+                if(deactiveTime >= respawnTime)
+                {
+                    [self reset];   
+                }
             }
             break;
         case Active:

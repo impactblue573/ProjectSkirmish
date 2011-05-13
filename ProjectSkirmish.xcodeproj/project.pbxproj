@@ -63,6 +63,7 @@
 		3F44984B13442CC400742129 /* PorcusMaximus.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F44984913442CC400742129 /* PorcusMaximus.png */; };
 		3F44985013442EB500742129 /* PorcusMaximusPawn.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F44984F13442EB500742129 /* PorcusMaximusPawn.mm */; };
 		3F44985213446AF700742129 /* PorcusMaximusProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F44985113446AF700742129 /* PorcusMaximusProfile.png */; };
+		3F5953D6137D1FF600D33676 /* PowerupEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5953D5137D1FF600D33676 /* PowerupEvent.mm */; };
 		3F5C1E421377C7610029D4EE /* PowerupFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E411377C7610029D4EE /* PowerupFactory.mm */; };
 		3F5C1E451378C5790029D4EE /* ProteinPowerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E441378C5790029D4EE /* ProteinPowerup.mm */; };
 		3F5C1E481378DDD90029D4EE /* WingsPowerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E471378DDD90029D4EE /* WingsPowerup.mm */; };
@@ -528,6 +529,8 @@
 		3F44984C13442D0300742129 /* PorcusMaximusPawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PorcusMaximusPawn.h; sourceTree = "<group>"; };
 		3F44984F13442EB500742129 /* PorcusMaximusPawn.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PorcusMaximusPawn.mm; sourceTree = "<group>"; };
 		3F44985113446AF700742129 /* PorcusMaximusProfile.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = PorcusMaximusProfile.png; path = Illustrations/PorcusMaximusProfile.png; sourceTree = SOURCE_ROOT; };
+		3F5953D4137D1FF600D33676 /* PowerupEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerupEvent.h; sourceTree = "<group>"; };
+		3F5953D5137D1FF600D33676 /* PowerupEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PowerupEvent.mm; sourceTree = "<group>"; };
 		3F5C1E401377C7610029D4EE /* PowerupFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerupFactory.h; sourceTree = "<group>"; };
 		3F5C1E411377C7610029D4EE /* PowerupFactory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PowerupFactory.mm; sourceTree = "<group>"; };
 		3F5C1E431378C5790029D4EE /* ProteinPowerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProteinPowerup.h; sourceTree = "<group>"; };
@@ -1266,6 +1269,8 @@
 				3FEF19F612D5F43A00F2689B /* DataPacket.mm */,
 				3F3EF01212D7042400534A05 /* MatchInfo.h */,
 				3F3EF01312D7042400534A05 /* MatchInfo.mm */,
+				3F5953D4137D1FF600D33676 /* PowerupEvent.h */,
+				3F5953D5137D1FF600D33676 /* PowerupEvent.mm */,
 			);
 			name = Data;
 			sourceTree = "<group>";
@@ -2181,6 +2186,7 @@
 				3F5C1E481378DDD90029D4EE /* WingsPowerup.mm in Sources */,
 				3F5C1E4B1379051C0029D4EE /* WindwalkPowerup.mm in Sources */,
 				3F5C1E4E13790F630029D4EE /* PowerupManager.mm in Sources */,
+				3F5953D6137D1FF600D33676 /* PowerupEvent.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

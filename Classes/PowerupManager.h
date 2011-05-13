@@ -21,4 +21,5 @@
 -(id) initWithWorld:(GameWorld*)w;
 -(void) addPowerupFactory:(PowerupFactory*)powerup;
 -(void) processPowerups:(ccTime)dt;
+-(PowerupFactory*) getPowerupById:(int)powerupId;
 @end

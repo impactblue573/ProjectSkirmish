@@ -130,7 +130,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name
 {
-    [self initializePlayerWithPawnType:pType onTeam:team withName:name usingVariation:1];
+    [self initializePlayerWithPawnType:pType onTeam:team withName:name usingVariation:0];
 }
 
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name usingVariation:(int)variation
@@ -437,6 +437,27 @@ static GameWorld* CurrentGameWorld;
 //			sendPacketTime = [[NSDate date] retain];
 //		}
 	}
+}
+
+-(void) processPowerupEvent:(PowerupEvent *)powerupEvent
+{
+    PowerupFactory* powerup = [gameWorld.powerupManager getPowerupById:powerupEvent.powerupId];
+    if(powerupEvent.eventType == Equip)
+    {
+        GameController* player = nil;
+        if([playerController.playerID isEqualToString:powerupEvent.playerId])
+            player = playerController;
+        else
+            player = [networkPlayerControllers objectForKey:powerupEvent.playerId];
+        if(player != nil)
+        {
+            [player.pawn equipPowerup:[powerup getPowerup]];
+        }
+    }
+    else if(powerupEvent.eventType == Activate)
+    {
+        [powerup reset];
+    }
 }
 
 -(void) processNetworkPlayerInput:(NetworkPlayerInput *)netInput packetID:(int)packetID
@@ -895,6 +916,11 @@ static GameWorld* CurrentGameWorld;
 
 		}
 	}
+    
+    if(packet.dataType == Data_PowerupEvent)
+    {
+        [self processPowerupEvent:packet.powerupEvent];
+    }
 	/*[packet release];
 	[response release];
 	packet = nil;

@@ -9,6 +9,10 @@
 #import "ProjectileContactListener.h"
 #import "GameScene.h"
 #import "PowerupFactory.h"
+#import "PowerupEvent.h"
+#import "DataPacket.h"
+#import "DataHelper.h"
+#import "GameKitHelper.h"
 
 void ProjectileContactListener::BeginContact(b2Contact* contact)
 {
@@ -61,12 +65,12 @@ void ProjectileContactListener::EndContact(b2Contact* contact)
 void ProjectileContactListener::PreSolve(b2Contact* contact, const b2Manifold* oldManifold)
 {  
     b2Body* bodyA = contact->GetFixtureA()->GetBody(); 
-	b2Body* bodyB = contact->GetFixtureB()->GetBody(); 
+    b2Body* bodyB = contact->GetFixtureB()->GetBody(); 
     id dataA = (id)bodyA->GetUserData();
     id dataB = (id)bodyB->GetUserData();
     
-	GamePawn* pawn = nil;
-	PowerupFactory* powerup = nil;
+    GamePawn* pawn = nil;
+    PowerupFactory* powerup = nil;
     
     if([dataA isKindOfClass:[GamePawn class]])
     {
@@ -86,16 +90,27 @@ void ProjectileContactListener::PreSolve(b2Contact* contact, const b2Manifold* o
     {
         powerup = (PowerupFactory*)dataB;
     }
-	
-	if(pawn != nil && powerup != nil)
+    
+    if(pawn != nil && powerup != nil)
     {
-        if(powerup.state == Active)
+        if(([GameScene CurrentGameMode] == Game_Single || [GameScene isServer]) && powerup.state == Active)
         {
             [pawn equipPowerup:[powerup getPowerup]];   
+            //Notify Powerup Equip
+            if([GameScene CurrentGameMode] != Game_Single && [GameScene isServer])
+            {
+                PowerupEvent* event = [[PowerupEvent alloc] init];
+                event.eventType = Equip;
+                event.powerupId = powerup.powerupId;
+                event.playerId = pawn.controller.playerID;
+                DataPacket* data = [[DataPacket alloc] init];
+                data.dataType = Data_PowerupEvent;
+                data.powerupEvent = event;
+                [[GameKitHelper sharedGameKitHelper] sendDataToAllPeers:[DataHelper serializeDataPacket:data] withMode:GKSendDataReliable];
+            }
         }
         contact->SetEnabled(false);
     }
-
 }
 
 

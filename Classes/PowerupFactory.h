@@ -45,6 +45,8 @@ typedef enum PowerupState
     float verticalDelta;
     float opacityVelocity;
     float scaleVelocity;
+    int powerupId;
+    bool isDummy;
 }
 
 @property(assign) b2Body* physicsBody;
@@ -53,11 +55,12 @@ typedef enum PowerupState
 @property(readonly) CCSprite* sprite;
 @property(readonly) CGPoint position;
 @property(readonly) float deactiveTime;
+@property(readonly) int powerupId;
 
 +(PowerupType) parsePowerupType:(NSString*)pType;
 -(void) step:(ccTime)dt;
 -(Powerup*) getPowerup;
--(id) initWithPowerupType:(PowerupType)pType spriteName:(NSString*)sName position:(CGPoint)pos;
+-(id) initWithPowerupType:(PowerupType)pType spriteName:(NSString*)sName position:(CGPoint)pos withID:(int)pId isDummy:(bool)dummy;
 -(void) animate:(ccTime)dt;
 -(void) animateEquip:(ccTime)dt;
 -(void) reset;

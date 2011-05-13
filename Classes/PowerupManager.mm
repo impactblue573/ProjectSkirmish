@@ -7,7 +7,11 @@
 //
 
 #import "PowerupManager.h"
-
+#import "GameScene.h"
+#import "PowerupEvent.h"
+#import "DataPacket.h"
+#import "DataHelper.h"
+#import "GameKitHelper.h"
 
 @implementation PowerupManager
 
@@ -55,6 +59,16 @@
                     break;
                 case Activating:
                     [world spawnPowerup:powerup];
+                    if([GameScene CurrentGameMode] != Game_Single && [GameScene isServer])
+                    {
+                        PowerupEvent* event = [[PowerupEvent alloc] init];
+                        event.eventType = Activate;
+                        event.powerupId = powerup.powerupId;
+                        DataPacket* data = [[DataPacket alloc] init];
+                        data.dataType = Data_PowerupEvent;
+                        data.powerupEvent = event;
+                        [[GameKitHelper sharedGameKitHelper] sendDataToAllPeers:[DataHelper serializeDataPacket:data] withMode:GKSendDataReliable];
+                    }
                     powerup.state = Active;
                     break;
                 case Deactivating:
@@ -69,5 +83,16 @@
         }
         timeSinceLastStep = 0;
     }
+}
+
+-(PowerupFactory*) getPowerupById:(int)powerupId
+{
+    for(uint i = 0; i < [powerups count]; i++)
+    {
+        PowerupFactory* powerup = [powerups objectAtIndex:i];
+        if(powerup.powerupId == powerupId)
+            return powerup;
+    }
+    return nil;
 }
 @end

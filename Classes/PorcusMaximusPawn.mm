@@ -23,20 +23,24 @@
     pawnType = @"Porcus Maximus";
     
     //apply randomisation to alternate costumer
-    int rand = arc4random()%100;
-    if(rand > 50)
-    {
-        [self setVariation:1]; 
-    }
-    else
-    {
-        [self setVariation:2]; 
-    }
+    
     return self;
 }
 
 -(void) setVariation:(int)variation
 {
+    if(variation == 0)
+    {
+        int rand = arc4random()%100;
+        if(rand > 50)
+        {
+            variation = 1; 
+        }
+        else
+        {
+            variation = 2; 
+        }
+    }
     [super setVariation:variation];
     switch(spriteVariation)
     {
@@ -45,9 +49,7 @@
             gunOffset = CGPointMake(-14.0,-11.0);
             offset = b2Vec2(0.0f,-6.0f);  
             break;
-        default:
         case 2:
-            spriteVariation = 1;
             spriteName = @"PorcusMaximus";
             gunOffset = CGPointMake(-14.0,-16.0);
             offset = b2Vec2(0.0f,-14.0f);  

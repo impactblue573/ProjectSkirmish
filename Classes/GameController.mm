@@ -16,7 +16,7 @@
 
 -(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName
 {
-    return [self initInWorld:world usingPawn:pType asTeam:t withPlayerID:pID withPlayerName:pName usingVariation:1];
+    return [self initInWorld:world usingPawn:pType asTeam:t withPlayerID:pID withPlayerName:pName usingVariation:0];
 }
 
 -(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName usingVariation:(int)variation

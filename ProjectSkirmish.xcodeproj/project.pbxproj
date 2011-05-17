@@ -47,6 +47,9 @@
 		3F37259B12D1760800E1BBBC /* ProjectileContactListener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F37259A12D1760800E1BBBC /* ProjectileContactListener.mm */; };
 		3F37266512D181C400E1BBBC /* BlendByStateAnimationNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F37266412D181C400E1BBBC /* BlendByStateAnimationNode.mm */; };
 		3F3726E412D1A06800E1BBBC /* GameTeam.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F3726E312D1A06800E1BBBC /* GameTeam.mm */; };
+		3F386CD51380C0D000FB8912 /* BlueCrosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F386CD31380C0D000FB8912 /* BlueCrosshair.png */; };
+		3F386CD61380C0D000FB8912 /* RedCrosshair.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F386CD41380C0D000FB8912 /* RedCrosshair.png */; };
+		3F386CD91381E54400FB8912 /* Targetter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F386CD81381E54400FB8912 /* Targetter.mm */; };
 		3F3CF3E71328B8040030611B /* Leaderboard.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F3CF3E61328B8040030611B /* Leaderboard.mm */; };
 		3F3CF75E132D79490030611B /* Farm_World.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F3CF75D132D79490030611B /* Farm_World.plist */; };
 		3F3CF8BC132ED1150030611B /* LeftHouseWall.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F3CF8BA132ED1150030611B /* LeftHouseWall.png */; };
@@ -76,6 +79,8 @@
 		3F5C467912CEBF8000EA310A /* BattleInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C467812CEBF8000EA310A /* BattleInfo.mm */; };
 		3F7FED3512CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FED3412CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm */; };
 		3F7FEE5912CDAC4800B71665 /* PaintballSplatParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FEE5812CDAC4800B71665 /* PaintballSplatParticleSystem.mm */; };
+		3F8298781383384C0013ADCA /* BlueCrosshair2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F8298761383384C0013ADCA /* BlueCrosshair2.png */; };
+		3F8298791383384C0013ADCA /* RedCrosshair2.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F8298771383384C0013ADCA /* RedCrosshair2.png */; };
 		3F929418133883440004619D /* SlideList.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F929417133883440004619D /* SlideList.mm */; };
 		3F92943D13388D610004619D /* SlideListMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F92943C13388D610004619D /* SlideListMenuItem.mm */; };
 		3F92945A133898CE0004619D /* GinjaNinjaProfile.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F929459133898CE0004619D /* GinjaNinjaProfile.png */; };
@@ -508,6 +513,10 @@
 		3F37266412D181C400E1BBBC /* BlendByStateAnimationNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BlendByStateAnimationNode.mm; sourceTree = "<group>"; };
 		3F3726E212D1A06800E1BBBC /* GameTeam.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTeam.h; sourceTree = "<group>"; };
 		3F3726E312D1A06800E1BBBC /* GameTeam.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameTeam.mm; sourceTree = "<group>"; };
+		3F386CD31380C0D000FB8912 /* BlueCrosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueCrosshair.png; path = Illustrations/BlueCrosshair.png; sourceTree = SOURCE_ROOT; };
+		3F386CD41380C0D000FB8912 /* RedCrosshair.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedCrosshair.png; path = Illustrations/RedCrosshair.png; sourceTree = SOURCE_ROOT; };
+		3F386CD71381E54400FB8912 /* Targetter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Targetter.h; sourceTree = "<group>"; };
+		3F386CD81381E54400FB8912 /* Targetter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Targetter.mm; sourceTree = "<group>"; };
 		3F3CF3E51328B8040030611B /* Leaderboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Leaderboard.h; sourceTree = "<group>"; };
 		3F3CF3E61328B8040030611B /* Leaderboard.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Leaderboard.mm; sourceTree = "<group>"; };
 		3F3CF419132912E30030611B /* SharedStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharedStructs.h; sourceTree = "<group>"; };
@@ -552,6 +561,8 @@
 		3F7FED3412CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaintballExplodeParticleSystem.mm; sourceTree = "<group>"; };
 		3F7FEE5712CDAC4800B71665 /* PaintballSplatParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintballSplatParticleSystem.h; sourceTree = "<group>"; };
 		3F7FEE5812CDAC4800B71665 /* PaintballSplatParticleSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaintballSplatParticleSystem.mm; sourceTree = "<group>"; };
+		3F8298761383384C0013ADCA /* BlueCrosshair2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BlueCrosshair2.png; path = Illustrations/BlueCrosshair2.png; sourceTree = SOURCE_ROOT; };
+		3F8298771383384C0013ADCA /* RedCrosshair2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = RedCrosshair2.png; path = Illustrations/RedCrosshair2.png; sourceTree = SOURCE_ROOT; };
 		3F929416133883440004619D /* SlideList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideList.h; sourceTree = "<group>"; };
 		3F929417133883440004619D /* SlideList.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SlideList.mm; sourceTree = "<group>"; };
 		3F92943B13388D610004619D /* SlideListMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideListMenuItem.h; sourceTree = "<group>"; };
@@ -1140,6 +1151,8 @@
 		3F3CF894132DA09B0030611B /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				3F386CD31380C0D000FB8912 /* BlueCrosshair.png */,
+				3F386CD41380C0D000FB8912 /* RedCrosshair.png */,
 				3F3EF31B12D86ADB00534A05 /* DownArrow.png */,
 				3F929459133898CE0004619D /* GinjaNinjaProfile.png */,
 				3F92950713395BA60004619D /* BullseyeProfile.png */,
@@ -1147,6 +1160,8 @@
 				3F44985113446AF700742129 /* PorcusMaximusProfile.png */,
 				3F92950913395C760004619D /* LamboProfile.png */,
 				3F9295C1133970E60004619D /* Arrow-Right-Disabled.png */,
+				3F8298761383384C0013ADCA /* BlueCrosshair2.png */,
+				3F8298771383384C0013ADCA /* RedCrosshair2.png */,
 				3F92956B1339639E0004619D /* Arrow-Right-Active.png */,
 				3F92956C1339639E0004619D /* Arrow-Right.png */,
 				3F3EF31D12D86ADB00534A05 /* UpArrow.png */,
@@ -1182,6 +1197,8 @@
 				3F9295EC133978A50004619D /* CharacterPicker.mm */,
 				3F9296641339DE9A0004619D /* WorldPicker.h */,
 				3F9296651339DE9A0004619D /* WorldPicker.mm */,
+				3F386CD71381E54400FB8912 /* Targetter.h */,
+				3F386CD81381E54400FB8912 /* Targetter.mm */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -2108,6 +2125,10 @@
 				3F5C1E52137A06D40029D4EE /* Cupcake1.png in Resources */,
 				3F5C1E53137A06D40029D4EE /* Cupcake2.png in Resources */,
 				3F5C1E54137A06D40029D4EE /* Cupcake3.png in Resources */,
+				3F386CD51380C0D000FB8912 /* BlueCrosshair.png in Resources */,
+				3F386CD61380C0D000FB8912 /* RedCrosshair.png in Resources */,
+				3F8298781383384C0013ADCA /* BlueCrosshair2.png in Resources */,
+				3F8298791383384C0013ADCA /* RedCrosshair2.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2187,6 +2208,7 @@
 				3F5C1E4B1379051C0029D4EE /* WindwalkPowerup.mm in Sources */,
 				3F5C1E4E13790F630029D4EE /* PowerupManager.mm in Sources */,
 				3F5953D6137D1FF600D33676 /* PowerupEvent.mm in Sources */,
+				3F386CD91381E54400FB8912 /* Targetter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

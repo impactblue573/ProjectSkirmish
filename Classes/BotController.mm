@@ -49,7 +49,7 @@
 -(NetworkPlayerInput*) processBattleInfo:(BattleInfo*)battleInfo delta:(float)dt
 {
 	float difficulty = [GameScene getDifficultyFactor];
-	NetworkPlayerInput* netInput = [[NetworkPlayerInput alloc] init];
+	NetworkPlayerInput* netInput = [[[NetworkPlayerInput alloc] init] autorelease];
 	netInput.playerID = playerID;
 	
 	if(![pawn isDead])
@@ -175,6 +175,7 @@
 					}
 				}
 			}
+            //[enemyPos release];
 		}
 	}
 	return netInput;

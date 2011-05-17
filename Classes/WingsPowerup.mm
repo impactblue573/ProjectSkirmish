@@ -17,4 +17,9 @@
     jumpFactor = 1.5;
     return self;
 }
+
+-(NSString*) getEquipMessage
+{
+    return @"Jump Boost!";
+}
 @end

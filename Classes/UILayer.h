@@ -38,8 +38,9 @@
 -(void) updateTeam1Score:(int)t1Score team2Score:(int)t2Score;
 -(void) updateHealth:(float)health;
 -(void) updatePing:(float)ping;
--(void) showMessage:(NSString*) message;
--(void) showMessage:(NSString*) message withColor:(ccColor3B)color;
+-(void) clearMessage;
+-(void) showMessage:(NSString*) message forInterval:(float)interval;
+-(void) showMessage:(NSString*) message forInterval:(float)interval withColor:(ccColor3B)color;
 -(void) showPauseMenu:(id)sender;
 -(void) hidePauseMenu:(id)sender;
 -(void) quitGame:(id)sender;

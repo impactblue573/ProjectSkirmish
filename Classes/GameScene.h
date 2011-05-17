@@ -36,6 +36,7 @@ typedef enum
 @interface GameScene : CCLayer <GameKitHelperProtocol,GKSessionDelegate, OnlinePlayUIProtocol,LocalPlayUIProtocol,UILayerProtocol> {
 	GameWorld* gameWorld;
 	UILayer* uiLayer;
+    ProjectSkirmishAppDelegate* appDelegate;
 	PlayerController* playerController;
 	NSMutableArray* botControllers;
 	NSMutableDictionary* networkPlayerControllers;
@@ -65,13 +66,17 @@ typedef enum
 
 }
 
+
 +(id) sceneWithGameMode:(GameMode)mode;
++(GameScene*) current;
 +(GameMode) CurrentGameMode;
 +(bool) isServer;
 +(bool) isInPlayerView:(CGPoint)pawnPos;
 +(ViewPort) getViewPort;
 +(float) getDifficultyFactor;
+-(GameTeam*) getPlayerTeam;
 -(id) initWithGameMode:(GameMode)mode;
+-(NSString*) getPlayerId;
 -(void) initializeUI;
 -(void) initializePlayer:(NSString*)pType;
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name;
@@ -96,5 +101,6 @@ typedef enum
 -(void) onCharacterSelect:(SlideListItem)item;
 -(void) onWorldSelect:(SlideListItem)item;
 
+@property(readonly) UILayer* uiLayer;
 
 @end

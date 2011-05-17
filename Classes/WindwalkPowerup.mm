@@ -18,4 +18,8 @@
     return self;
 }
 
+-(NSString*) getEquipMessage
+{
+    return @"Speed Boost!";
+}
 @end

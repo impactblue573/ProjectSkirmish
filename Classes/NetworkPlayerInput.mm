@@ -15,15 +15,6 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-//	[aCoder encodeBool:hasMove forKey:@"hasMove"];
-//	[aCoder encodeBool:hasShoot forKey:@"hasShoot"];
-//	[aCoder encodeBool:hasJump forKey:@"hasJump"];
-//	[aCoder encodeBool:hasSyncPosition forKey:@"hasSyncPosition"];
-//	[aCoder encodeCGPoint:moveVector forKey:@"moveVector"];
-//	[aCoder encodeCGPoint:shootPoint forKey:@"shootPoint"];
-//	[aCoder encodeCGPoint:position forKey:@"position"];
-//	[aCoder encodeCGPoint:velocity forKey:@"velocity"];
-//	[aCoder encodeFloat:health forKey:@"health"];
 	[aCoder encodeObject:hasJump];
 	[aCoder encodeObject:moveVector];
 	[aCoder encodeObject:positionX];
@@ -38,15 +29,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
-	//hasMove = [aDecoder decodeBoolForKey:@"hasMove"];
-//	hasShoot = [aDecoder decodeBoolForKey:@"hasShoot"];
-//	hasJump = [aDecoder decodeBoolForKey:@"hasJump"];
-//	hasSyncPosition = [aDecoder decodeBoolForKey:@"hasSyncPosition"];
-//	moveVector = [aDecoder decodeCGPointForKey:@"moveVector"];
-//	shootPoint = [aDecoder decodeCGPointForKey:@"shootPoint"];
-//	position = [aDecoder decodeCGPointForKey:@"position"];
-//	velocity = [aDecoder decodeCGPointForKey:@"velocity"];	
-//	health = [aDecoder decodeFloatForKey:@"health"];
+    doRelease = true;
 	self.hasJump = [[aDecoder decodeObject] retain];
 	self.moveVector = [[aDecoder decodeObject] retain];
 	self.positionX = [[aDecoder decodeObject] retain];
@@ -58,6 +41,24 @@
 	self.health = [[aDecoder decodeObject] retain];
 	self.playerID = [[aDecoder decodeObject] retain];
 	return self;
+}
+
+-(void) dealloc
+{
+    if(doRelease)
+    {
+        [hasJump release];
+        [moveVector release];
+        [positionX release];
+        [positionY release];
+        [velocityX release];
+        [velocityY release];
+        [shootPointX release];
+        [shootPointY release];
+        [health release];
+        [playerID release];
+    }
+    [super dealloc];
 }
 
 @end

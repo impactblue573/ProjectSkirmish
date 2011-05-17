@@ -21,6 +21,11 @@ static SoundManager* sharedSoundManager;
 	return sharedSoundManager;
 }
 
+-(void) preloadSound:(NSString*)sound
+{
+    [[SimpleAudioEngine sharedEngine] preloadEffect:sound];
+}
+
 -(void) playSound:(NSString *)sound atPosition:(CGPoint)position
 {
 	if(!enabled)

@@ -15,6 +15,7 @@
 	NSMutableArray* playerKills;
 	NSMutableArray* playerDeaths;
 	NSMutableArray* pawnHealths;
+    bool doRelease;
 }
 
 -(void) addPawnHealth:(int)health withKills:(int)kills withDeaths:(int)deaths withPlayerID:(NSString*)playerID ;

@@ -13,10 +13,10 @@
 
 -(id) init
 {
-	animations = [[NSMutableDictionary alloc] init];
-	sprites = [[NSMutableDictionary alloc] init];
-	lastAnimations = [[NSMutableDictionary alloc] init];
-	lastActions = [[NSMutableDictionary alloc] init];
+	animations = [[NSMutableDictionary dictionary] retain];
+	sprites = [[NSMutableDictionary dictionary] retain];
+	lastAnimations = [[NSMutableDictionary dictionary] retain];
+	lastActions = [[NSMutableDictionary dictionary] retain];
 	return self;
 }
 
@@ -51,7 +51,7 @@
 	if(animationName != [lastAnimations objectForKey:spriteName] || ignoreDup)
 	{
 		CCAnimation* anim = [animations objectForKey:animationName];
-		CCAction* action = [[CCRepeat actionWithAction:[CCAnimate actionWithAnimation:anim restoreOriginalFrame:NO] times:1] retain];
+		CCAction* action = [CCRepeat actionWithAction:[CCAnimate actionWithAnimation:anim restoreOriginalFrame:NO] times:1];
 		[self runAction:action forSprite:spriteName];
 		[lastAnimations setObject:animationName forKey:spriteName];
 	}
@@ -88,5 +88,14 @@
 -(void) addToLayer:(CCLayer*)layer
 {
 	[layer addChild:spriteSheet];
+}
+
+-(void) dealloc
+{
+    [animations release];
+    [sprites release];
+    [lastAnimations release];
+    [lastActions release];
+    [super dealloc];
 }
 @end

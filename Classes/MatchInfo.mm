@@ -16,10 +16,10 @@
 -(id) init
 {
 	self = [super init];
-	pawnHealths = [[NSMutableArray alloc] init];
-	playerKills = [[NSMutableArray alloc] init];
-	playerDeaths = [[NSMutableArray alloc] init];
-	playerIDs = [[NSMutableArray alloc] init];
+	pawnHealths = [NSMutableArray array];
+	playerKills = [NSMutableArray array];
+	playerDeaths = [NSMutableArray array];
+	playerIDs = [NSMutableArray array];
 	return self;
 }
 
@@ -35,6 +35,7 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
+    doRelease = true;
 	team1Score = [[aDecoder decodeObject] retain];
 	team2Score = [[aDecoder decodeObject] retain];
 	pawnHealths = [[NSKeyedUnarchiver unarchiveObjectWithData:[aDecoder decodeObject]] retain];
@@ -54,10 +55,15 @@
 
 -(void) dealloc
 {
-	[team1Score release];
-	[team2Score release];
-	[pawnHealths release];
-	[playerIDs release];
+    if(doRelease)
+    {
+        [team1Score release];
+        [team2Score release];
+        [playerKills release];
+        [playerDeaths release];
+        [pawnHealths release];
+        [playerIDs release];
+    }
 	[super dealloc];
 }
 @end

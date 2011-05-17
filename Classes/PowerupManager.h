@@ -17,9 +17,11 @@
     float timeSinceLastStep;
     float stepInterval;
 }
-
++(PowerupManager*) current;
 -(id) initWithWorld:(GameWorld*)w;
 -(void) addPowerupFactory:(PowerupFactory*)powerup;
 -(void) processPowerups:(ccTime)dt;
 -(PowerupFactory*) getPowerupById:(int)powerupId;
+-(Powerup*) equipPowerup:(PowerupFactory*)powerup toPawn:(GamePawn*)pawn;
+-(void) powerupContact:(PowerupFactory*)powerup withPawn:(GamePawn*)pawn;
 @end

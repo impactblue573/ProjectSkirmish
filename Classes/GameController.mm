@@ -32,6 +32,8 @@
 		self.pawnType = [[NSMutableString alloc ] initWithString:pType];
 	self = [self init];
 	[animationManager addToLayer:world];
+    targetter = [[Targetter alloc] initWithSprite:(team.teamIndex == 2 ? @"RedCrosshair2.png" : @"BlueCrosshair2.png") inLayer:gameWorld];
+    targetted = false;
 	return self;
 }
 
@@ -43,6 +45,19 @@
 	[self initializeGamePawn];
 	[self initializeAnimations];
 	return self;
+}
+
+-(void) setTargetted:(bool)t
+{
+    targetted = t;
+    if(targetted)
+    {
+        [targetter activate];
+    }
+    else
+    {
+        [targetter deactivate];
+    }
 }
 
 -(void) initializeGamePawn
@@ -114,6 +129,20 @@
 			respawnCountBegun = false;
 		}
 	}
+    
+    if(targetted)
+    {
+        if([pawn isDead])
+        {
+            [targetter deactivate];
+        }
+        else if(![pawn isDead])
+        {
+            [targetter activate];
+        }
+        b2Vec2 pawnPos = [pawn position];
+        [targetter setPosition:ccp(pawnPos.x,pawnPos.y)];
+    }
 }
 
 /*Returns true if the hit killed the pawn*/
@@ -160,6 +189,18 @@
 	entry.deaths = deaths;
 	entry.teamColor = team.teamColor;
 	return entry;
+}
+
+-(void) dealloc
+{
+    [playerID release];
+    [playerName release];
+    [pawnType release];
+    [animationManager release];
+    [bodyAnimationTree release];
+    [gunAnimationTree release];
+    [targetter release];
+    [super dealloc];
 }
 
 @end

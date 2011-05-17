@@ -63,15 +63,15 @@
         switch(powerupType)
         {
             case Protein:
-                return [[ProteinPowerup alloc] init];
+                return [[[ProteinPowerup alloc] init] autorelease];
                 break;
             case Wings:
-                return [[WingsPowerup alloc] init];
+                return [[[WingsPowerup alloc] init] autorelease];
                 break;
             case Windwalk:
-                return [[WindwalkPowerup alloc] init];
+                return [[[WindwalkPowerup alloc] init] autorelease];
             default:
-                return [[Powerup alloc] init];
+                return [[[Powerup alloc] init] autorelease];
         }
     }   
     return nil;

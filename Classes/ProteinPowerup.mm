@@ -17,4 +17,9 @@
     damageFactor = 2;
     return self;
 }
+
+-(NSString*) getEquipMessage
+{
+    return @"Damage Boost!";
+}
 @end

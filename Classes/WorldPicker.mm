@@ -13,7 +13,7 @@
 
 -(id) init
 {
-	NSMutableArray* items = [[NSMutableArray alloc] init];
+	NSMutableArray* items = [NSMutableArray array];
 	SlideListItem item = (SlideListItem){@"TheFarmProfile.png",@"Farm_World",@"The Farm"};
 	[items addObject:[NSValue value:&item withObjCType:@encode(struct SlideListItem)]];
 	self = [self initWithSlideListItems:items];

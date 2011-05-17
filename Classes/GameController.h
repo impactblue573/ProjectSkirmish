@@ -18,6 +18,7 @@
 #import "BlendByStateAnimationNode.h"
 #import "PawnFactory.h"
 #import "Leaderboard.h"
+#import "Targetter.h"
 
 @class GameWorld;
 
@@ -38,6 +39,8 @@
 	int kills;
     int spriteVariation;
 	bool updated;
+    bool targetted;
+    Targetter* targetter;
 }
 
 -(id) initInWorld:(GameWorld *)world usingPawn:(NSString*)pType asTeam:(GameTeam*)team withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName;
@@ -48,6 +51,7 @@
 -(bool) pawnHit:(float)damage;
 -(void) killPawn;
 -(void) registerKill;
+-(void) setTargetted:(bool)t;
 -(LeaderboardEntry) getLeaderboardEntry;
 
 @property(assign) GamePawn* pawn;

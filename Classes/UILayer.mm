@@ -78,15 +78,26 @@
 	[pingLabel setString:[NSString stringWithFormat:@"%.0fms",ping]];
 }
 
--(void) showMessage:(NSString*) message
+-(void) showMessage:(NSString*) message forInterval:(float)interval
 {
-	[self showMessage:message withColor:ccc3(255, 255, 255)];
+	[self showMessage:message forInterval:interval withColor:ccc3(255, 255, 255)];
 }
 
--(void) showMessage:(NSString*) message withColor:(ccColor3B)color
+-(void) showMessage:(NSString*) message forInterval:(float)interval withColor:(ccColor3B)color
 {
+    [self unschedule:@selector(clearMessage:)];
 	[messageLabel setString:message];
 	[messageLabel setColor:color];
+    if(interval > 0)
+    {
+        [self schedule:@selector(clearMessage) interval:interval];
+    }
+}
+
+-(void) clearMessage
+{
+    [messageLabel setString:@""];
+    [self unschedule:@selector(clearMessage)];
 }
 
 -(void) showCompletitionScreen

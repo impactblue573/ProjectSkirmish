@@ -33,9 +33,9 @@ static bool debugDraw = false;
         minTimeStep = 1.0f/60.0f;
         currentTimeStep = 0;        
 		[self buildWorld:worldName];
-		gamePawnList = [[NSMutableArray alloc] init];
+		gamePawnList = [[NSMutableArray array] retain];
 		projectilePool = [[ProjectilePool alloc] init];		
-		activeProjectiles = [[NSMutableArray alloc] init];
+		activeProjectiles = [[NSMutableArray array] retain];
 	}
 	return self;
 }
@@ -325,7 +325,7 @@ static bool debugDraw = false;
 {
     b2Filter filter;
     filter.categoryBits = 16;
-    filter.maskBits = 65535-4;
+    filter.maskBits = 65535;
 
     powerup.physicsBody = [self addStaticBody:powerup.position ofSize:b2Vec2(powerup.size.width,powerup.size.height) withSprite:powerup.sprite usingFilter:filter];
     powerup.physicsBody->SetUserData(powerup);
@@ -383,7 +383,7 @@ NSInteger sortByPawnPosition(id arg1,id arg2, void* reverse)
 
 -(BattleInfo*) getBattleInfo
 {
-	NSMutableArray* alivePawnList = [[NSMutableArray alloc] init];
+	NSMutableArray* alivePawnList = [NSMutableArray array];
 	for(NSUInteger i = 0; i < [gamePawnList count];i++)
 	{
 		GamePawn* pawn = [gamePawnList objectAtIndex:i];
@@ -392,8 +392,16 @@ NSInteger sortByPawnPosition(id arg1,id arg2, void* reverse)
 	}
 	//BOOL reverseSort = NO;
 	//NSArray* sortedPawnList = [alivePawnList sortedArrayUsingFunction:sortByPawnPosition context:&reverseSort];
-	BattleInfo* info = [[BattleInfo alloc] initWithPawnList:alivePawnList];
+	BattleInfo* info = [[[BattleInfo alloc] initWithPawnList:alivePawnList] autorelease];
 	return info;
+}
+
+-(void) dealloc
+{
+    [gamePawnList release];
+    [projectilePool release];		
+    [activeProjectiles release];
+    [super dealloc];
 }
 
 @end

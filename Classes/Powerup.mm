@@ -33,4 +33,9 @@
         expired = true;
 }
 
+-(NSString*) getEquipMessage
+{
+    return @"Powerup!";
+}
+
 @end

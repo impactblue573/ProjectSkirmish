@@ -13,5 +13,6 @@
 }
 
 +(SoundManager*) sharedManager;
+-(void) preloadSound:(NSString*)sound;
 -(void) playSound:(NSString*)sound atPosition:(CGPoint)position;
 @end

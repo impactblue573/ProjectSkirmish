@@ -7,7 +7,7 @@
 //
 
 #import "LocalPlayUI.h"
-
+#import "ProjectSkirmishAppDelegate.h"
 
 @implementation LocalPlayUI
 @synthesize delegate;
@@ -16,6 +16,7 @@
 {
 	if((self = [super init]))
 	{
+        appDelegate = [UIApplication sharedApplication].delegate;
 		CGSize screensize = [CCDirector sharedDirector].winSize;
 		[CCMenuItemFont setFontName:@"Marker Felt"]; 
 		[CCMenuItemFont setFontSize:32];
@@ -50,8 +51,8 @@
 		playerTextField = [[[UITextField alloc] initWithFrame:CGRectMake(screensize.height/2 + 30, screensize.width-70,200, 30)] retain];
 		playerTextField.transform = CGAffineTransformMakeRotation(M_PI * (90.0 / 180.0));
 		playerTextField.delegate = self;
-		playerTextField.returnKeyType = UIReturnKeyDone;
-		[playerTextField setText:@"Player"];
+		playerTextField.returnKeyType = UIReturnKeyDone;        
+		[playerTextField setText:appDelegate.playerName];
 		[playerTextField setTextColor:[UIColor whiteColor]];
 		[playerTextField setFont:[UIFont fontWithName:@"Marker Felt" size:22]];
 		
@@ -299,6 +300,7 @@
 	if([textField.text length] > 0)
 	{
 		[textField resignFirstResponder];
+        [appDelegate savePlayerName:textField.text];
 		return true;
 	}
 	return false;

@@ -13,8 +13,12 @@
 @interface ProjectSkirmishAppDelegate : NSObject <UIApplicationDelegate> {
 	UIWindow			*window;
 	RootViewController	*viewController;
+    NSString* playerName;
 }
 
+-(void) savePlayerName:(NSString*)name;
+
 @property (nonatomic, retain) UIWindow *window;
+@property (readonly) NSString* playerName;
 
 @end

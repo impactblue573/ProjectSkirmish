@@ -10,12 +10,15 @@
 #import "DataHelper.h"
 #import "PowerupFactory.h"
 
+static GameScene* currentGameScene = nil;
 static GameMode gameMode;
 static bool isServer;
 static bool doPing = false;
 static float difficultyFactor;
 static GameWorld* CurrentGameWorld;
+
 @implementation GameScene
+@synthesize  uiLayer;
 
 +(id) sceneWithGameMode:(GameMode)gameMode
 {
@@ -23,10 +26,33 @@ static GameWorld* CurrentGameWorld;
 	// 'scene' is an autorelease object.
 	CCScene* scene = [CCScene node];
 
-	GameScene* main = [[[GameScene alloc] initWithGameMode:gameMode] autorelease];
-	[scene addChild:main];
+	currentGameScene = [[[GameScene alloc] initWithGameMode:gameMode] autorelease];
+	[scene addChild:currentGameScene];
 	// return the scene
 	return scene;
+}
+
++(GameScene*) current
+{
+    return currentGameScene;
+}
+
+-(GameTeam*) getPlayerTeam
+{
+    if(playerController != nil)
+    {
+        return playerController.team;
+    }
+    return nil;
+}
+
+-(NSString*) getPlayerId
+{
+    if(playerController != nil)
+    {
+        return playerController.playerID;
+    }
+    return nil;
 }
 
 +(float) getDifficultyFactor
@@ -63,7 +89,8 @@ static GameWorld* CurrentGameWorld;
 {
 	if((self = ([super init])))
 	{		
-		difficultyFactor = 0.5f;
+        appDelegate = [UIApplication sharedApplication].delegate;
+		difficultyFactor = 0.6f;
 		gameType = [[TeamDeathmatch alloc] initWithWinScore:30];
 		gameMode = gMode;
 		broadcastInterval = 0;
@@ -97,6 +124,9 @@ static GameWorld* CurrentGameWorld;
 
 -(void) dealloc
 {
+    [playerController release];
+    [networkPlayerControllers release];
+    [botControllers release];
 	[onlinePlayUI release];
 	[localPlayUI release];
 	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
@@ -125,7 +155,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) initializePlayer:(NSString*)pType
 {
-	[self initializePlayerWithPawnType:pType onTeam:team1 withName:@"LocalPlayer"];
+	[self initializePlayerWithPawnType:pType onTeam:team1 withName:appDelegate.playerName];
 }
 
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name
@@ -178,7 +208,7 @@ static GameWorld* CurrentGameWorld;
 	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
 	NSString* peerID = [gkHelper getPeerID];
 	if(networkPlayerControllers == nil)
-		networkPlayerControllers = [[NSMutableDictionary alloc] init];
+		networkPlayerControllers = [[NSMutableDictionary dictionary] retain];
 	for(NSUInteger i = 0; i < [pawnInfo count];i++)
 	{
 		PawnInfo* info = [pawnInfo objectAtIndex:i];
@@ -186,6 +216,10 @@ static GameWorld* CurrentGameWorld;
 		{
 			NetworkGameController* controller = [[NetworkGameController alloc] initInWorld:gameWorld usingPawn:info.pawnType asTeam:([info.teamID intValue] == 2 ? team1:team2) withPlayerID:info.playerID withPlayerName:info.playerName usingVariation:[info.spriteVariation intValue]];
 			[networkPlayerControllers setObject:controller forKey:info.playerID];
+            if(controller.team != playerController.team)
+            {
+                [controller setTargetted:true];
+            }
 			[gameWorld spawnGamePawn:controller.pawn];
 		}
 	}
@@ -194,7 +228,7 @@ static GameWorld* CurrentGameWorld;
 -(void) showLeaderboard:(ccTime)delta
 {
 	[self unschedule:@selector(showLeaderboard:)];
-	[uiLayer showMessage:@""];
+	[uiLayer showMessage:@"" forInterval:0];
 	NSArray* array = (NSArray*)[self generateTeamLeaderboard];
 	Leaderboard* leaderboard = [[Leaderboard alloc] initWithLeaderboardEntries:array];
 	leaderboard.position = ccp(40,40);
@@ -261,7 +295,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) initializeBots:(int)numBots
 {
-	botControllers = [[NSMutableArray alloc] init];
+	botControllers = [[NSMutableArray array] retain];
 	for(int i = 0; i < numBots; i++)
 	{
 		NSString* botName = [NSString stringWithFormat:@"%d",i];
@@ -269,6 +303,11 @@ static GameWorld* CurrentGameWorld;
 		BotController* botController1 = [[BotController alloc] initInWorld:gameWorld usingPawn:nil asTeam:team withPlayerID:botName withPlayerName:botName];
 		[gameWorld spawnGamePawn:botController1.pawn];
 		[botControllers addObject:botController1];
+        if(botController1.team != playerController.team)
+        {
+            [botController1 setTargetted:true];
+        }
+
 	}
 }
 
@@ -285,7 +324,7 @@ static GameWorld* CurrentGameWorld;
 	
 	NetworkPlayerInput* netInput;
 	[gameWorld updateWorld:dt];
-	netInput = [playerController processInput:dt];
+	netInput = [[playerController processInput:dt] retain];
 	//if(gameMode != Game_Single && netInput.hasJump || netInput.hasMove || netInput.hasShoot || netInput.hasSyncPosition)
 	//	[playerInputs addObject:netInput];
 	[playerController processCamera:dt];
@@ -315,12 +354,13 @@ static GameWorld* CurrentGameWorld;
 		}
 	}
 	
-	BattleInfo* battleInfo = [gameWorld getBattleInfo];
+	BattleInfo* battleInfo = [[gameWorld getBattleInfo] retain];
 	for(NSUInteger i = 0; i < [botControllers count]; i++)
 	{
 		BotController* botController = [botControllers objectAtIndex:i];
 		netInput = [botController processBattleInfo:battleInfo delta:dt];
-		[botController updatePawn:dt];
+        [netInput retain];
+        [botController updatePawn:dt];
 		//if(isServer && lastBroadcast > broadcastInterval && netInput.hasJump || netInput.hasMove || netInput.hasShoot || netInput.hasSyncPosition)
 		//	[playerInputs addObject:netInput];
 		//if(lastBroadcast > broadcastInterval)
@@ -334,7 +374,7 @@ static GameWorld* CurrentGameWorld;
 			botController.updated = false;
 		}
 	}	
-	//[battleInfo release];
+	[battleInfo release];
 	
 	//Update UI
 	[uiLayer updateTeam1Score:team1.teamKills team2Score:team2.teamKills];
@@ -390,9 +430,9 @@ static GameWorld* CurrentGameWorld;
 	if(winningTeam != nil)
 	{
 		if(team1 == winningTeam)
-			[uiLayer showMessage:@"Red Team Wins!" withColor : ccc3(255,0,0)];
+			[uiLayer showMessage:@"Red Team Wins!" forInterval:0 withColor : ccc3(255,0,0)];
 		else
-			[uiLayer showMessage:@"Blue Team Wins!" withColor : ccc3(0,0,255)];
+			[uiLayer showMessage:@"Blue Team Wins!" forInterval:0 withColor : ccc3(0,0,255)];
 		gameActive =	false;
 		[self schedule:@selector(showLeaderboard:) interval:3];
 		return;
@@ -451,7 +491,8 @@ static GameWorld* CurrentGameWorld;
             player = [networkPlayerControllers objectForKey:powerupEvent.playerId];
         if(player != nil)
         {
-            [player.pawn equipPowerup:[powerup getPowerup]];
+            [[PowerupManager current] equipPowerup:powerup toPawn:player.pawn];
+            //[player.pawn equipPowerup:[powerup getPowerup]];
         }
     }
     else if(powerupEvent.eventType == Activate)
@@ -502,6 +543,9 @@ static GameWorld* CurrentGameWorld;
 	[self initializeTeams];
 	[self initializePlayerWithPawnType:[localPlayUI getSelectedCharacter] onTeam:([localPlayUI getSelectedTeam] == 1 ? team1 : team2) withName:[localPlayUI getPlayerName]];
 	[self removeChild:localPlayUI cleanup:true];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"TakeHit.aif"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Paintball-Impact.aif"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Paintball-Shot.aif"];
 	[self playBackgroundMusic];
 }
 
@@ -794,7 +838,7 @@ static GameWorld* CurrentGameWorld;
 {
 	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
 	DataPacket* packet = [[DataHelper deserializeDataPacket:data] retain];
-	DataPacket* response = [[DataPacket alloc] init];
+	DataPacket* response = [[[DataPacket alloc] init] autorelease];
 	//request from server for the client to initialize
 	if(packet.dataType == Data_InitPawnRequest)
 	{
@@ -921,8 +965,8 @@ static GameWorld* CurrentGameWorld;
     {
         [self processPowerupEvent:packet.powerupEvent];
     }
-	/*[packet release];
-	[response release];
+	[packet release];
+	/*[response release];
 	packet = nil;
 	response = nil;*/
 }

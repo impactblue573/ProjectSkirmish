@@ -10,6 +10,7 @@
 #import "DialList.h"
 #import "CharacterPicker.h"
 #import "WorldPicker.h"
+#import "ProjectSkirmishAppDelegate.h"
 
 @protocol LocalPlayUIProtocol
 
@@ -41,6 +42,7 @@
 	CCMenuItemFont* worldLauncher;
 	CharacterPicker* characterPicker;
 	WorldPicker* worldPicker;
+    ProjectSkirmishAppDelegate* appDelegate;
 	NSString* selectedCharacter;
 	NSString* selectedWorld;
 	float selectedTeam;

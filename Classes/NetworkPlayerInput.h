@@ -9,16 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface NetworkPlayerInput : NSObject <NSCoding> {
-	/*bool hasMove;
-	bool hasShoot;
-	bool hasJump;
-	bool hasSyncPosition;
-	CGPoint moveVector;
-	CGPoint shootPoint;
-	CGPoint position;
-	CGPoint velocity;
-	NSString* playerID;
-	float health;*/
+
 	NSNumber* hasJump;
 	NSNumber* positionX;
 	NSNumber* positionY;
@@ -29,11 +20,9 @@
 	NSNumber* moveVector;
 	NSNumber* health;
 	NSString* playerID;
+    bool doRelease;
 }
 
-/*@property(assign) bool hasMove,hasShoot,hasJump,hasSyncPosition;
-@property(assign) CGPoint moveVector,shootPoint,position,velocity;
-@property (assign) float health;*/
 @property(assign) NSNumber* hasJump;
 @property(assign) NSNumber* positionX;
 @property(assign) NSNumber* positionY;

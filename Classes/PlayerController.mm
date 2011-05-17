@@ -46,7 +46,7 @@
 	//Init Network Inpt
 	b2Vec2 pos = [pawn position];
 	b2Vec2 vel = [pawn velocity];
-	NetworkPlayerInput* netInput = [[NetworkPlayerInput alloc] init];
+	NetworkPlayerInput* netInput = [[[NetworkPlayerInput alloc] init] autorelease];
 	netInput.playerID = playerID;
 	//Do position synch
 	if(lastNetworkSync > networkSyncInterval)

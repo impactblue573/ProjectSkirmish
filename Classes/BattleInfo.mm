@@ -19,7 +19,7 @@
 
 -(NSArray*) getEnemyLocations:(GamePawn *)pawn
 {
-	NSMutableArray* enemyList = [[NSMutableArray alloc] init];
+	NSMutableArray* enemyList = [NSMutableArray array];
 	for(NSUInteger i = 0; i < [pawnList count]; i++)
 	{
 		GamePawn* p = [pawnList objectAtIndex:i];

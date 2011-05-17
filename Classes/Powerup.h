@@ -20,6 +20,7 @@
 
 -(id) init;
 -(void) step:(ccTime)dt;
+-(NSString*) getEquipMessage;
 
 @property(readonly) float moveFactor;
 @property(readonly) float damageFactor;

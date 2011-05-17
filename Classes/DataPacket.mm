@@ -52,7 +52,6 @@
 	if(dataType == Data_PawnUpdate)
 	{
 		playerInput = [[aDecoder decodeObject] retain];
-		//sendTime = [[aDecoder decodeObject] retain];
 	}
 	if(dataType == Data_MatchUpdate)
 	{
@@ -67,12 +66,12 @@
 	return self;
 }
 
-/*-(void) dealloc
+-(void) dealloc
 {
-	//[pawnInitData release];
+	[pawnInitData release];
 	//[playerInput release];
-	//[matchInfo release];
+	[matchInfo release];
 	[super dealloc];
-}*/
+}
 	 
 @end

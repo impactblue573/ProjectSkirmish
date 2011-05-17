@@ -16,7 +16,7 @@
 #import "TitleScene.h"
 @implementation ProjectSkirmishAppDelegate
 
-@synthesize window;
+@synthesize window,playerName;
 
 - (void) removeStartupFlicker
 {
@@ -45,11 +45,18 @@
 	// Init the window
 	window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 	
+    //init player name
+    NSString* deviceName = [[UIDevice currentDevice] name];
+    deviceName = [deviceName stringByReplacingOccurrencesOfString:@"iphone" withString:@"" options:1 range:NSMakeRange(0,[deviceName length])];
+    deviceName = [deviceName stringByReplacingOccurrencesOfString:@"ipod" withString:@"" options:1 range:NSMakeRange(0,[deviceName length])];
+    deviceName = [deviceName stringByReplacingOccurrencesOfString:@"’s" withString:@"" options:1 range:NSMakeRange(0,[deviceName length])];
+    deviceName = [deviceName stringByReplacingOccurrencesOfString:@" " withString:@""];
+    
+    [self savePlayerName:deviceName];
 	// Try to use CADisplayLink director
 	// if it fails (SDK < 3.1) use the default director
 	if( ! [CCDirector setDirectorType:kCCDirectorTypeDisplayLink] )
 		[CCDirector setDirectorType:kCCDirectorTypeDefault];
-	
 	
 	CCDirector *director = [CCDirector sharedDirector];
 	
@@ -90,7 +97,7 @@
 	[director setDeviceOrientation:kCCDeviceOrientationLandscapeLeft];
 #endif
 	
-	[director setAnimationInterval:1.0/30];
+	[director setAnimationInterval:1.0/60];
 	[director setDisplayFPS:NO];
 	
 	
@@ -154,7 +161,14 @@
 	[[CCDirector sharedDirector] setNextDeltaTimeZero:YES];
 }
 
+-(void) savePlayerName:(NSString *)name
+{
+    [playerName release];
+    playerName = [[NSString stringWithString:name] retain];
+}
+
 - (void)dealloc {
+    [playerName release];
 	[[CCDirector sharedDirector] release];
 	[window release];
 	[super dealloc];

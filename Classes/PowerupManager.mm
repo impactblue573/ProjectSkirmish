@@ -15,6 +15,13 @@
 
 @implementation PowerupManager
 
+static PowerupManager* currentPowerupManager;
+
++(PowerupManager*) current
+{
+    return currentPowerupManager;
+}
+
 -(id) initWithWorld:(GameWorld *)w
 {
     self = [super init];
@@ -22,6 +29,7 @@
     world = w;
     timeSinceLastStep = 0;
     stepInterval = 0.05;
+    currentPowerupManager = self;
     return self;
 }
 
@@ -42,6 +50,40 @@
     }
     [powerups removeAllObjects];
     [super dealloc];
+}
+
+-(Powerup*) equipPowerup:(PowerupFactory*)powerup toPawn:(GamePawn*)pawn
+{
+    Powerup* p = [powerup getPowerup];
+    [p retain];
+    [pawn equipPowerup:p];
+    if([pawn.controller.playerID isEqualToString:[[GameScene current] getPlayerId]])
+    {
+        [[GameScene current].uiLayer showMessage:[p getEquipMessage] forInterval:2];
+    }
+    [p release];
+    return p;
+}
+
+-(void) powerupContact:(PowerupFactory*)powerup withPawn:(GamePawn*)pawn
+{
+    if(([GameScene CurrentGameMode] == Game_Single || [GameScene isServer]) && powerup.state == Active && ![pawn isDead])
+    {
+        [self equipPowerup:powerup toPawn:pawn];
+        //Notify Powerup Equip
+        if([GameScene CurrentGameMode] != Game_Single && [GameScene isServer])
+        {
+            PowerupEvent* event = [[PowerupEvent alloc] init];
+            event.eventType = Equip;
+            event.powerupId = powerup.powerupId;
+            event.playerId = pawn.controller.playerID;
+            DataPacket* data = [[DataPacket alloc] init];
+            data.dataType = Data_PowerupEvent;
+            data.powerupEvent = event;
+            [[GameKitHelper sharedGameKitHelper] sendDataToAllPeers:[DataHelper serializeDataPacket:data] withMode:GKSendDataReliable];
+        }
+    }
+
 }
 
 -(void) processPowerups:(ccTime)dt

@@ -9,10 +9,7 @@
 #import "ProjectileContactListener.h"
 #import "GameScene.h"
 #import "PowerupFactory.h"
-#import "PowerupEvent.h"
-#import "DataPacket.h"
-#import "DataHelper.h"
-#import "GameKitHelper.h"
+#import "PowerupManager.h"
 
 void ProjectileContactListener::BeginContact(b2Contact* contact)
 {
@@ -93,22 +90,7 @@ void ProjectileContactListener::PreSolve(b2Contact* contact, const b2Manifold* o
     
     if(pawn != nil && powerup != nil)
     {
-        if(([GameScene CurrentGameMode] == Game_Single || [GameScene isServer]) && powerup.state == Active)
-        {
-            [pawn equipPowerup:[powerup getPowerup]];   
-            //Notify Powerup Equip
-            if([GameScene CurrentGameMode] != Game_Single && [GameScene isServer])
-            {
-                PowerupEvent* event = [[PowerupEvent alloc] init];
-                event.eventType = Equip;
-                event.powerupId = powerup.powerupId;
-                event.playerId = pawn.controller.playerID;
-                DataPacket* data = [[DataPacket alloc] init];
-                data.dataType = Data_PowerupEvent;
-                data.powerupEvent = event;
-                [[GameKitHelper sharedGameKitHelper] sendDataToAllPeers:[DataHelper serializeDataPacket:data] withMode:GKSendDataReliable];
-            }
-        }
+        [[PowerupManager current] powerupContact:powerup withPawn:pawn];
         contact->SetEnabled(false);
     }
 }

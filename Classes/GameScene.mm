@@ -703,12 +703,13 @@ static GameWorld* CurrentGameWorld;
 	else if(gameMode == Game_Local)
 	{
 		isServer = true;
-		[gkHelper hostServer:@"Server Player" delegate:self];
+		[gkHelper hostServer:appDelegate.playerName delegate:self];
 		[localPlayUI showPendingMenu:@"Waiting for players to join..."];
 		[localPlayUI setPlayersJoined:0];
 		[localPlayUI setStartMenuVisible:false];
 		[localPlayUI showBots:true];
 		[localPlayUI showWorld:true];
+        [localPlayUI showBackground:1];
 
 	}
 }
@@ -729,12 +730,13 @@ static GameWorld* CurrentGameWorld;
 	else if(gameMode == Game_Local)
 	{
 		isServer = false;
-		[gkHelper startClient:[NSString stringWithFormat:@"Client Player %d",random()%1000] delegate:self];
+		[gkHelper startClient:appDelegate.playerName delegate:self];
 		[localPlayUI showPendingMenu:@"Searching for servers..."];
 		[localPlayUI setPlayersJoinedVisible:false];
 		[localPlayUI setStartMenuVisible:false];
 		[localPlayUI showBots:false];
 		[localPlayUI showWorld:false];
+        [localPlayUI showBackground:1];
 	}
 }
 
@@ -798,7 +800,7 @@ static GameWorld* CurrentGameWorld;
 		if(state == GKPeerStateAvailable)
 		{
 			[session connectToPeer:peerID withTimeout:10];			
-			[localPlayUI setPendingText:@"Connecting to server..."];
+			[localPlayUI setPendingText:[NSString stringWithFormat:@"Connecting to %@",[session displayNameForPeer:peerID]]];
 		}
 		else if(state == GKPeerStateConnected)
 		{
@@ -815,9 +817,8 @@ static GameWorld* CurrentGameWorld;
  */
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID
 {
-	[session acceptConnectionFromPeer:peerID error:nil];
-	
-	[localPlayUI setPendingText:@"Connecting player..."];
+    [session acceptConnectionFromPeer:peerID error:nil];        
+    [localPlayUI setPendingText:[NSString stringWithFormat:@"Connecting %@",[session displayNameForPeer:peerID]]];
 }
 
 /* Indicates a connection error occurred with a peer, which includes connection request failures, or disconnects due to timeouts.

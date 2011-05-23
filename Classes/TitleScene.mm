@@ -24,15 +24,16 @@
 	if((self = [super init]))
 	{
 		CGSize screensize = [CCDirector sharedDirector].winSize;
-		[CCMenuItemFont setFontName:@"Marker Felt"]; 
-		[CCMenuItemFont setFontSize:32];
-		CCMenuItemFont* singlePlayMenu = [CCMenuItemFont itemFromString:@"Single Play" target:self selector:@selector(singlePlayMenuTouched:)]; 
-		singlePlayMenu.position = ccp(0,50);
-		CCMenuItemFont* localPlayMenu = [CCMenuItemFont itemFromString:@"Local Play" target:self selector:@selector(localPlayMenuTouched:)]; 
-		CCMenuItemFont* onlinePlayMenu = [CCMenuItemFont itemFromString:@"Online Play" target:self selector:@selector(onlinePlayMenuTouched:)]; 
-		onlinePlayMenu.position = ccp(0,-50);
+		CCMenuItemImage* singlePlayMenu = [CCMenuItemImage itemFromNormalImage:@"SinglePlay.png" selectedImage:@"SinglePlayActive.png" target:self selector:@selector(singlePlayMenuTouched:)]; 
+		singlePlayMenu.selectedImage.position = ccp(-15,-3);
+		CCMenuItemImage* localPlayMenu = [CCMenuItemImage itemFromNormalImage:@"MultiPlay.png" selectedImage:@"MultiPlayActive.png" target:self selector:@selector(localPlayMenuTouched:)]; 
+		localPlayMenu.position = ccp(0,-50);
+        localPlayMenu.selectedImage.position = ccp(-15,-3);
 		CCMenu* titleMenu = [CCMenu menuWithItems:singlePlayMenu,localPlayMenu,nil];
 		titleMenu.position = ccp(screensize.width/2,screensize.height/2);
+        CCSprite* background = [CCSprite spriteWithFile:@"MainScreenBackground.png"];
+        background.position = ccp(240,160);
+        [self addChild:background];
 		[self addChild:titleMenu];
 	}
 	return self;

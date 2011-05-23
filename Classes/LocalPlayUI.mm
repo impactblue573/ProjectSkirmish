@@ -21,11 +21,14 @@
 		[CCMenuItemFont setFontName:@"Marker Felt"]; 
 		[CCMenuItemFont setFontSize:32];
 		//Init Main Menu
-		CCMenuItemFont* hostGameMenu = [CCMenuItemFont itemFromString:@"Host Game" target:self selector:@selector(hostGameMenuTouched:)]; 
-		hostGameMenu.position = ccp(0,50);
-		CCMenuItemFont* joinGameMenu = [CCMenuItemFont itemFromString:@"Join Game" target:self selector:@selector(joinGameMenuTouched:)]; 
-		CCMenuItemFont* quitMenu = [CCMenuItemFont itemFromString:@"Quit" target:self selector:@selector(quitMenuTouched:)]; 
-		quitMenu.position = ccp(0,-50);
+		CCMenuItemImage* hostGameMenu = [CCMenuItemImage itemFromNormalImage:@"Host.png" selectedImage:@"HostActive.png" target:self selector:@selector(hostGameMenuTouched:)]; 
+		hostGameMenu.selectedImage.position = ccp(-10,-3);
+		CCMenuItemImage* joinGameMenu = [CCMenuItemImage itemFromNormalImage:@"Join.png" selectedImage:@"JoinActive.png" target:self selector:@selector(joinGameMenuTouched:)]; 
+		joinGameMenu.position = ccp(0,-50);
+        joinGameMenu.selectedImage.position = ccp(-10,-3);
+        CCMenuItemImage* quitMenu = [CCMenuItemImage itemFromNormalImage:@"Quit.png" selectedImage:@"QuitActive.png" target:self selector:@selector(quitMenuTouched:)]; 
+		quitMenu.position = ccp(0,-100);
+        quitMenu.selectedImage.position = ccp(-10,-3);
 		CCMenu* localPlayMenu = [CCMenu menuWithItems:hostGameMenu,joinGameMenu,quitMenu,nil];
 		localPlayMenu.position = ccp(screensize.width/2,screensize.height/2);
 		mainMenuLayer = [[CCLayer node] retain];
@@ -34,21 +37,23 @@
 		//Init Lobby Menu
 		
 		//Misc Stuff
-		cancelMenuItem = [CCMenuItemFont itemFromString:@"Cancel" target:self selector:@selector(cancelMenuTouched:)];
- 		cancelMenuItem.position = ccp(0,0);
-		startMenuItem = [[CCMenuItemFont itemFromString:@"Start" target:self selector:@selector(startMenuTouched:)] retain]; 
-		startMenuItem.position = ccp(0,-30);
+		cancelMenuItem = [CCMenuItemImage itemFromNormalImage:@"Close.png" selectedImage:@"CloseActive.png" target:self selector:@selector(cancelMenuTouched:)];
+ 		cancelMenuItem.position = ccp(50 - screensize.width/2,screensize.height/2 - 88);
+        cancelMenuItem.selectedImage.position = ccp(-3,-3);
+		startMenuItem = [[CCMenuItemImage itemFromNormalImage:@"Play.png" selectedImage:@"PlayActive.png" target:self selector:@selector(startMenuTouched:)] retain]; 
+		startMenuItem.position = ccp(screensize.width/2 - 60,-30 -screensize.height/2);
+        startMenuItem.selectedImage.position = ccp(-10,-5);
 		pendingGameMenu = [CCMenu menuWithItems:cancelMenuItem,nil];
 		pendingGameMenu.position = ccp(screensize.width/2,screensize.height - 100);		
 		pendingGameLabel = [CCLabelTTF labelWithString:@"" fontName:@"Marker Felt" fontSize:32];
-		pendingGameLabel.position = ccp(screensize.width/2,screensize.height - 70);
+		pendingGameLabel.position = ccp(screensize.width/2,screensize.height * 0.9);
 		
 		[CCMenuItemFont setFontSize:22];
 		
 		//Player Name
 		CCLabelTTF* playerLabel = [[CCLabelTTF labelWithString:@"Player Name:" dimensions:CGSizeMake(200,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22] retain];
-		playerLabel.position = ccp(screensize.width/2 + 60,screensize.height-30);
-		playerTextField = [[[UITextField alloc] initWithFrame:CGRectMake(screensize.height/2 + 30, screensize.width-70,200, 30)] retain];
+		playerLabel.position = ccp(screensize.width * 0.05 + 100,screensize.height * 0.65);
+		playerTextField = [[[UITextField alloc] initWithFrame:CGRectMake(screensize.height * 0.65 - 100, screensize.width * 0.05 + 220,200, 30)] retain];
 		playerTextField.transform = CGAffineTransformMakeRotation(M_PI * (90.0 / 180.0));
 		playerTextField.delegate = self;
 		playerTextField.returnKeyType = UIReturnKeyDone;        
@@ -59,23 +64,25 @@
 		//World Select
 		worldPicker = [[[WorldPicker alloc] init] retain];
 		[worldPicker setTarget:self selector:@selector(onWorldSelect:)];
-		worldLabel = [[CCLabelTTF labelWithString:@"World:" fontName:@"Marker Felt" fontSize:22] retain];
-		worldLabel.position = ccp(34,120);
-		worldLauncher = [CCMenuItemFont itemFromString:@"The Farm" target:self selector:@selector(launchWorldSelector:)];
+		worldLabel = [[CCLabelTTF labelWithString:@"World:" dimensions:CGSizeMake(200,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22] retain];
+		worldLabel.position = ccp(screensize.width * 0.05,screensize.height * 0.2);
+		worldLabel.anchorPoint = ccp(0,0.5);
+        worldLauncher = [CCMenuItemFont itemFromString:@"The Farm" target:self selector:@selector(launchWorldSelector:)];
 		worldLauncher.anchorPoint = ccp(0,0.5);
 		worldLauncherMenu = [[CCMenu menuWithItems:worldLauncher,nil] retain];
-		worldLauncherMenu.position = ccp(110,120);
+		worldLauncherMenu.position = ccp(screensize.width * 0.05 + 120,screensize.height * 0.2);
 		selectedWorld = @"Farm_World";
 		
 		//Num Bot Scroller
-		botLabel = [[CCLabelTTF labelWithString:@"Num Bots:" fontName:@"Marker Felt" fontSize:22] retain];
-		botLabel.position = ccp(50,90);
-		botDial = [[[DialList alloc] initWithList:[NSArray arrayWithObjects: @"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil] withWidth:70] retain];
-		botDial.position = ccp(140,90);
+		botLabel = [[CCLabelTTF labelWithString:@"Num Bots:" dimensions:CGSizeMake(200,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22] retain];
+		botLabel.position = ccp(screensize.width * 0.05,screensize.height * 0.1);
+		botLabel.anchorPoint = ccp(0,0.5);
+        botDial = [[[DialList alloc] initWithList:[NSArray arrayWithObjects: @"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil] withWidth:70] retain];
+		botDial.position = ccp(screensize.width * 0.05 + 120,screensize.height * 0.1);
 		
 		//team select
-		CCLabelTTF* teamLabel = [CCLabelTTF labelWithString:@"Team:" fontName:@"Marker Felt" fontSize:20];
-		teamLabel.position = ccp(30,60);
+		CCLabelTTF* teamLabel = [CCLabelTTF labelWithString:@"Team:" dimensions:CGSizeMake(100,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22];
+		teamLabel.position = ccp(screensize.width * 0.05 + 50,screensize.height * 0.35);
 		teamAButton = [CCMenuItemFont itemFromString:@"Team A" target:self selector:@selector(toggleTeam:)];	
 		teamAButton.position = ccp(0,0);
 		selectedTeam = 1;
@@ -84,24 +91,41 @@
 		teamBButton.position = ccp(80,0);
 		[teamBButton setColor:ccGRAY];
 		CCMenu* teamMenu = [CCMenu menuWithItems:teamAButton,teamBButton,nil];
-		teamMenu.position = ccp(140,60);
+        teamMenu.anchorPoint = ccp(0,0.5);
+		teamMenu.position = ccp(screensize.width * 0.05 + 120,screensize.height * 0.35);
 		
 		//character select
 		characterPicker = [[[CharacterPicker alloc] init] retain];
 		[characterPicker setTarget:self selector:@selector(onCharacterSelect:)];
 		
-		CCLabelTTF* characterLabel = [CCLabelTTF labelWithString:@"Character:" fontName:@"Marker Felt" fontSize:22];
-		characterLabel.position = ccp(54,30);
+		CCLabelTTF* characterLabel = [CCLabelTTF labelWithString:@"Character:" dimensions:CGSizeMake(100,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22];
+		characterLabel.position = ccp(screensize.width * 0.05 + 50,screensize.height * 0.45);
 		characterLauncher = [CCMenuItemFont itemFromString:@"Lambo" target:self selector:@selector(launchCharacterSelector:)];
 		characterLauncher.anchorPoint = ccp(0,0.5);
 		CCMenu* characterLauncherMenu = [CCMenu menuWithItems:characterLauncher,nil];
-		characterLauncherMenu.position = ccp(140,30);
+		characterLauncherMenu.position = ccp(screensize.width * 0.05 + 120,screensize.height * 0.45 + 3);
+        characterLauncherMenu.anchorPoint = ccp(0,0.5);
 		selectedCharacter = @"Lambo";
 		
 		playersJoinedLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(screensize.width,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:24];
-		playersJoinedLabel.position = ccp(screensize.width/2,screensize.height-30);
-		pendingGameMenuLayer = [[CCLayer node] retain];
+		playersJoinedLabel.position = ccp(screensize.width * 0.05,screensize.height * 0.75);
+		playersJoinedLabel.anchorPoint = ccp(0,0.5);
+        pendingGameMenuLayer = [[CCLayer node] retain];
 		
+        
+        //backgrounds
+        backgrounds = [[NSMutableArray array] retain];
+        CCSprite* background = [CCSprite spriteWithFile:@"MainScreenBackground.png"];
+        background.position = ccp(240,160);        
+        [backgrounds addObject:background];
+        [self addChild:background];
+
+        background = [CCSprite spriteWithFile:@"LobbyBackground.png"];
+        background.position = ccp(240,160);  
+        background.visible = false;
+        [backgrounds addObject:background];
+        [self addChild:background];
+
 		[pendingGameMenuLayer addChild:pendingGameLabel];
 		[pendingGameMenuLayer addChild:pendingGameMenu];
 		[pendingGameMenuLayer addChild:playersJoinedLabel];
@@ -110,6 +134,10 @@
 		[pendingGameMenuLayer addChild:teamMenu];
 		[pendingGameMenuLayer addChild:characterLabel];
 		[pendingGameMenuLayer addChild:characterLauncherMenu];
+        [pendingGameMenuLayer addChild:botLabel];
+        [pendingGameMenuLayer addChild:botDial];
+        [pendingGameMenuLayer addChild:worldLabel];
+        [pendingGameMenuLayer addChild:worldLauncherMenu];
 	}
 	return self;
 }
@@ -178,7 +206,7 @@
 			[pendingGameMenu addChild:startMenuItem z:0 tag:3];
 	}
 	else 
-		[pendingGameMenu removeChild:startMenuItem cleanup:false];
+		[pendingGameMenu removeChild:startMenuItem cleanup:true];
 
 }
 
@@ -191,6 +219,7 @@
 {
 	[self removeChild:pendingGameMenuLayer cleanup:false];
 	[self addChild:mainMenuLayer];
+    [self showBackground:0];
 }
 
 -(void) toggleTeam:(id)sender
@@ -244,14 +273,12 @@
 {
 	if(show)
 	{
-		if([pendingGameMenuLayer getChildByTag:1] == nil)			
-			[pendingGameMenuLayer addChild:botLabel z:0 tag:1];
-		if([pendingGameMenuLayer getChildByTag:2] == nil)
-			[pendingGameMenuLayer addChild:botDial z:0 tag:2];
+        botLabel.visible = TRUE;
+        botDial.visible = TRUE;
 	}
 	else {
-		[pendingGameMenuLayer removeChild:botLabel cleanup:false];
-		[pendingGameMenuLayer removeChild:botDial cleanup:false];
+        botLabel.visible = FALSE;
+        botDial.visible = FALSE;
 	}
 }
 
@@ -259,14 +286,12 @@
 {
 	if(show)
 	{
-		if([pendingGameMenuLayer getChildByTag:3] == nil)			
-			[pendingGameMenuLayer addChild:worldLabel z:0 tag:3];
-		if([pendingGameMenuLayer getChildByTag:4] == nil)
-			[pendingGameMenuLayer addChild:worldLauncherMenu z:0 tag:4];
+        worldLabel.visible = TRUE;
+        worldLauncherMenu.visible = TRUE;
 	}
 	else {
-		[pendingGameMenuLayer removeChild:worldLabel cleanup:false];
-		[pendingGameMenuLayer removeChild:worldLauncherMenu cleanup:false];
+        worldLabel.visible = FALSE;
+        worldLauncherMenu.visible = FALSE;
 	}
 }
 
@@ -280,10 +305,28 @@
 	[self showPlayerNameField:false];
 }
 
+-(void) showBackground:(uint)index
+{
+    //hide all
+    for(uint i = 0; i < [backgrounds count]; i++)
+    {
+        CCSprite* background = [backgrounds objectAtIndex:i];
+
+        if(i == index)
+        {
+            background.visible = true;
+        }
+        else
+        {
+            background.visible = false;
+        }
+    }
+}
+
 -(void) dealloc
 {
-	[botDial retain];
-	[botLabel retain];
+	[botDial release];
+	[botLabel release];
 	[pendingGameLabel release];
 	[playersJoinedLabel release];
 	[cancelMenuItem release];
@@ -291,7 +334,12 @@
 	[pendingGameMenu release];
 	[mainMenuLayer release];
 	[pendingGameMenuLayer release];
-	[super dealloc];
+//    for(uint i = 0; i < [backgrounds count];i++)
+//    {
+//        [[backgrounds objectAtIndex:i] release];
+//    }
+    [backgrounds release];
+    [super dealloc];
 }
 
 #pragma mark UITextField Delegate

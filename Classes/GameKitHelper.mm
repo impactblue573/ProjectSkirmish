@@ -650,6 +650,7 @@ static GameKitHelper *instanceOfGameKitHelper;
 		currentSession.available = NO;
 		[currentSession disconnectFromAllPeers];
 		[currentSession release];
+        currentSession = nil;
 	}
 }
 

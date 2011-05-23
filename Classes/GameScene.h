@@ -63,7 +63,6 @@ typedef enum
 	GameType* gameType;
 	CharacterPicker* singlePlayCharacterPicker;
 	WorldPicker* singlePlayWorldPicker;
-
 }
 
 

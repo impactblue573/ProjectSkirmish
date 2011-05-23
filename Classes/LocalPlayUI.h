@@ -29,8 +29,8 @@
 	CCLabelTTF* pendingGameLabel;
 	CCLabelTTF* playersJoinedLabel;
 	CCMenu* pendingGameMenu;
-	CCMenuItem* cancelMenuItem;
-	CCMenuItem* startMenuItem;
+	CCMenuItemImage* cancelMenuItem;
+	CCMenuItemImage* startMenuItem;
 	CCMenuItemFont* teamAButton;
 	CCMenuItemFont* teamBButton;
 	UITextField* playerTextField;
@@ -45,6 +45,7 @@
     ProjectSkirmishAppDelegate* appDelegate;
 	NSString* selectedCharacter;
 	NSString* selectedWorld;
+    NSMutableArray* backgrounds;
 	float selectedTeam;
 }
 
@@ -64,6 +65,7 @@
 -(void) clearTextFields;
 -(void) onCharacterSelect:(SlideListItem)item;
 -(void) onWorldSelect:(SlideListItem)item;
+-(void) showBackground:(uint)index;
 
 @property (nonatomic, retain) id<LocalPlayUIProtocol> delegate;
 @end

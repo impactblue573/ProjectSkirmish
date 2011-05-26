@@ -49,6 +49,8 @@
 		fireDamage = 10;
         powerups = [[NSMutableArray alloc] init];
         spriteVariation = 1;
+        fireForceMod = 1.0f;
+        fireIntervalMod = 1.0f;
 	}
 	return self;
 }
@@ -64,6 +66,11 @@
 	[self init];
 	controller = ctrl;
 	return self;
+}
+
+-(float) getFireInterval
+{
+    return fireInterval * fireIntervalMod;
 }
 
 -(void) setProjectilePool:(ProjectilePool*)pool
@@ -116,10 +123,10 @@
 		b2Vec2 vel = [self velocity];
 		[self setVelocity:b2Vec2(vel.x,0.1)];
 		b2Vec2 pos = [self position];
-		if([GameScene isInPlayerView:ccp(pos.x,pos.y)] || [controller isKindOfClass:[PlayerController class]])
-		{
-			//play jump
-		}
+//		if([GameScene isInPlayerView:ccp(pos.x,pos.y)] || [controller isKindOfClass:[PlayerController class]])
+//		{
+//			//play jump
+//		}
 		return true;
 	}
 	return false;
@@ -141,9 +148,9 @@
 		
 		//spawn projectile
 		Projectile* projectile = [[Projectile alloc] init];
-		projectile.sprite = [[CCSprite spriteWithFile:team.paintballSprite] retain];
+		projectile.sprite = [[CCSprite spriteWithSpriteFrameName:team.paintballSprite] retain];
 		projectile.launchPosition = CGPointMake(tiltPos.x + facing * muzzleOffset.x * cos(angle),tiltPos.y + facing * muzzleOffset.x * sin(angle));;
-		projectile.launchForce = CGPointMake(facing * fireForce * cos(angle), facing * fireForce * sin(angle));
+		projectile.launchForce = CGPointMake(facing * fireForce * fireForceMod * cos(angle), facing * fireForce * fireForceMod * sin(angle));
 		projectile.mass = 0.1;
 		projectile.controller = controller;
 		projectile.deathEffect = [[[PaintballExplodeParticleSystem alloc] initVelocity:ccp([Helper normalize:projectile.launchForce.x],projectile.launchForce.y/fabsf(projectile.launchForce.x)) withColor:team.teamColor] autorelease];		
@@ -175,7 +182,7 @@
 	if(isFiring)
 	{
 		timeSinceFire += dt;
-		if(timeSinceFire > fireInterval)
+		if(timeSinceFire > fireInterval * fireIntervalMod)
 			[self endFire];
 	}
 	
@@ -236,7 +243,7 @@
 		physicsState = Physics_Jumping;
 	else if(velocity.y < -0.05)
 		physicsState = Physics_Falling;
-	else if(velocity.y == 0 && (physicsState == Physics_Falling || physicsState == Physics_Jumping))
+	else if(velocity.y == 0 && (physicsState == Physics_Falling))
 		physicsState = Physics_Walking;
 	
 	//synchronize position with physics body	
@@ -370,7 +377,7 @@
 
 -(PawnInfo*) getPawnInfo
 {
-	PawnInfo* info = [[[PawnInfo alloc] init] retain];
+	PawnInfo* info = [[[PawnInfo alloc] init] autorelease];
 	info.pawnType = pawnType;
     info.spriteVariation = [NSNumber numberWithInt:spriteVariation];
 	info.teamID = [NSNumber numberWithInt:team.teamIndex];

@@ -19,6 +19,7 @@
 
 -(void) appendNode:(AnimationNode *)node
 {
+    [node retain];
 	if(rootNode == nil)
 		rootNode = node;
 	else 
@@ -32,5 +33,15 @@
 -(AnimationSequence) Eval:(GamePawn*)pawn
 {
 	return [rootNode Eval:pawn];
+}
+
+-(void) dealloc
+{
+    for(uint i = 0; i < [nodeList count];i++)
+    {
+        [[nodeList objectAtIndex:i] release];
+    }
+    [nodeList release];
+    [super dealloc];
 }
 @end

@@ -33,4 +33,10 @@
 {
 	return [tapTarget tapPosition];
 }
+
+-(void) dealloc
+{
+    [leftJoystick release];
+    [super dealloc];
+}
 @end

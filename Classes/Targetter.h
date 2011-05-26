@@ -31,6 +31,7 @@ typedef enum TargetterState
     float minScale;
     float animateInterval;
     float newOpacity;
+    bool enabled;
 }
 
 -(id) initWithSprite:(NSString*)spriteName inLayer:(CCLayer*)layer;

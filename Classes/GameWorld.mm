@@ -31,6 +31,8 @@ static bool debugDraw = false;
 	if((self=[super init])) 
 	{
         minTimeStep = 1.0f/60.0f;
+        gravity = -20.0f;
+        projectileGravityMod = 0.0;
         currentTimeStep = 0;        
 		[self buildWorld:worldName];
 		gamePawnList = [[NSMutableArray array] retain];
@@ -51,8 +53,8 @@ static bool debugDraw = false;
 	NSDictionary* pListData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",worldName]]];
 	worldSize = CGSizeMake([[pListData objectForKey:@"WorldWidth"] floatValue], [[pListData objectForKey:@"WorldHeight"] floatValue]);
 	
-	b2Vec2 gravity;
-	gravity.Set(0.0f, -20.0f);
+	b2Vec2 gravityVec;
+	gravityVec.Set(0.0f, gravity);
 	
 	// Do we want to let bodies sleep?
 	// This will speed up the physics simulation
@@ -60,7 +62,7 @@ static bool debugDraw = false;
 	
 	// Construct a world object, which will hold and simulate the rigid bodies.
 	ProjectileContactListener* listener = new ProjectileContactListener();
-	physicsWorld = new b2World(gravity, doSleep);	
+	physicsWorld = new b2World(gravityVec, doSleep);	
 	physicsWorld->SetContactListener(listener);
 	
 	OneSideContactFilter* contactFilter = new OneSideContactFilter();
@@ -102,11 +104,19 @@ static bool debugDraw = false;
 	//Load World Sprites
 	if(!debugDraw)
 	{
+        NSArray* worldSpriteSheets = (NSArray*)[pListData objectForKey:@"SpriteSheets"];
+        for(uint i = 0; i < [worldSpriteSheets count]; i++)
+        {
+            NSString* spriteSheet = [worldSpriteSheets objectAtIndex:i];
+            [[CCSpriteFrameCache sharedSpriteFrameCache] addSpriteFramesWithFile:spriteSheet];
+        }
+        
 		NSArray* worldSprites = (NSArray*)[pListData objectForKey:@"Sprites"];
 		for(uint i = 0; i < [worldSprites count];i++)
 		{
 			NSDictionary* spriteData = (NSDictionary*)[worldSprites objectAtIndex:i];
-			CCSprite* sprite = [CCSprite spriteWithFile:[spriteData objectForKey:@"SpriteName"]];
+			CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:[spriteData objectForKey:@"SpriteName"]];
+            [sprite.texture setAliasTexParameters];
 			sprite.position = ccp([[spriteData objectForKey:@"PosX"] floatValue],[[spriteData objectForKey:@"PosY"] floatValue]);
 			[self addChild:sprite z:[[spriteData objectForKey:@"Z"] intValue]];		
 		}
@@ -143,7 +153,7 @@ static bool debugDraw = false;
     {
         NSDictionary* powerupData = [powerupList objectAtIndex:i];
         PowerupType type = [PowerupFactory parsePowerupType:[powerupData objectForKey:@"Type"]];
-        PowerupFactory* powerup = [[PowerupFactory alloc] initWithPowerupType:type spriteName:[powerupData objectForKey:@"SpriteName"] position:CGPointMake([[powerupData objectForKey:@"PosX"] floatValue], [[powerupData objectForKey:@"PosY"] floatValue]) withID:i isDummy:createDummyPowerups];
+        PowerupFactory* powerup = [[[PowerupFactory alloc] initWithPowerupType:type spriteName:[powerupData objectForKey:@"SpriteName"] position:CGPointMake([[powerupData objectForKey:@"PosX"] floatValue], [[powerupData objectForKey:@"PosY"] floatValue]) withID:i isDummy:createDummyPowerups] autorelease];
         [powerupManager addPowerupFactory:powerup];
     }
     
@@ -264,11 +274,12 @@ static bool debugDraw = false;
     //currentTimeStep += dt;
     //if(currentTimeStep > minTimeStep)
     //{
-        physicsWorld->Step(dt, velocityIterations, positionIterations);
-        physicsWorld->ClearForces();
+    
+	[self updateProjectiles:dt];
+    physicsWorld->Step(dt, velocityIterations, positionIterations);
+    physicsWorld->ClearForces();
     //    currentTimeStep = 0;
     //}
-	[self updateProjectiles:dt];
     [powerupManager processPowerups:dt];
 	//[self synchronizePawnPhysics];
 }
@@ -282,6 +293,7 @@ static bool debugDraw = false;
 	Projectile* proj;
 	while((proj = [projectilePool getNextProjectile]))
 	{
+        //[proj retain];
 		[self spawnProjectile:proj];
 		[activeProjectiles addObject:proj];
 	}
@@ -302,7 +314,7 @@ static bool debugDraw = false;
 			[self removeChild:proj.sprite cleanup:true];
 			[activeProjectiles removeObjectAtIndex:i];
 			physicsWorld->DestroyBody(proj.physicsBody);
-			[proj release];
+			[proj release]; 
 			//Determine if sound should be played
 			/*if(pos.x >= p.x && pos.x <= (p.x + s.width) && pos.y >= p.y && pos.y <= (p.y + s.height))
 			{
@@ -316,8 +328,13 @@ static bool debugDraw = false;
 		{
 			b2Vec2 pBodyPos = proj.physicsBody->GetPosition();
 			proj.sprite.position = ccp(pBodyPos.x * PTM_RATIO,pBodyPos.y * PTM_RATIO);
+            b2Vec2 pBodyVel = proj.physicsBody->GetLinearVelocity();
+            //apply anti gravity
+            if(pBodyVel.y != 0 && projectileGravityMod != 0)
+            {
+                proj.physicsBody->SetLinearVelocity(b2Vec2(pBodyVel.x,pBodyVel.y + gravity * projectileGravityMod * dt));
+            }            
 		}
-
 	}
 }
 
@@ -398,6 +415,7 @@ NSInteger sortByPawnPosition(id arg1,id arg2, void* reverse)
 
 -(void) dealloc
 {
+    [powerupManager release];
     [gamePawnList release];
     [projectilePool release];		
     [activeProjectiles release];

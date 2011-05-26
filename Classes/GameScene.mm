@@ -26,7 +26,7 @@ static GameWorld* CurrentGameWorld;
 	// 'scene' is an autorelease object.
 	CCScene* scene = [CCScene node];
 
-	currentGameScene = [[[GameScene alloc] initWithGameMode:gameMode] autorelease];
+	currentGameScene = [[GameScene alloc] initWithGameMode:gameMode];
 	[scene addChild:currentGameScene];
 	// return the scene
 	return scene;
@@ -99,7 +99,7 @@ static GameWorld* CurrentGameWorld;
 		playerList = [[NSMutableArray alloc] init];
 		if(gameMode == Game_Online)
 		{
-			onlinePlayUI = [[OnlinePlayUI node] retain];
+			onlinePlayUI = [OnlinePlayUI node];
 			onlinePlayUI.delegate = self;
 			GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper]; 
 			gkHelper.delegate = self; 
@@ -107,7 +107,7 @@ static GameWorld* CurrentGameWorld;
 		}
 		else if(gameMode == Game_Local)
 		{
-			localPlayUI = [[LocalPlayUI node] retain];
+			localPlayUI = [LocalPlayUI node];
 			[localPlayUI showMainMenu];
 			localPlayUI.delegate = self; 
 			[self addChild:localPlayUI];
@@ -120,17 +120,6 @@ static GameWorld* CurrentGameWorld;
 		}
 	}
 	return self;
-}
-
--(void) dealloc
-{
-    [playerController release];
-    [networkPlayerControllers release];
-    [botControllers release];
-	[onlinePlayUI release];
-	[localPlayUI release];
-	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
-	[super dealloc];
 }
 
 -(void) loadSprites
@@ -178,23 +167,24 @@ static GameWorld* CurrentGameWorld;
 		playerID = [[GameKitHelper sharedGameKitHelper] getPeerID];
 	}
 	//initialize controls
-	TapTarget* tapTarget = [[TapTarget alloc] initWithMinTouchDuration:0.02f];
+	tapTarget = [[TapTarget alloc] initWithMinTouchDuration:0.02f];
 	
-	SneakyJoystickSkinnedBase* joystick = [[[SneakyJoystickSkinnedBase alloc] init] autorelease];
-	joystick.position = ccp(team == team1 ? 84 : screenSize.width-84,36);
-	//joystick.backgroundSprite = [ColoredCircleSprite circleWithColor:ccc4(200, 200, 200, 128) radius:64];
-	joystick.thumbSprite = [ColoredCircleSprite circleWithColor:ccc4(team == team1 ? 180:0, 0, team == team1 ? 0:180, 128) radius:30];
-	joystick.joystick = [[SneakyJoystick alloc] initWithRect:CGRectMake(0,0,96,96)];
+	joystickBase = [[[SneakyJoystickSkinnedBase alloc] init] autorelease];
+	SneakyJoystick* joystick = [[[SneakyJoystick alloc] initWithRect:CGRectMake(0,0,80,80)] autorelease];
+    joystickBase.backgroundSprite = [ColoredCircleSprite circleWithColor:ccc4(50,50,50,128) radius:40];
+    joystickBase.position = ccp(team == team1 ? 80 : screenSize.width-80,36);
+	joystickBase.thumbSprite = [ColoredCircleSprite circleWithColor:ccc4(team == team1 ? 180:0, 0, team == team1 ? 0:180, 64) radius:40];
+	joystickBase.joystick = joystick;
 	
 	//add controls to UI
 	[uiLayer addChild:tapTarget];
-	[uiLayer addChild:joystick];
+	[uiLayer addChild:joystickBase];
 	
 	//initialize player input
-	PlayerInput* playerInput = [[PlayerInput alloc] initWithJoystick:joystick withTapTarget:tapTarget];
+	PlayerInput* playerInput = [[[PlayerInput alloc] initWithJoystick:joystickBase withTapTarget:tapTarget] autorelease];
 	
 	//initialize camera
-	GameCamera* camera = [[GameCamera alloc] initToViewportSize:screenSize WorldSize:gameWorld.worldSize Position:CGPointMake(0.0f,0.0f)];
+	GameCamera* camera = [[[GameCamera alloc] initToViewportSize:screenSize WorldSize:gameWorld.worldSize Position:CGPointMake(0.0f,0.0f)] autorelease];
 	
 	//initialize player controller
 	playerController = [[PlayerController alloc] initInWorld:gameWorld usingPawn:pType asTeam:team withPlayerID:playerID withPlayerName:name];
@@ -203,7 +193,7 @@ static GameWorld* CurrentGameWorld;
 	[gameWorld spawnGamePawn:playerController.pawn];
 }
 
--(void) initializeNetworkPlayers:(NSMutableArray*)pawnInfo
+-(void) initializeNetworkPlayers:(NSMutableArray*)pawnInfo 
 {
 	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
 	NSString* peerID = [gkHelper getPeerID];
@@ -274,20 +264,20 @@ static GameWorld* CurrentGameWorld;
 
 -(NSMutableArray*) getPawnInfos
 {
-	NSMutableArray* pawnInfos = [[NSMutableArray alloc] init];
-	PawnInfo* info = [playerController.pawn getPawnInfo];
+	NSMutableArray* pawnInfos = [NSMutableArray array];
+	PawnInfo* info = [[playerController.pawn getPawnInfo] retain];
 	[pawnInfos addObject:info];
 	NSArray* keys = [networkPlayerControllers allKeys];
 	for(NSUInteger i = 0; i < [keys count]; i++)
 	{
 		GameController* ctrl = [networkPlayerControllers objectForKey:[keys objectAtIndex:i]];
-		PawnInfo* pInfo = [ctrl.pawn getPawnInfo];
+		PawnInfo* pInfo = [[ctrl.pawn getPawnInfo] retain];
 		[pawnInfos addObject:pInfo];
 	}
 	for(NSUInteger i = 0; i < [botControllers count]; i++)
 	{
 		GameController* ctrl = [botControllers objectAtIndex:i];
-		PawnInfo* pInfo = [ctrl.pawn getPawnInfo];
+		PawnInfo* pInfo = [[ctrl.pawn getPawnInfo] retain];
 		[pawnInfos addObject:pInfo];
 	}
 	return pawnInfos;
@@ -316,9 +306,10 @@ static GameWorld* CurrentGameWorld;
 	if(!gameActive)
 		return;
 	bool sendMatchInfo = false;
+    MatchInfo* matchInfo = [[MatchInfo alloc] init];
 	DataPacket* matchDataPacket = [[DataPacket alloc] init];
 	matchDataPacket.dataType = Data_MatchUpdate;
-	matchDataPacket.matchInfo = [[MatchInfo alloc] init];
+	matchDataPacket.matchInfo = matchInfo;
 	
 	NSMutableArray* playerInputs = [[NSMutableArray	alloc] init];
 	
@@ -393,12 +384,14 @@ static GameWorld* CurrentGameWorld;
 	{
 		[[GameKitHelper sharedGameKitHelper] sendDataToAllPeers:[DataHelper serializeDataPacket:matchDataPacket] withMode:GKSendDataUnreliable];
 	}
-	
+    
 	//Dispatch PLayer Info if necessary
 	//if([playerInputs count] > 0)
 	//	[self dispatchNetworkPlayerInputs:playerInputs];
 	[matchDataPacket release];
 	[playerInputs release];
+    [matchInfo release];
+	
 	//Update Camera
 	[self updateViewport];
 	
@@ -417,7 +410,9 @@ static GameWorld* CurrentGameWorld;
 		pingPacket.pingID = random() % 1000;
 		latestPingID = pingPacket.pingID;
 		[[GameKitHelper sharedGameKitHelper] sendData:[DataHelper serializeDataPacket:pingPacket] toPeer:serverPeerID withMode:GKSendDataUnreliable];
-		pingSentTime = [[NSDate date] retain];
+		[pingSentTime release];
+        pingSentTime = [[NSDate date] retain];
+        [pingPacket release];
 	}
 	else 
 	{
@@ -528,7 +523,6 @@ static GameWorld* CurrentGameWorld;
 			[controller processNetworkInput:netInput packetID:packetID];				
 		}
 	}	
-	[netInput release];
 }
 
 -(void) updateViewport
@@ -550,11 +544,16 @@ static GameWorld* CurrentGameWorld;
 }
 
 -(void) endGame:(ccTime)delta
-{
-	
+{	
 	[self unschedule:@selector(endGame:)];
 	[self stopBackgroundMusic];
-	[[CCDirector sharedDirector] replaceScene:[TitleScene scene]];
+    [GameScene ReturnToTitle];
+}
+
++(void) ReturnToTitle
+{
+    [currentGameScene release];
+    [[CCDirector sharedDirector] replaceScene:[TitleScene scene]];
 }
 
 -(void) startGameScheduler
@@ -771,6 +770,8 @@ static GameWorld* CurrentGameWorld;
 	packet.worldName = worldName;
 	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
 	[gkHelper sendDataToAllPeers:[DataHelper serializeDataPacket:packet] withMode:GKSendDataReliable];
+    [packet.playerInput release];
+    [packet release];
 } 
 
 /* Session Protocol */
@@ -804,7 +805,7 @@ static GameWorld* CurrentGameWorld;
 		}
 		else if(state == GKPeerStateConnected)
 		{
-			[localPlayUI setPendingText:@"Connected...waiting for server to start"];
+			[localPlayUI setPendingText:@"Connected...ready to start."];
 		}
 	}
 
@@ -848,9 +849,10 @@ static GameWorld* CurrentGameWorld;
 		[self initializeGame];		
 		serverPeerID = peer;
 		response.dataType = Data_InitPawnResponse;
-		PawnInfo* pawnInfo = [playerController.pawn getPawnInfo];
+		PawnInfo* pawnInfo = [[playerController.pawn getPawnInfo] retain];
 		response.pawnInitData = [[NSMutableArray alloc] initWithObjects:pawnInfo,nil];
 		[gkHelper sendData:[DataHelper serializeDataPacket:response] toPeer:serverPeerID withMode:GKSendDataReliable];
+        [pawnInfo release];
 	}
 	
 	//init pawn response from client
@@ -863,8 +865,14 @@ static GameWorld* CurrentGameWorld;
 		{
 			[self initializeBots:hostNumBots];
 			response.dataType = Data_SynchPawnRequest;
-			response.pawnInitData = [self getPawnInfos];
+			NSMutableArray* pawnInfos = [[self getPawnInfos] retain];
+            response.pawnInitData = pawnInfos;
 			[gkHelper sendDataToAllPeers:[DataHelper serializeDataPacket:response] withMode:GKSendDataReliable];
+            for(uint i = 0; i < [pawnInfos count]; i++)
+            {
+                [[pawnInfos objectAtIndex:i] release];
+            }
+            [pawnInfos release];
 		}
 	}
 	
@@ -976,18 +984,61 @@ static GameWorld* CurrentGameWorld;
 #pragma mark SlideListProtocol
 -(void) onCharacterSelect:(SlideListItem)item
 {
-	[self removeChild:singlePlayCharacterPicker cleanup:true];
+	[self removeChild:singlePlayCharacterPicker cleanup:false];
 	[self startSinglePlay:item.key];
 }
 
 -(void) onWorldSelect:(SlideListItem)item
 {
-	[self removeChild:singlePlayWorldPicker cleanup:true];
 	worldName = [NSString stringWithString:item.key];
+    [self removeChild:singlePlayWorldPicker cleanup:false];
 	singlePlayCharacterPicker = [[CharacterPicker alloc] init];
 	[singlePlayCharacterPicker setTarget:self selector:@selector(onCharacterSelect:)];
 	[self addChild:singlePlayCharacterPicker z:5];
 	
 }
 
+-(void) dealloc
+{
+    NSLog(@"GameScene now deallocating");
+//    [uiLayer release];
+//    [uiLayer removeChild:joystickBase cleanup:false];
+//    [joystickBase release];
+    if(singlePlayWorldPicker)
+        [singlePlayWorldPicker release];
+    if(singlePlayCharacterPicker)
+        [singlePlayCharacterPicker release];
+    [playerList release];
+    [gameType release];
+    [tapTarget release];
+    [playerController release];
+    if(networkPlayerControllers)
+    {
+        NSArray* keys = [networkPlayerControllers allKeys];
+        for(uint i = 0; i < [keys count]; i++)
+        {
+            NSLog(@"Releasing NetworkPlayerController");
+            [[networkPlayerControllers objectForKey:[keys objectAtIndex:i]] release];
+        }
+        [networkPlayerControllers release];
+    }
+    if(botControllers)
+    {
+        for(uint i = 0; i < [botControllers count]; i++)
+        {
+            NSLog(@"Releasing BotController");
+            [[botControllers objectAtIndex:i] release];
+        }
+        [botControllers release];
+    }
+    if(onlinePlayUI)
+        [onlinePlayUI release];
+	if(localPlayUI)
+        [localPlayUI release];
+	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
+	[super dealloc];
+}
+
 @end
+
+

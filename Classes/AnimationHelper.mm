@@ -8,12 +8,23 @@
 
 #import "AnimationHelper.h"
 
+static CCSpriteFrameCache* _sharedFrameCache;
 
 @implementation AnimationHelper
 
++(CCSpriteFrameCache*) sharedFrameCache
+{
+    if(!_sharedFrameCache)
+    {
+        _sharedFrameCache = [[CCSpriteFrameCache alloc] init];
+    }
+    return _sharedFrameCache;
+}
+
 +(CCSpriteFrameCache*) cacheSpriteSheet:(NSString*)spriteName
 {	
-	CCSpriteFrameCache* frameCache = [[CCSpriteFrameCache alloc] init];
+//	CCSpriteFrameCache* frameCache = [[[CCSpriteFrameCache alloc] init] autorelease];
+    CCSpriteFrameCache* frameCache = [CCSpriteFrameCache sharedSpriteFrameCache];
 	[frameCache addSpriteFramesWithFile: [NSString stringWithFormat:@"%@.plist", spriteName]];
 	return frameCache;
 }

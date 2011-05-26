@@ -10,6 +10,7 @@
 #import "GLES-Render.h"
 #import "SneakyJoystick.h"
 #import "Leaderboard.h"
+#import "Healthbar.h"
 
 @protocol UILayerProtocol
 
@@ -32,6 +33,7 @@
 	CCMenu* gameMenu;
 	CCLayerColor* gameMenuParent;
 	Leaderboard* leaderboard;
+    Healthbar* healthbar;
 	bool pauseMenuVisible;
 }
 

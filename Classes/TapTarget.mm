@@ -100,4 +100,9 @@
 {
 }
 
+-(void) dealloc
+{
+    [ignoreZones release];
+    [super dealloc];
+}
 @end

@@ -74,17 +74,20 @@
 {
 	animationManager = [[AnimationManager alloc] init];
 	[pawn initializeAnimations:animationManager];
+    NSArray* speedList = [NSArray arrayWithObjects:[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:100],nil];
+    NSArray* mappingList = [NSArray arrayWithObjects:@"Idle",@"Walk",nil];
+    NSArray* gunMappingList = [NSArray arrayWithObjects:@"GunIdle",@"GunSwing",nil];
 	//Init Body Animation Tree
 	bodyAnimationTree = [[AnimationTreeManager alloc] init];	
-	[bodyAnimationTree appendNode:[[BlendByStateAnimationNode alloc] initWithDeathAnimation:@"Death"]];
-	[bodyAnimationTree appendNode:[[BlendByFallAnimationNode alloc] initWithRiseAnimation:@"Jump" fallAnim:@"Fall"]];
-	[bodyAnimationTree appendNode:[[BlendBySpeedAnimationNode alloc] initWithSpeedList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:100],nil] animationMapping:[NSArray arrayWithObjects:@"Idle",@"Walk",nil]]];
+	[bodyAnimationTree appendNode:[[[BlendByStateAnimationNode alloc] initWithDeathAnimation:@"Death"] autorelease]];
+	[bodyAnimationTree appendNode:[[[BlendByFallAnimationNode alloc] initWithRiseAnimation:@"Jump" fallAnim:@"Fall"] autorelease]];
+	[bodyAnimationTree appendNode:[[[BlendBySpeedAnimationNode alloc] initWithSpeedList:speedList animationMapping:mappingList] autorelease]];
 	//Init Gun Animation Tree
 	gunAnimationTree = [[AnimationTreeManager alloc] init];
-	[gunAnimationTree appendNode:[[BlendByStateAnimationNode alloc] initWithDeathAnimation:@"GunDefault"]];
-	[gunAnimationTree appendNode:[[BlendByFiringAnimationNode alloc] initWithFireAnimation:@"GunShoot"]];
-	[gunAnimationTree appendNode:[[BlendByFallAnimationNode alloc] initWithRiseAnimation:@"GunDefault" fallAnim:@"GunDefault"]];
-	[gunAnimationTree appendNode:[[BlendBySpeedAnimationNode alloc] initWithSpeedList:[NSArray arrayWithObjects:[NSNumber numberWithFloat:0],[NSNumber numberWithFloat:100],nil] animationMapping:[NSArray arrayWithObjects:@"GunIdle",@"GunSwing",nil]]];
+	[gunAnimationTree appendNode:[[[BlendByStateAnimationNode alloc] initWithDeathAnimation:@"GunDefault"] autorelease]];
+	[gunAnimationTree appendNode:[[[BlendByFiringAnimationNode alloc] initWithFireAnimation:@"GunShoot"] autorelease]];
+	[gunAnimationTree appendNode:[[[BlendByFallAnimationNode alloc] initWithRiseAnimation:@"GunDefault" fallAnim:@"GunDefault"] autorelease]];
+	[gunAnimationTree appendNode:[[[BlendBySpeedAnimationNode alloc] initWithSpeedList:speedList animationMapping:gunMappingList] autorelease]];
 	
 }
 	 
@@ -193,6 +196,7 @@
 
 -(void) dealloc
 {
+    NSLog(@"GameController now deallocating");
     [playerID release];
     [playerName release];
     [pawnType release];

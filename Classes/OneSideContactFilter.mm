@@ -8,6 +8,7 @@
 
 #import "OneSideContactFilter.h"
 #import "Box2D.h"
+#import "Helper.h"
 
 bool OneSideContactFilter::ShouldCollide (b2Fixture *fixtureA, b2Fixture *fixtureB)
 {
@@ -18,24 +19,30 @@ bool OneSideContactFilter::ShouldCollide (b2Fixture *fixtureA, b2Fixture *fixtur
 		b2Fixture* staticFixture = filterA.categoryBits == 8 ? fixtureA : fixtureB;
 		b2Fixture* dynamicFixture = filterA.categoryBits == 8 ? fixtureB: fixtureA;
 		
-		//Basically make sure the lowest point of the dynamic body is higher than the highest point of the
+		
+		BodyBounds staticBounds = [Helper GetBounds:staticFixture];
+        BodyBounds dynamicBounds = [Helper GetBounds:dynamicFixture];
+        b2Body* dynamicBody = dynamicFixture->GetBody();
+        
+        //Basically make sure the lowest point of the dynamic body is higher than the highest point of the
 		//static body before allowing collision
-		b2PolygonShape* staticShape = (b2PolygonShape*)staticFixture->GetShape();
-		float staticY = staticShape->GetVertex(0).y;
-		for(int i = 1; i < staticShape->GetVertexCount(); i++)
-			if(staticShape->GetVertex(i).y > staticY)
-				staticY = staticShape->GetVertex(i).y;
-		staticY += staticFixture->GetBody()->GetPosition().y;
-
-		b2PolygonShape* dynamicShape = (b2PolygonShape*)dynamicFixture->GetShape();
-		float dynamicY = dynamicShape->GetVertex(0).y;
-		for(int i = 1; i < dynamicShape->GetVertexCount(); i++)
-			if(dynamicShape->GetVertex(i).y < dynamicY)
-				dynamicY = dynamicShape->GetVertex(i).y;
-		dynamicY += dynamicFixture->GetBody()->GetPosition().y;
-		if(dynamicY < staticY)
-			return false;
+//        NSLog(@"Dynamic left:%f right:%f",dynamicBounds.left,dynamicBounds.right);
+//        NSLog(@"Static left:%f right:%f",staticBounds.left,staticBounds.right);
+        b2Vec2 dynamicVel = dynamicBody->GetLinearVelocity();
+        if(dynamicVel.y > 0 || (uint)dynamicVel.y == 0)
+        {
+            if(dynamicBounds.bottom < staticBounds.top)
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if(staticBounds.bottom - dynamicBounds.bottom > 1)
+            {
+                return false;
+            }
+        }
 	}
 	return b2ContactFilter::ShouldCollide(fixtureA,fixtureB);
 }
-

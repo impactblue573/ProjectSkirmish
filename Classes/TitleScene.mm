@@ -24,14 +24,14 @@
 	if((self = [super init]))
 	{
 		CGSize screensize = [CCDirector sharedDirector].winSize;
-		CCMenuItemImage* singlePlayMenu = [CCMenuItemImage itemFromNormalImage:@"SinglePlay.png" selectedImage:@"SinglePlayActive.png" target:self selector:@selector(singlePlayMenuTouched:)]; 
-		singlePlayMenu.selectedImage.position = ccp(-15,-3);
-		CCMenuItemImage* localPlayMenu = [CCMenuItemImage itemFromNormalImage:@"MultiPlay.png" selectedImage:@"MultiPlayActive.png" target:self selector:@selector(localPlayMenuTouched:)]; 
-		localPlayMenu.position = ccp(0,-50);
+		CCMenuItemImage* singlePlayMenu = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"SinglePlay.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"SinglePlayActive.png"] target:self selector:@selector(singlePlayMenuTouched:)];
+        singlePlayMenu.selectedImage.position = ccp(-15,-3);
+		CCMenuItemImage* localPlayMenu = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"MultiPlay.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"MultiPlayActive.png"] target:self selector:@selector(localPlayMenuTouched:)]; 
+        localPlayMenu.position = ccp(0,-50);
         localPlayMenu.selectedImage.position = ccp(-15,-3);
 		CCMenu* titleMenu = [CCMenu menuWithItems:singlePlayMenu,localPlayMenu,nil];
 		titleMenu.position = ccp(screensize.width/2,screensize.height/2);
-        CCSprite* background = [CCSprite spriteWithFile:@"MainScreenBackground.png"];
+        CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"MainScreenBackground.png"];
         background.position = ccp(240,160);
         [self addChild:background];
 		[self addChild:titleMenu];

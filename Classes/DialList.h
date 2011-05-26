@@ -17,7 +17,6 @@
 	uint index;
 }
 
-
 -(id) initWithList:(NSArray*)list withWidth:(float)width;
 -(NSString*) getSelectedValue;
 @end

@@ -43,4 +43,10 @@
 {
 	return [valueList objectAtIndex:index];
 }
+
+-(void) dealloc
+{
+    [valueList release];
+    [super dealloc];
+}
 @end

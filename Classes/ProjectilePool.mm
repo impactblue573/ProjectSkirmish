@@ -33,5 +33,10 @@
 	return nil;
 }
 
+-(void) dealloc
+{
+    [pendingProjectiles release];
+    [super dealloc];
+}
 
 @end

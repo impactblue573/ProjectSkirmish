@@ -120,6 +120,13 @@
 	
 	// Run the intro Scene
 	//[[CCDirector sharedDirector] runWithScene: [GameScene sceneMultiplay:false]];	
+    
+    //Load Shared Sprite Frame Cache
+    CCSpriteFrameCache* cache = [CCSpriteFrameCache sharedSpriteFrameCache];
+    [cache addSpriteFramesWithFile:@"UI.plist"];
+//    [cache addSpriteFramesWithFile:@"FullscreenTextures.plist"];
+
+
 	[[CCDirector sharedDirector] runWithScene: [TitleScene scene]];
 	//[[CCDirector sharedDirector] runWithScene: [HelloWorld scene]];
 }

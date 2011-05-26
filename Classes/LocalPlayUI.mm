@@ -21,12 +21,12 @@
 		[CCMenuItemFont setFontName:@"Marker Felt"]; 
 		[CCMenuItemFont setFontSize:32];
 		//Init Main Menu
-		CCMenuItemImage* hostGameMenu = [CCMenuItemImage itemFromNormalImage:@"Host.png" selectedImage:@"HostActive.png" target:self selector:@selector(hostGameMenuTouched:)]; 
+		CCMenuItemImage* hostGameMenu = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Host.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"HostActive.png"] target:self selector:@selector(hostGameMenuTouched:)]; 
 		hostGameMenu.selectedImage.position = ccp(-10,-3);
-		CCMenuItemImage* joinGameMenu = [CCMenuItemImage itemFromNormalImage:@"Join.png" selectedImage:@"JoinActive.png" target:self selector:@selector(joinGameMenuTouched:)]; 
+		CCMenuItemImage* joinGameMenu = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Join.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"JoinActive.png"] target:self selector:@selector(joinGameMenuTouched:)]; 
 		joinGameMenu.position = ccp(0,-50);
         joinGameMenu.selectedImage.position = ccp(-10,-3);
-        CCMenuItemImage* quitMenu = [CCMenuItemImage itemFromNormalImage:@"Quit.png" selectedImage:@"QuitActive.png" target:self selector:@selector(quitMenuTouched:)]; 
+        CCMenuItemImage* quitMenu = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Quit.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"QuitActive.png"] target:self selector:@selector(quitMenuTouched:)]; 
 		quitMenu.position = ccp(0,-100);
         quitMenu.selectedImage.position = ccp(-10,-3);
 		CCMenu* localPlayMenu = [CCMenu menuWithItems:hostGameMenu,joinGameMenu,quitMenu,nil];
@@ -37,10 +37,10 @@
 		//Init Lobby Menu
 		
 		//Misc Stuff
-		cancelMenuItem = [CCMenuItemImage itemFromNormalImage:@"Close.png" selectedImage:@"CloseActive.png" target:self selector:@selector(cancelMenuTouched:)];
+		cancelMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Close.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"CloseActive.png"] target:self selector:@selector(cancelMenuTouched:)];
  		cancelMenuItem.position = ccp(50 - screensize.width/2,screensize.height/2 - 88);
         cancelMenuItem.selectedImage.position = ccp(-3,-3);
-		startMenuItem = [[CCMenuItemImage itemFromNormalImage:@"Play.png" selectedImage:@"PlayActive.png" target:self selector:@selector(startMenuTouched:)] retain]; 
+		startMenuItem = [[CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Play.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"PlayActive.png"] target:self selector:@selector(startMenuTouched:)] retain]; 
 		startMenuItem.position = ccp(screensize.width/2 - 60,-30 -screensize.height/2);
         startMenuItem.selectedImage.position = ccp(-10,-5);
 		pendingGameMenu = [CCMenu menuWithItems:cancelMenuItem,nil];
@@ -115,12 +115,12 @@
         
         //backgrounds
         backgrounds = [[NSMutableArray array] retain];
-        CCSprite* background = [CCSprite spriteWithFile:@"MainScreenBackground.png"];
+        CCSprite* background = [CCSprite spriteWithSpriteFrameName:@"MainScreenBackground.png"];
         background.position = ccp(240,160);        
         [backgrounds addObject:background];
         [self addChild:background];
 
-        background = [CCSprite spriteWithFile:@"LobbyBackground.png"];
+        background = [CCSprite spriteWithSpriteFrameName:@"LobbyBackground.png"];
         background.position = ccp(240,160);  
         background.visible = false;
         [backgrounds addObject:background];
@@ -327,11 +327,7 @@
 {
 	[botDial release];
 	[botLabel release];
-	[pendingGameLabel release];
-	[playersJoinedLabel release];
-	[cancelMenuItem release];
 	[startMenuItem release];	
-	[pendingGameMenu release];
 	[mainMenuLayer release];
 	[pendingGameMenuLayer release];
 //    for(uint i = 0; i < [backgrounds count];i++)

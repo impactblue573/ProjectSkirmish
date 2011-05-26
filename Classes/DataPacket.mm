@@ -37,6 +37,7 @@
 	 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
+    releaseProperties = true;
 	NSValue* dataTypeVal = [aDecoder decodeObject];
 	[dataTypeVal getValue:&dataType];
 	if(dataType == Data_InitPawnRequest)
@@ -68,9 +69,14 @@
 
 -(void) dealloc
 {
-	[pawnInitData release];
-	//[playerInput release];
-	[matchInfo release];
+    if(releaseProperties)
+    {
+        [worldName release];
+        [pawnInitData release];
+        [playerInput release];
+        [matchInfo release];
+        [powerupEvent release];
+    }
 	[super dealloc];
 }
 	 

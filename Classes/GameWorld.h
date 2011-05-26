@@ -36,6 +36,8 @@
 	TeamSpawnPoint teamBSpawnPoint;
     float minTimeStep;
     float currentTimeStep;
+    float gravity;
+    float projectileGravityMod;
     PowerupManager* powerupManager;
 }
 

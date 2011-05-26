@@ -63,6 +63,8 @@ typedef enum
 	GameType* gameType;
 	CharacterPicker* singlePlayCharacterPicker;
 	WorldPicker* singlePlayWorldPicker;
+    TapTarget* tapTarget;
+    SneakyJoystickSkinnedBase* joystickBase;
 }
 
 
@@ -73,6 +75,7 @@ typedef enum
 +(bool) isInPlayerView:(CGPoint)pawnPos;
 +(ViewPort) getViewPort;
 +(float) getDifficultyFactor;
++(void) ReturnToTitle;
 -(GameTeam*) getPlayerTeam;
 -(id) initWithGameMode:(GameMode)mode;
 -(NSString*) getPlayerId;

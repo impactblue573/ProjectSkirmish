@@ -77,6 +77,9 @@ typedef enum
 	NSString* pawnType;
 	bool healthUpdated;
     NSMutableArray* powerups;
+    //Mods
+    float fireForceMod;
+    float fireIntervalMod;
 }
 
 -(id) initForController:(GameController*)ctrl;
@@ -115,6 +118,7 @@ typedef enum
 -(void) unequipPowerup:(Powerup*)powerup;
 -(void) clearPowerups;
 -(void) setVariation:(int)variation;
+-(float) getFireInterval;
 
 
 @property(readonly) GameController* controller;

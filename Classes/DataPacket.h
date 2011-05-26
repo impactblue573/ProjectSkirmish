@@ -35,6 +35,7 @@ typedef enum
 	MatchInfo* matchInfo;
     PowerupEvent* powerupEvent;
 	int pingID;
+    bool releaseProperties;
 }
 
 @property(assign) DataType dataType;

@@ -13,8 +13,8 @@
 
 -(id) initWithSpeedList:(NSArray *)sList animationMapping:(NSArray *)aList
 {
-	speedList = [sList copy];
-	animationList = [aList copy];
+	speedList = [[NSArray arrayWithArray:sList] retain];
+	animationList = [[NSArray arrayWithArray:aList] retain];
 	return self;
 }
 
@@ -29,6 +29,13 @@
 			return [self AnimSeq:[animationList objectAtIndex:i]];
 	}
 	return [super Eval:pawn];
+}
+
+-(void) dealloc
+{
+    [speedList release];
+    [animationList release];
+    [super dealloc];
 }
 
 @end

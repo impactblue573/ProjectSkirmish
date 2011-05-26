@@ -24,11 +24,25 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
+    releaseProperties = true;
 	self.playerID = [[aDecoder decodeObject] retain];
 	self.pawnType = [[aDecoder decodeObject] retain];
     self.spriteVariation = [[aDecoder decodeObject] retain];
 	self.teamID = [[aDecoder decodeObject] retain];
 	self.playerName = [[aDecoder decodeObject] retain];
 	return self;
+}
+
+-(void) dealloc
+{
+    if(releaseProperties)
+    {
+        [playerID release];
+        [pawnType release];
+        [spriteVariation release];
+        [teamID release];
+        [playerName release];
+    }
+    [super dealloc];
 }
 @end

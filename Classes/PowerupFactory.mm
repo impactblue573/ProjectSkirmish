@@ -48,7 +48,7 @@
     scaleVelocity = 4.0;
     state = Active;
     position = pos;
-    spriteName = [NSString stringWithString:sName];
+    spriteName = [[NSString stringWithString:sName] retain];
     sprite = [[CCSprite spriteWithFile:spriteName] retain];
     isDummy = dummy;
     return self;

@@ -14,20 +14,27 @@
 {
 	self = [super init];
 	screenSize = [CCDirector sharedDirector].winSize;
+    //Team 1 Score
 	team1ScoreLabel = [CCLabelTTF labelWithString:@"0" dimensions:CGSizeMake(50,50) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:32];
 	[team1ScoreLabel setColor:ccc3(255,0,0)];
 	team1ScoreLabel.position = ccp( screenSize.width/2-50, screenSize.height-30);
 	[self addChild:team1ScoreLabel z:0];
 	
+    //Team 2 Score
 	team2ScoreLabel = [CCLabelTTF labelWithString:@"0" dimensions:CGSizeMake(50,50) alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:32];
 	[team2ScoreLabel setColor:ccc3(0,0,255)];
 	team2ScoreLabel.position = ccp( screenSize.width/2+50, screenSize.height-30);
 	[self addChild:team2ScoreLabel z:0];
 	
-	healthLabel = [CCLabelTTF labelWithString:@"+100" dimensions:CGSizeMake(80,50) alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:32];
-	[healthLabel setColor:ccc3(0,100,0)];
-	healthLabel.position = ccp(40, screenSize.height-25);
-	[self addChild:healthLabel z:0];
+    //Health
+//	healthLabel = [CCLabelTTF labelWithString:@"+100" dimensions:CGSizeMake(80,50) alignment:UITextAlignmentLeft fontName:@"Marker Felt" fontSize:32];
+//	[healthLabel setColor:ccc3(0,100,0)];
+//	healthLabel.position = ccp(40, screenSize.height-25);
+    
+    healthbar = [[[Healthbar alloc] initWithMaxValue:100 width:70 height:14] autorelease];
+    healthbar.position = ccp(2,screenSize.height - 20);
+    [self addChild:healthbar];
+	//[self addChild:healthLabel z:0];
 	
 	pingLabel = [CCLabelTTF labelWithString:@"" dimensions:CGSizeMake(50,20) alignment:UITextAlignmentRight fontName:@"Marker Felt" fontSize:20];
 	pingLabel.position = ccp( screenSize.width-25, 10);
@@ -39,9 +46,10 @@
 	
 	CCLabelTTF* pauseLabel = [CCLabelTTF labelWithString:@"Menu" fontName:@"Marker Felt" fontSize:20];
 	[pauseLabel setColor:(ccColor3B){128,128,128}];
-	CCMenuItem* pauseMenuItem = [CCMenuItemFont itemWithLabel:pauseLabel target:self selector:@selector(showPauseMenu:)];	
-	pauseMenu = [CCMenu menuWithItems:pauseMenuItem,nil];
-	pauseMenu.position = ccp(screenSize.width-30,screenSize.height-10);
+	CCMenuItemImage* pauseMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Menu.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"MenuActive.png"] target:self selector:@selector(showPauseMenu:)];	
+	pauseMenuItem.selectedImage.position = ccp(-6,-4);
+    pauseMenu = [CCMenu menuWithItems:pauseMenuItem,nil];
+	pauseMenu.position = ccp(screenSize.width-30,screenSize.height-13);
 	[self addChild:pauseMenu z:4];
 	
 	int menuWidth = screenSize.width - 80;
@@ -67,8 +75,9 @@
 
 -(void) updateHealth:(float)health
 {
-	[healthLabel setColor:ccc3(200 * clampf((100.0f - health)/50.0f,0,1), 200 * fmin(50,health) / 50.0f, 0) ];
-	[healthLabel setString:[NSString stringWithFormat:@"+%.0f",health]];
+//	[healthLabel setColor:ccc3(200 * clampf((100.0f - health)/50.0f,0,1), 200 * fmin(50,health) / 50.0f, 0) ];
+//	[healthLabel setString:[NSString stringWithFormat:@"+%.0f",health]];
+    [healthbar setValue:health];
 }
 
 -(void) updatePing:(float)ping

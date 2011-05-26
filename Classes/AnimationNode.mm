@@ -37,4 +37,9 @@
 	aSeq.ignoreDuplicate = ignoreDup;
 	return aSeq;
 }
+
+-(void) dealloc
+{
+    [super dealloc];
+}
 @end

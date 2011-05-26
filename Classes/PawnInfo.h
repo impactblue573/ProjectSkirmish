@@ -15,6 +15,7 @@
     NSNumber* spriteVariation;
 	NSString* playerID;
 	NSString* playerName;
+    bool releaseProperties;
 }
 
 @property(assign) NSString* pawnType;

@@ -23,12 +23,13 @@
 
 -(void) setCamera:(GameCamera*)cam
 {
-	camera = cam;
+	camera = [cam retain];
 	camera.target = pawn;
 }
 
 -(void) setPlayerInput:(PlayerInput*)input
 {
+    [input retain];
 	playerInput = input;
 }
 
@@ -67,7 +68,7 @@
 	b2Vec2 moveVec = b2Vec2(0,0);
 	b2Vec2 jumpVec = b2Vec2(0,0);
 
-	moveVec.x = inputVec.x < 0.2 && inputVec.x > -0.2 ? 0 : fabsf(inputVec.x)/inputVec.x;	
+	moveVec.x = fabsf(inputVec.x) < 0.3 ? 0 : fabsf(inputVec.x)/inputVec.x;	
 
 	//Do some optimization here...
 	if(timeSinceLastNetMove > netMoveInterval)
@@ -138,6 +139,13 @@
 //		NSLog(@"Packet out of order ignoring...%d | %d",receivedPacketID,packetID);
 //	}
 
+}
+
+-(void) dealloc
+{
+    [playerInput release];
+    [camera release];
+    [super dealloc];
 }
 
 @end

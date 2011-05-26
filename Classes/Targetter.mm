@@ -14,7 +14,8 @@
 -(id) initWithSprite:(NSString *)spriteName inLayer:(CCLayer*)layer
 {
     self = [super init];
-    sprite = [[CCSprite spriteWithFile:spriteName] retain];
+    enabled = true;
+    sprite = [[CCSprite spriteWithSpriteFrameName:spriteName] retain];
     sprite.opacity = 0;
     sprite.scale = 2;
     [layer addChild:sprite z:1];
@@ -65,6 +66,8 @@
 
 -(void) animate:(ccTime)dt
 {
+    if(!enabled)
+        return;
     if(dt == 0)
         dt = animateInterval;
     if(state == Targetter_Activating)
@@ -111,8 +114,8 @@
 
 -(void) dealloc
 {
+    enabled = false;
     [[CCScheduler sharedScheduler] unscheduleSelector:@selector(animate:) forTarget:self];
-    [parent removeChild:sprite cleanup:false];
     [sprite release];
     [super dealloc];
 }

@@ -25,7 +25,7 @@
 		aiType = AI_Sniper;
 	else if(ai == 2)
 		aiType = AI_Ninja;
-	shootInterval = pawn.fireInterval;
+	shootInterval = [pawn getFireInterval];
 	return [super init];
 }
 
@@ -153,7 +153,7 @@
 						}
 
 						
-						if(timeSinceLastShot >= pawn.fireInterval / difficulty)
+						if(timeSinceLastShot >= [pawn getFireInterval] / difficulty)
 						{
 							float arc4 = arc4random() % 100;
 							float random = (arc4 - 50) / 100.0f;

@@ -48,7 +48,7 @@ static PowerupManager* currentPowerupManager;
         PowerupFactory* p = [powerups objectAtIndex:i];
         [p release];
     }
-    [powerups removeAllObjects];
+    [powerups release];    
     [super dealloc];
 }
 
@@ -81,6 +81,8 @@ static PowerupManager* currentPowerupManager;
             data.dataType = Data_PowerupEvent;
             data.powerupEvent = event;
             [[GameKitHelper sharedGameKitHelper] sendDataToAllPeers:[DataHelper serializeDataPacket:data] withMode:GKSendDataReliable];
+            [event release];
+            [data release];
         }
     }
 
@@ -110,6 +112,8 @@ static PowerupManager* currentPowerupManager;
                         data.dataType = Data_PowerupEvent;
                         data.powerupEvent = event;
                         [[GameKitHelper sharedGameKitHelper] sendDataToAllPeers:[DataHelper serializeDataPacket:data] withMode:GKSendDataReliable];
+                        [event release];
+                        [data release];
                     }
                     powerup.state = Active;
                     break;

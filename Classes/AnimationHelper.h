@@ -13,6 +13,7 @@
 
 }
 
++(CCSpriteFrameCache*) sharedFrameCache;
 +(CCSpriteFrameCache*) cacheSpriteSheet:(NSString *)spriteName;
 +(CCSpriteBatchNode*) initializeSprite:(NSString*)spriteName;
 +(CCAnimation*) createAnimation:(NSArray *)frameNames withDelay:(float)delay fromCache:(CCSpriteFrameCache*)frameCache;

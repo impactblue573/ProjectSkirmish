@@ -32,11 +32,11 @@
 			[menu addChild:slideListItem];
 		}
 		[self addChild:menu z:1];
-		leftArrow = [CCMenuItemImage itemFromNormalImage:@"Arrow-Right.png" selectedImage:@"Arrow-Right-Active.png" disabledImage:@"Arrow-Right-Disabled.png" target:self selector:@selector(onArrowClick:)];
+		leftArrow = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Arrow-Right.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"Arrow-Right-Active.png"] disabledSprite:[CCSprite spriteWithSpriteFrameName:@"Arrow-Right-Disabled.png"] target:self selector:@selector(onArrowClick:)];
 		leftArrow.position = ccp(27,0);
 		leftArrow.rotation = 180;
 		[leftArrow setIsEnabled:false];
-		rightArrow = [CCMenuItemImage itemFromNormalImage:@"Arrow-Right.png" selectedImage:@"Arrow-Right-Active.png" disabledImage:@"Arrow-Right-Disabled.png" target:self selector:@selector(onArrowClick:)];
+		rightArrow = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Arrow-Right.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"Arrow-Right-Active.png"] disabledSprite:[CCSprite spriteWithSpriteFrameName:@"Arrow-Right-Disabled.png"] target:self selector:@selector(onArrowClick:)];
 		rightArrow.position = ccp(screenSize.width - 27,0);
 		[rightArrow setIsEnabled:length > 1];
 		arrowsMenu = [CCMenu menuWithItems:leftArrow,rightArrow,nil];
@@ -53,16 +53,18 @@
 	{
 		NSMethodSignature* sig = nil;
 		sig = [t methodSignatureForSelector:s];
-		callbackInvocation = nil;
-		callbackInvocation = [NSInvocation invocationWithMethodSignature:sig];
+        if(callbackInvocation)
+            [callbackInvocation release];
+		callbackInvocation = [[NSInvocation invocationWithMethodSignature:sig] retain];
 		[callbackInvocation setTarget:t];
 		[callbackInvocation setSelector:s];
-		[callbackInvocation retain];
 	}
 }
 
 -(void) processSlideListItems:(NSMutableArray*)items
 {
+    if(slideListItems)
+        [slideListItems release];
 	slideListItems = [[NSMutableArray arrayWithArray:items] retain];
 }
 
@@ -104,5 +106,13 @@
 		menu.position = ccp(menu.position.x-40,menu.position.y);
 	else
 		[self unschedule:@selector(doSlideAnimation:)];
+}
+
+-(void) dealloc
+{
+    if(callbackInvocation)
+        [callbackInvocation release];
+    [slideListItems release];
+    [super dealloc];
 }
 @end

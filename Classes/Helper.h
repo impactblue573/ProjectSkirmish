@@ -14,6 +14,17 @@
 
 }
 
+struct BodyBounds
+{
+    float top;
+    float right;
+    float bottom;
+    float left;
+};
+
+typedef BodyBounds BodyBounds;
+
+
 struct ViewPort
 {
 	CGPoint position;//bottom left
@@ -37,4 +48,6 @@ typedef ViewPort ViewPort;
 +(b2Vec2) b2Vec2Multiply:(b2Vec2)vec multiply:(float)mult;
 
 +(float) normalize:(float)f;
+
++(BodyBounds) GetBounds:(b2Fixture*) fixture;
 @end

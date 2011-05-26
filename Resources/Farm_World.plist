@@ -704,11 +704,15 @@
 			<string>Windwalk</string>
 		</dict>
 	</array>
+	<key>SpriteSheets</key>
+	<array>
+		<string>FarmWorld.plist</string>
+	</array>
 	<key>Sprites</key>
 	<array>
 		<dict>
 			<key>PosX</key>
-			<integer>750</integer>
+			<integer>1024</integer>
 			<key>PosY</key>
 			<integer>320</integer>
 			<key>SpriteName</key>
@@ -718,7 +722,7 @@
 		</dict>
 		<dict>
 			<key>PosX</key>
-			<integer>2130</integer>
+			<real>2464.75</real>
 			<key>PosY</key>
 			<integer>320</integer>
 			<key>SpriteName</key>

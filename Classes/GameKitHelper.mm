@@ -643,6 +643,24 @@ static GameKitHelper *instanceOfGameKitHelper;
 	[currentSession setDataReceiveHandler:del withContext:nil];
 }
 
+-(void) isAvailable:(bool)available
+{
+    if(currentSession)
+    {
+        currentSession.available = available;
+    }
+}
+
+-(void) clearDelegate
+{
+    if(currentSession)
+    {
+        currentSession.delegate = nil;
+        currentSession.available = false;
+        [currentSession setDelegate:nil];
+    }
+}
+
 -(void) terminateSession
 {
 	if(currentSession != nil)
@@ -664,7 +682,7 @@ static GameKitHelper *instanceOfGameKitHelper;
 -(void) sendData:(NSData*)data toPeer:(NSString*)peerID withMode:(GKSendDataMode)mode
 {		
 	NSError* error = nil;
-	[currentSession sendData:data toPeers:[[NSArray alloc] initWithObjects:peerID,nil] withDataMode:mode error:&error];
+	[currentSession sendData:data toPeers:[NSArray arrayWithObject:peerID] withDataMode:mode error:&error];
 	[self setLastError:error];
 }
 

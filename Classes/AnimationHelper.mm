@@ -35,13 +35,18 @@ static CCSpriteFrameCache* _sharedFrameCache;
 	return spriteSheet;
 }
 
-+(CCAnimation*) createAnimation:(NSArray*)frameNames withDelay:(float)delay fromCache:(CCSpriteFrameCache*)frameCache
++(CCAnimation*) createAnimation:(NSArray*)frameNames withDelay:(float)delay fromCache:(CCSpriteFrameCache*)frameCache autoOffsetTo:(CGSize)defaultSize
 {
 	NSMutableArray* frames = [NSMutableArray array];
 	for(NSUInteger i = 0; i < [frameNames count]; i++)
 	{
 		NSString* name = [frameNames objectAtIndex:i];
-		[frames addObject:[frameCache spriteFrameByName:name]];
+		CCSpriteFrame* sprite = [frameCache spriteFrameByName:name];
+        if(defaultSize.width > 0 && defaultSize.height > 0)
+        {
+            sprite.offsetInPixels = ccp((defaultSize.width - sprite.originalSizeInPixels.width)/2,(sprite.originalSizeInPixels.height - defaultSize.height)/2);
+        }
+        [frames addObject:sprite];
 	}
 	CCAnimation* animation = [CCAnimation animationWithFrames:frames delay:delay];
 	return animation;

@@ -20,13 +20,17 @@
 	return self;
 }
 
--(CCSprite*) addSprite:(NSString *)spriteName defaultFrame:(NSString*)frameName
+-(SpritePackage) addSprite:(NSString *)spriteName defaultFrame:(NSString*)frameName
 {
-	CCSprite* sprite = [CCSprite spriteWithSpriteFrame:[frameCache spriteFrameByName:frameName]];
+    CCSpriteFrame* spriteFrame = [frameCache spriteFrameByName:frameName];
+	CCSprite* sprite = [CCSprite spriteWithSpriteFrame:spriteFrame];
 	[sprite.texture setAntiAliasTexParameters];
 	[sprites setObject:sprite forKey:spriteName];	
 	[spriteSheet addChild:sprite];
-	return sprite;
+    SpritePackage package;
+    package.sprite = sprite;
+    package.size = spriteFrame.originalSizeInPixels;
+	return package;
 }
 
 -(CCSprite*) getSprite:(NSString *)spriteName
@@ -42,7 +46,11 @@
 
 -(void) addAnimation:(NSString *)animationName usingFrames:(NSArray *)frameNames frameDelay:(float)delay
 {
-	CCAnimation* anim = [AnimationHelper createAnimation:frameNames withDelay:delay fromCache:frameCache];
+    [self addAnimation:animationName usingFrames:frameNames frameDelay:delay autoOffsetTo:CGSizeMake(0, 0)];
+}
+-(void) addAnimation:(NSString *)animationName usingFrames:(NSArray *)frameNames frameDelay:(float)delay autoOffsetTo:(CGSize)defaultSize
+{
+	CCAnimation* anim = [AnimationHelper createAnimation:frameNames withDelay:delay fromCache:frameCache autoOffsetTo:defaultSize];
 	[animations setObject:anim forKey:(NSString *)animationName];
 }
 
@@ -98,4 +106,6 @@
     [lastActions release];
     [super dealloc];
 }
+
+
 @end

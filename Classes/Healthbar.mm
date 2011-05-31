@@ -17,17 +17,16 @@
     value = maxValue;
     height = h;
     width = w;
-    self = [super initWithColor:ccc4(128, 128, 128, 128) width:width + 4 height:height + 4];
+    self = [super initWithColor:ccc4(200, 200, 200, 128) width:width + 6 height:height + 6];
     CCSprite* border = [CCSprite spriteWithSpriteFrameName:@"HealthbarBorder.png"];
-    [border.texture setAliasTexParameters];
+//    [border.texture setAliasTexParameters];
     border.anchorPoint = ccp(0,0);
-    border.opacity = 128;
-    [self addChild:border z:0];
+    [self addChild:border z:1];
     bar = [[[CCLayerColor alloc] initWithColor:ccc4(0, 255, 0, 255) width:width height:height] autorelease];
     [bar setOpacity:186];
     bar.anchorPoint = ccp(0,0);
-    bar.position = ccp(2,2);
-    [self addChild:bar];
+    bar.position = ccp(3,3);
+    [self addChild:bar z:0];
     return self;
 }
 

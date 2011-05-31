@@ -30,7 +30,7 @@
 		
 		// Gravity Mode: radial
 		self.radialAccel = 100;
-		self.radialAccelVar = 0;
+		self.radialAccelVar = 3;
 		
 		// Gravity Mode: tagential
 		self.tangentialAccel = 0;
@@ -50,9 +50,9 @@
 		lifeVar = 0.2f;
 		
 		// size, in pixels
-		startSize = 1.0f;
-		startSizeVar = 2.0f;
-		endSize = 1.0f;
+		startSize = 3.0f;
+		startSizeVar = 1.0f;
+		endSize = 2.0f;
 		
 		// emits per second
 		emissionRate = totalParticles/duration;

@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>CFBundleShortVersionString</key>
-	<string></string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
@@ -12,11 +10,6 @@
 	<string>ProjectSkirmish</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
-	<key>Icon files</key>
-	<array>
-		<string>Icon.png</string>
-		<string>Icon-ipad.png</string>
-	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.projectskirmish</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -25,16 +18,21 @@
 	<string>${PRODUCT_NAME}</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string></string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1.0</string>
+	<string>1.1</string>
+	<key>Icon files</key>
+	<array>
+		<string>Icon.png</string>
+		<string>Icon-ipad.png</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UIPrerenderedIcon</key>
 	<false/>
-	<key>UIStatusBarHidden</key>
-	<true/>
 	<key>UIRequiredDeviceCapabilities</key>
 	<dict>
 		<key>accelerometer</key>
@@ -42,5 +40,7 @@
 		<key>opengles-1</key>
 		<true/>
 	</dict>
+	<key>UIStatusBarHidden</key>
+	<true/>
 </dict>
 </plist>

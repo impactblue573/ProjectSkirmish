@@ -32,7 +32,7 @@
 //	healthLabel.position = ccp(40, screenSize.height-25);
     
     healthbar = [[[Healthbar alloc] initWithMaxValue:100 width:70 height:14] autorelease];
-    healthbar.position = ccp(2,screenSize.height - 20);
+    healthbar.position = ccp(2,screenSize.height - 24);
     [self addChild:healthbar];
 	//[self addChild:healthLabel z:0];
 	
@@ -53,11 +53,11 @@
 	[self addChild:pauseMenu z:4];
 	
 	int menuWidth = screenSize.width - 80;
-	resumeMenuItem = [CCMenuItemFont itemFromString:@"Resume" target:self selector:@selector(hidePauseMenu:)];
-	[resumeMenuItem setColor:(ccColor3B){50,50,50}];
+	resumeMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Resume.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"ResumeActive.png"] target:self selector:@selector(hidePauseMenu:)];
+	resumeMenuItem.selectedImage.position = ccp(-6,-2);
 	resumeMenuItem.position = ccp(-50,0);
-	CCMenuItemFont* quitMenuItem = [CCMenuItemFont itemFromString:@"Quit" target:self selector:@selector(quitGame:)];
-	[quitMenuItem setColor:(ccColor3B){50,50,50}];
+	CCMenuItemImage* quitMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"QuitSmall.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"QuitSmallActive.png"] target:self selector:@selector(quitGame:)];
+	quitMenuItem.selectedImage.position = ccp(-6,-2);
 	quitMenuItem.position = ccp(50,0);
 	gameMenu = [CCMenu menuWithItems:resumeMenuItem,quitMenuItem,nil];
 	gameMenu.position = ccp(menuWidth/2,17);
@@ -123,7 +123,7 @@
 	{
 		pauseMenuVisible = true;
 		NSArray* leaderboardEntries = [delegate getLeaderboardEntries];
-		leaderboard = [[Leaderboard alloc] initWithLeaderboardEntries:leaderboardEntries];
+		leaderboard = [[[Leaderboard alloc] initWithLeaderboardEntries:leaderboardEntries] autorelease];
 		leaderboard.position = ccp(40,40);
 		[self addChild:leaderboard z:4];
 		[self addChild:gameMenuParent z:5];
@@ -157,5 +157,11 @@
 	{
 		[delegate onQuitGame];
 	}
+}
+
+-(void) dealloc
+{
+    [gameMenuParent release];
+    [super dealloc];
 }
 @end

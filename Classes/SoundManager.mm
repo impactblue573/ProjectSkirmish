@@ -44,4 +44,21 @@ static SoundManager* sharedSoundManager;
 		[[SimpleAudioEngine sharedEngine] playEffect:sound pitch:1 pan:pan gain:gain];
 	}	
 }
+
+-(void) playBackgroundMusic:(NSString*)music
+{
+    if(!currentBackgroundMusic || ![music isEqualToString:currentBackgroundMusic])
+    {
+        [currentBackgroundMusic release];
+        currentBackgroundMusic = [[NSString stringWithString:music] retain];
+        [[SimpleAudioEngine sharedEngine] playBackgroundMusic:currentBackgroundMusic loop:true];
+        [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.4];
+    }
+}
+
+-(void) dealloc
+{
+    [currentBackgroundMusic release];
+    [super dealloc];
+}
 @end

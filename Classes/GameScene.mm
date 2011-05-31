@@ -9,6 +9,7 @@
 #import "GameScene.h"
 #import "DataHelper.h"
 #import "PowerupFactory.h"
+#import "SoundManager.h"
 
 static GameScene* currentGameScene = nil;
 static GameMode gameMode;
@@ -171,7 +172,7 @@ static GameWorld* CurrentGameWorld;
 	
 	joystickBase = [[[SneakyJoystickSkinnedBase alloc] init] autorelease];
 	SneakyJoystick* joystick = [[[SneakyJoystick alloc] initWithRect:CGRectMake(0,0,80,80)] autorelease];
-    joystickBase.backgroundSprite = [ColoredCircleSprite circleWithColor:ccc4(50,50,50,128) radius:40];
+    joystickBase.backgroundSprite = [ColoredCircleSprite circleWithColor:ccc4(50,50,50,128) radius:60];
     joystickBase.position = ccp(team == team1 ? 80 : screenSize.width-80,36);
 	joystickBase.thumbSprite = [ColoredCircleSprite circleWithColor:ccc4(team == team1 ? 180:0, 0, team == team1 ? 0:180, 64) radius:40];
 	joystickBase.joystick = joystick;
@@ -219,15 +220,16 @@ static GameWorld* CurrentGameWorld;
 {
 	[self unschedule:@selector(showLeaderboard:)];
 	[uiLayer showMessage:@"" forInterval:0];
-	NSArray* array = (NSArray*)[self generateTeamLeaderboard];
-	Leaderboard* leaderboard = [[Leaderboard alloc] initWithLeaderboardEntries:array];
+	NSArray* array = [[self generateTeamLeaderboard] retain];
+	Leaderboard* leaderboard = [[[Leaderboard alloc] initWithLeaderboardEntries:array] autorelease];
 	leaderboard.position = ccp(40,40);
 	[uiLayer showCompletitionScreen];
+    [array release];
 }
 
 -(NSMutableArray*) generateTeamLeaderboard
 {
-	NSMutableArray* list = [[NSMutableArray alloc] init];
+	NSMutableArray* list = [NSMutableArray array];
 	LeaderboardEntry entry = [playerController getLeaderboardEntry];
 	NSValue* value = [NSValue valueWithBytes:&entry objCType:@encode(struct LeaderboardEntry)];
 	[list addObject:value];
@@ -533,20 +535,25 @@ static GameWorld* CurrentGameWorld;
 //initialize game
 -(void) initializeGame
 {
+    gameStarted = true;
+    [[GameKitHelper sharedGameKitHelper] isAvailable:false];
+    loadingScreen = [[[LoadingScreen alloc] init] autorelease];
+    [loadingScreen setProgress:0];
+    [self addChild:loadingScreen z:10];
 	[self initializeUI];
 	[self initializeTeams];
 	[self initializePlayerWithPawnType:[localPlayUI getSelectedCharacter] onTeam:([localPlayUI getSelectedTeam] == 1 ? team1 : team2) withName:[localPlayUI getPlayerName]];
 	[self removeChild:localPlayUI cleanup:true];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"TakeHit.aif"];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Paintball-Impact.aif"];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Paintball-Shot.aif"];
-	[self playBackgroundMusic];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Splat.aif"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Paintball-Shot-Tube.aif"];
 }
 
 -(void) endGame:(ccTime)delta
-{	
+{
+    [[GameKitHelper sharedGameKitHelper] clearDelegate];
 	[self unschedule:@selector(endGame:)];
-	[self stopBackgroundMusic];
+//	[self stopBackgroundMusic];
     [GameScene ReturnToTitle];
 }
 
@@ -556,9 +563,23 @@ static GameWorld* CurrentGameWorld;
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]];
 }
 
+-(void) delayedStart
+{
+    [loadingScreen setProgress:90];
+    [self schedule:@selector(delayedStartDone) interval:1];
+    [self schedule:@selector(playBackgroundMusic) interval:0.3];
+}
+
+-(void) delayedStartDone
+{
+    [self unschedule:@selector(delayedStartDone)];
+    [self removeChild:loadingScreen cleanup:true];
+    [self startGameScheduler];
+}
+
 -(void) startGameScheduler
 {
-	[self schedule: @selector(tick:) interval:1.0/60.0];
+	[self schedule: @selector(tick:)];
 }
 
 -(void) initializeUI
@@ -575,18 +596,19 @@ static GameWorld* CurrentGameWorld;
 //Single Player
 -(void) startSinglePlay:(NSString*)pType
 {
+    loadingScreen = [[[LoadingScreen alloc] init] autorelease];
+    [self addChild:loadingScreen z:10];
 	[self initializeUI];
 	[self initializeTeams];
 	[self initializePlayer:pType];
-	[self initializeBots:9];
-	[self schedule: @selector(tick:)];
-	[self playBackgroundMusic];
+	[self initializeBots:7];
+    [self delayedStart];
 }
 
 -(void) playBackgroundMusic
 {
-	[[SimpleAudioEngine sharedEngine] playBackgroundMusic:@"Twinkle.aif" loop:true];
-	[[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.4];
+    [self unschedule:@selector(playBackgroundMusic)];
+    [[SoundManager sharedManager] playBackgroundMusic:@"Its Over Now.aif"];
 }
 
 -(void) stopBackgroundMusic
@@ -741,6 +763,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) quitGame
 {
+    gameStarted = false;
 	[[CCDirector sharedDirector] replaceScene:[TitleScene scene]];
 	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
 	[gkHelper terminateSession];
@@ -764,6 +787,7 @@ static GameWorld* CurrentGameWorld;
 	hostNumBots = [localPlayUI getNumBots];
 	worldName = [NSString stringWithString:[localPlayUI getSelectedWorld]];
 	[self initializeGame];
+    [loadingScreen setProgress:25];
 	DataPacket* packet = [[DataPacket alloc] init];
 	packet.dataType = Data_InitPawnRequest;
 	packet.playerInput = [[NetworkPlayerInput alloc] init];
@@ -779,36 +803,38 @@ static GameWorld* CurrentGameWorld;
  */
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state
 {
-	if(isServer)
-	{
-		if(state == GKPeerStateConnected)
-		{
-			[playerList addObject:peerID];			
-			[localPlayUI setPendingText:@"Waiting for players to join..."];
-			[localPlayUI setPlayersJoined:[playerList count]];
-			[localPlayUI setStartMenuVisible:true];
-		}
-		if(state == GKPeerStateDisconnected)
-		{
-			[playerList removeObject:peerID];
-			[localPlayUI setPlayersJoined:[playerList count]];
-			if([playerList count] == 0)
-				[localPlayUI setStartMenuVisible:false];
-		}
-	}
-	else 
-	{
-		if(state == GKPeerStateAvailable)
-		{
-			[session connectToPeer:peerID withTimeout:10];			
-			[localPlayUI setPendingText:[NSString stringWithFormat:@"Connecting to %@",[session displayNameForPeer:peerID]]];
-		}
-		else if(state == GKPeerStateConnected)
-		{
-			[localPlayUI setPendingText:@"Connected...ready to start."];
-		}
-	}
-
+    if(!gameStarted)
+    {
+        if(isServer)
+        {
+            if(state == GKPeerStateConnected)
+            {
+                [playerList addObject:peerID];			
+                [localPlayUI setPendingText:@"Waiting for players to join..."];
+                [localPlayUI setPlayersJoined:[playerList count]];
+                [localPlayUI setStartMenuVisible:true];
+            }
+            if(state == GKPeerStateDisconnected)
+            {
+                [playerList removeObject:peerID];
+                [localPlayUI setPlayersJoined:[playerList count]];
+                if([playerList count] == 0)
+                    [localPlayUI setStartMenuVisible:false];
+            }
+        }
+        else 
+        {
+            if(state == GKPeerStateAvailable)
+            {
+                [session connectToPeer:peerID withTimeout:10];			
+                [localPlayUI setPendingText:[NSString stringWithFormat:@"Connecting to %@",[session displayNameForPeer:peerID]]];
+            }
+            else if(state == GKPeerStateConnected)
+            {
+                [localPlayUI setPendingText:@"Connected...ready to start."];
+            }
+        }
+    }
 }
 
 /* Indicates a connection request was received from another peer. 
@@ -818,15 +844,19 @@ static GameWorld* CurrentGameWorld;
  */
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID
 {
-    [session acceptConnectionFromPeer:peerID error:nil];        
-    [localPlayUI setPendingText:[NSString stringWithFormat:@"Connecting %@",[session displayNameForPeer:peerID]]];
+    if(!gameStarted)
+    {
+        [session acceptConnectionFromPeer:peerID error:nil];        
+        [localPlayUI setPendingText:[NSString stringWithFormat:@"Connecting %@",[session displayNameForPeer:peerID]]];
+    }
 }
 
 /* Indicates a connection error occurred with a peer, which includes connection request failures, or disconnects due to timeouts.
  */
 - (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error
 {
-	[localPlayUI setPendingText:@"Connection failed!"];
+    if(!gameStarted)
+        [localPlayUI setPendingText:@"Connection failed!"];
 }
 
 /* Indicates an error occurred with the session such as failing to make available.
@@ -846,11 +876,12 @@ static GameWorld* CurrentGameWorld;
 	{
 		[localPlayUI clearTextFields];
 		worldName = [NSString stringWithString:packet.worldName];
-		[self initializeGame];		
+		[self initializeGame];	
+        [loadingScreen setProgress:30];
 		serverPeerID = peer;
 		response.dataType = Data_InitPawnResponse;
 		PawnInfo* pawnInfo = [[playerController.pawn getPawnInfo] retain];
-		response.pawnInitData = [[NSMutableArray alloc] initWithObjects:pawnInfo,nil];
+		response.pawnInitData = [NSMutableArray arrayWithObject:pawnInfo];
 		[gkHelper sendData:[DataHelper serializeDataPacket:response] toPeer:serverPeerID withMode:GKSendDataReliable];
         [pawnInfo release];
 	}
@@ -860,6 +891,7 @@ static GameWorld* CurrentGameWorld;
 	{
 		clientInitCount++;
 		[self initializeNetworkPlayers:packet.pawnInitData];
+        [loadingScreen setProgress:25 + 25 * (clientInitCount/[playerList count])];
 		//ok all initialized...lets synchronize on the clients
 		if(clientInitCount == [playerList count])
 		{
@@ -879,6 +911,7 @@ static GameWorld* CurrentGameWorld;
 	//request from server to synchronize network controllers
 	if(packet.dataType == Data_SynchPawnRequest)
 	{
+        [loadingScreen setProgress:60];
 		[self initializeNetworkPlayers:packet.pawnInitData];
 		response.dataType = Data_SynchPawnResponse;
 		[gkHelper sendData:[DataHelper serializeDataPacket:response] toPeer:serverPeerID withMode:GKSendDataReliable];
@@ -888,11 +921,12 @@ static GameWorld* CurrentGameWorld;
 	if(packet.dataType == Data_SynchPawnResponse)
 	{
 		clientSyncCount++;
+        [loadingScreen setProgress:50 + 25 * (clientSyncCount/[networkPlayerControllers count])];
 		if(clientSyncCount == [networkPlayerControllers count])
 		{
 			response.dataType = Data_StartGame;
 			[gkHelper sendDataToAllPeers:[DataHelper serializeDataPacket:response] withMode:GKSendDataReliable];
-			[self startGameScheduler];
+			[self delayedStart];
 		}
 	}
 	
@@ -900,7 +934,7 @@ static GameWorld* CurrentGameWorld;
 	if(packet.dataType == Data_StartGame)
 	{
 		CCLOG(@"RECEIVED STARTGAME");
-		[self startGameScheduler];
+		[self delayedStart];
 	}
 	
 	//Pawn Update
@@ -1035,7 +1069,6 @@ static GameWorld* CurrentGameWorld;
         [onlinePlayUI release];
 	if(localPlayUI)
         [localPlayUI release];
-	[[SimpleAudioEngine sharedEngine] stopBackgroundMusic];
 	[super dealloc];
 }
 

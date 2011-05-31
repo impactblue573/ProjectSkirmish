@@ -119,8 +119,8 @@
 					float maintainDistance = 0;
 					if(aiType == AI_Sniper)
 					{
-						shootDistance = 480;
-						maintainDistance = 240;
+						shootDistance = 240;
+						maintainDistance = 220;
 					}
 					else if(aiType == AI_Ninja)
 					{
@@ -133,7 +133,7 @@
 						//jump and move towards them
 						if([pawn walk:moveVec])					
 							netInput.moveVector = [NSNumber numberWithFloat:moveVec.x];
-						if([pawn jump])
+						if([pawn jump:1.0])
 							netInput.hasJump = [NSNumber numberWithBool:true];
 					}
 					else
@@ -144,7 +144,7 @@
 							moveVec = b2Vec2(-1 * [Helper normalize:distance],0);
 							if([pawn walk:moveVec])
 								netInput.moveVector = [NSNumber numberWithFloat:moveVec.x];
-							if([pawn jump])
+							if([pawn jump:1.0])
 								netInput.hasJump = [NSNumber numberWithBool:true];
 						}		
 						else {
@@ -170,7 +170,7 @@
 					
 					if(aiType == AI_Ninja)
 					{
-						if([pawn jump])
+						if([pawn jump:1.0])
 							netInput.hasJump = [NSNumber numberWithBool:true];
 					}
 				}

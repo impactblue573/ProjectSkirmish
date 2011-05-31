@@ -32,7 +32,7 @@ static bool debugDraw = false;
 	{
         minTimeStep = 1.0f/60.0f;
         gravity = -20.0f;
-        projectileGravityMod = 0.0;
+        projectileGravityMod = -0.8;
         currentTimeStep = 0;        
 		[self buildWorld:worldName];
 		gamePawnList = [[NSMutableArray array] retain];
@@ -116,7 +116,7 @@ static bool debugDraw = false;
 		{
 			NSDictionary* spriteData = (NSDictionary*)[worldSprites objectAtIndex:i];
 			CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:[spriteData objectForKey:@"SpriteName"]];
-            [sprite.texture setAliasTexParameters];
+//            [sprite.texture setAliasTexParameters];
 			sprite.position = ccp([[spriteData objectForKey:@"PosX"] floatValue],[[spriteData objectForKey:@"PosY"] floatValue]);
 			[self addChild:sprite z:[[spriteData objectForKey:@"Z"] intValue]];		
 		}
@@ -303,7 +303,7 @@ static bool debugDraw = false;
 	{
 		proj = [activeProjectiles objectAtIndex:i];
 		proj.lifetime = proj.lifetime + dt;
-		if(proj.destroyed || (fabsf(proj.physicsBody->GetLinearVelocity().x) < 0.5 && proj.lifetime > 0.2))
+		if(proj.destroyed || (fabsf(proj.physicsBody->GetLinearVelocity().x) < 3.0 && proj.lifetime > 0.2))
 		{
 			CGPoint pos = [Helper toCGPoint:proj.physicsBody->GetPosition() multiply:PTM_RATIO];
 			if(proj.deathEffect != nil)
@@ -321,7 +321,7 @@ static bool debugDraw = false;
 				//play destroy sound;
 				[[SimpleAudioEngine sharedEngine] playEffect:@"Paintball-Impact.aif"];
 			}*/
-			[[SoundManager sharedManager] playSound:@"Paintball-Impact.aif" atPosition:pos];
+			[[SoundManager sharedManager] playSound:@"Splat.aif" atPosition:pos];
 			i--;
 		}
 		else 
@@ -417,7 +417,11 @@ NSInteger sortByPawnPosition(id arg1,id arg2, void* reverse)
 {
     [powerupManager release];
     [gamePawnList release];
-    [projectilePool release];		
+    [projectilePool release];	
+	for(uint i = 0; i < [activeProjectiles count]; i++)
+    {
+        [[activeProjectiles objectAtIndex:i] release];
+    }
     [activeProjectiles release];
     [super dealloc];
 }

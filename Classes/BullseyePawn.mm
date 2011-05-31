@@ -23,12 +23,12 @@
 		maxSpeed = 4.5;
 		jumpForceMag = 3600.0;
 		gunAnchorPoint = ccp(0.2,0.5);
-		gunOffset = CGPointMake(-10.0,-20.0);
-		muzzleOffset = CGPointMake(60.0,0);
-		tiltPosition = CGPointMake(-10.0,-20.0);
-		fireForce = 4.0f;
+		gunOffset = CGPointMake(-25.0,-16.0);
+		muzzleOffset = CGPointMake(74.0,0);
+		tiltPosition = CGPointMake(-10.0,-16.0);
+		fireForce = 5.0f;
 		fireInterval = 0.6f;		
-		fireDamage = 15;
+		fireDamage = 18;
 		spriteName = @"Bullseye";
 		pawnType = @"Bullseye";
 	}
@@ -39,14 +39,14 @@
 {
 	//Jump Animation
 	NSArray* frameNames = [NSArray arrayWithObjects:@"Default.png",@"Jump-1.png",@"Jump-2.png",nil];
-	[animationManager addAnimation:@"Jump" usingFrames:frameNames frameDelay:0.05];
+	[animationManager addAnimation:@"Jump" usingFrames:frameNames frameDelay:0.05 autoOffsetTo:bodySpriteDefaultSize];
 }
 
 -(void) initializeFallAnimation:(AnimationManager*)animationManager
 {
 	//Fall Animation
 	NSArray* frameNames = [NSArray arrayWithObjects:@"Fall-1.png",@"Fall-2.png",@"Fall-3.png",nil];
-	[animationManager addAnimation:@"Fall" usingFrames:frameNames frameDelay:0.1];
+	[animationManager addAnimation:@"Fall" usingFrames:frameNames frameDelay:0.1 autoOffsetTo:bodySpriteDefaultSize];
 }
 
 @end

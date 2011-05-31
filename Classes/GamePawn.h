@@ -80,6 +80,7 @@ typedef enum
     //Mods
     float fireForceMod;
     float fireIntervalMod;
+    CGSize bodySpriteDefaultSize;
 }
 
 -(id) initForController:(GameController*)ctrl;
@@ -88,7 +89,7 @@ typedef enum
 -(void) setPosition:(CGPoint)pos;
 -(void) setVelocity:(b2Vec2) velocity;
 -(bool) walk:(b2Vec2) direction;
--(bool) jump;
+-(bool) jump:(float)jumpPower;
 -(void) applyLimits;
 -(void) synchronizePawnPhysics:(ccTime)dt;
 -(void) updateFire:(ccTime)dt;

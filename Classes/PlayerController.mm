@@ -82,11 +82,11 @@
 	if(inputVec.y > 0.5)
 	{		
 		if(smartClient)
-			[pawn jump];
+			[pawn jump:1.0];
 		
 		if(timeSinceLastNetJump > netJumpInterval)
 		{
-			netInput.hasJump = [NSNumber numberWithBool:true];
+			netInput.hasJump = [NSNumber numberWithFloat:1.0];
 			timeSinceLastNetJump = 0;
 		}
 	}
@@ -127,7 +127,7 @@
 			if(pawn.health != 0)
 			{			
 				if(input.hasJump)
-					[pawn jump];
+					[pawn jump:[input.hasJump floatValue]];
 				if(input.moveVector != nil)
 				{
 					[pawn walk:b2Vec2([input.moveVector floatValue],0)];

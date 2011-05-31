@@ -13,23 +13,15 @@
 
 @synthesize slideListItem;
 
-+(id) initWithSlideListItem:(SlideListItem)item target:(id)r selector:(SEL)s
++(id) initWithSlideListItem:(SlideListItem)item target:(id)target selector:(SEL)selector
 {
-	return [[[self alloc] initWithSlideListItem:item target:r selector:s] autorelease];
+	return [[[self alloc] initWithSlideListItem:item target:target selector:selector] autorelease];
 }
 
--(id) initWithSlideListItem:(SlideListItem)item target:(id)r selector:(SEL)s
+-(id) initWithSlideListItem:(SlideListItem)item target:(id)target selector:(SEL)selector
 {
-	CGSize winSize = [[CCDirector sharedDirector] winSize];
-    CCSprite* itemSprite;
-    @try     {
-        itemSprite = [CCSprite spriteWithSpriteFrameName:item.image];
-    } 
-    @catch (NSException* ex) {
-        itemSprite = [CCSprite spriteWithFile:item.image];
-    }
-	[self initFromNormalImage:item.image selectedImage:nil disabledImage:nil target:r selector:s];
-	slideListItem = item;
+    slideListItem = item;
+	[self initFromNormalSprite:[CCSprite spriteWithSpriteFrameName:item.image] selectedSprite:[CCSprite spriteWithSpriteFrameName:item.image] disabledSprite:nil target:target selector:selector];
 	CCLabelTTF* text = [CCLabelTTF labelWithString:item.text fontName:@"Marker Felt" fontSize:20];
 	[text setColor:(ccColor3B){50,50,50}];
 	text.position = ccp(200,30);

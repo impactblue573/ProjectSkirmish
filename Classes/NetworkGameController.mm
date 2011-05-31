@@ -53,7 +53,7 @@ static int packetIDLimit = 4000;
 				}
 
 				if(input.hasJump)
-					[pawn jump];
+					[pawn jump:[input.hasJump floatValue]];
 				if(input.moveVector != nil)
 				{
 					[pawn walk:b2Vec2([input.moveVector floatValue],0)];

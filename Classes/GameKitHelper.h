@@ -78,4 +78,6 @@
 -(void) sendDataToAllPeers:(NSData*)data withMode:(GKSendDataMode)mode;
 -(void) sendData:(NSData*)data toPeer:(NSString*)peerID withMode:(GKSendDataMode)mode;
 -(NSString*) getPeerID;
+-(void) isAvailable:(bool)available;
+-(void) clearDelegate;
 @end

@@ -9,10 +9,11 @@
 #import <Foundation/Foundation.h>
 
 @interface SoundManager : NSObject {
-
+    NSString* currentBackgroundMusic;
 }
 
 +(SoundManager*) sharedManager;
 -(void) preloadSound:(NSString*)sound;
 -(void) playSound:(NSString*)sound atPosition:(CGPoint)position;
+-(void) playBackgroundMusic:(NSString*)music;
 @end

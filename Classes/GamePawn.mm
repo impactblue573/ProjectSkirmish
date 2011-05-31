@@ -49,8 +49,8 @@
 		fireDamage = 10;
         powerups = [[NSMutableArray alloc] init];
         spriteVariation = 1;
-        fireForceMod = 1.0f;
-        fireIntervalMod = 1.0f;
+        fireForceMod = 0.75f;
+        fireIntervalMod = 1.5f;
 	}
 	return self;
 }
@@ -112,17 +112,17 @@
 	return false;
 }
 
--(bool) jump
+-(bool) jump:(float)jumpPower
 {
 	//CCLOG(@"Apply force %f to mass %f",jumpForceMag,physicsBody->GetFixtureList()->GetDensity());
 	if(physicsState == Physics_Walking && pawnState == Pawn_Alive)
 	{
-		physicsBody->ApplyForce(b2Vec2(0.0,jumpForceMag),physicsBody->GetPosition());
+		physicsBody->ApplyForce(b2Vec2(0.0,jumpForceMag * jumpPower),physicsBody->GetPosition());
 		physicsState = Physics_Jumping;
 		//play sound effect
-		b2Vec2 vel = [self velocity];
-		[self setVelocity:b2Vec2(vel.x,0.1)];
-		b2Vec2 pos = [self position];
+		//b2Vec2 vel = [self velocity];
+		//[self setVelocity:b2Vec2(vel.x,0.1)];
+		//b2Vec2 pos = [self position];
 //		if([GameScene isInPlayerView:ccp(pos.x,pos.y)] || [controller isKindOfClass:[PlayerController class]])
 //		{
 //			//play jump
@@ -143,7 +143,7 @@
 		isFiring = YES;
 		timeSinceAim = 0;
 		float angle = atan( (target.y-tiltPos.y)/(target.x-tiltPos.x));
-		angle = clampf(angle,-1.2,1.2);
+		angle = clampf(angle,CC_DEGREES_TO_RADIANS(-60),CC_DEGREES_TO_RADIANS(45));
 		aimAngle = -1 * CC_RADIANS_TO_DEGREES(angle);
 		
 		//spawn projectile
@@ -159,7 +159,7 @@
 		//projectile.deathEffect = [[PaintballSplatParticleSystem alloc] initVelocity:ccp(facing,-0.5f)];
 		[projectilePool queueProjectile:projectile];
 		//Play Sound Effect
-		[[SoundManager sharedManager] playSound:@"Paintball-Shot.aif" atPosition:ccp(bodyPos.x,bodyPos.y)];
+		[[SoundManager sharedManager] playSound:@"Paintball-Shot-Tube.aif" atPosition:ccp(bodyPos.x,bodyPos.y)];
 
 		return true;
 	}
@@ -389,6 +389,10 @@
 -(void) initializeAnimations:(AnimationManager*)animationManager
 {
 	[animationManager initSpriteSheet:spriteName];
+    SpritePackage bodyPackage = [animationManager addSprite:@"Body" defaultFrame:@"Default.png"];	
+    bodySpriteDefaultSize = bodyPackage.size;
+    bodySprite = bodyPackage.sprite;
+	gunSprite = [animationManager addSprite:@"Gun" defaultFrame:@"Gun.png"].sprite;
 	[self initializeWalkAnimation:animationManager];
 	[self initializeStandAnimation:animationManager];
 	[self initializeJumpAnimation:animationManager];
@@ -398,36 +402,34 @@
 	[self initializeGunWalkAnimation:animationManager];
 	[self initializeGunShootAnimation:animationManager];
 	[self initializeGunDefaultAnimation:animationManager];
-	bodySprite = [animationManager addSprite:@"Body" defaultFrame:@"Default.png"];	
-	gunSprite = [animationManager addSprite:@"Gun" defaultFrame:@"Gun.png"];
 }
 
 -(void) initializeWalkAnimation:(AnimationManager*)animationManager
 {
 	//Walk Animation
 	NSArray* frameNames = [NSArray arrayWithObjects:@"Default.png",@"Walk-Left-1.png",@"Walk-Left-2.png",@"Walk-Left-1.png",@"Default.png",@"Walk-Right-1.png",@"Walk-Right-2.png",@"Walk-Right-1.png",nil];
-	[animationManager addAnimation:@"Walk" usingFrames:frameNames frameDelay:0.05];
+	[animationManager addAnimation:@"Walk" usingFrames:frameNames frameDelay:0.05 autoOffsetTo:bodySpriteDefaultSize];
 }
 
 -(void) initializeStandAnimation:(AnimationManager*)animationManager
 {
 	//Stand Animation
 	NSArray* frameNames = [NSArray arrayWithObjects:@"Default.png",@"Stand-1.png",@"Stand-2.png",@"Stand-3.png",@"Stand-2.png",@"Stand-1.png",nil];
-	[animationManager addAnimation:@"Idle" usingFrames:frameNames frameDelay:0.15];
+	[animationManager addAnimation:@"Idle" usingFrames:frameNames frameDelay:0.15 autoOffsetTo:bodySpriteDefaultSize];
 }
 
 -(void) initializeJumpAnimation:(AnimationManager*)animationManager
 {
 	//Jump Animation
 	NSArray* frameNames = [NSArray arrayWithObjects:@"Default.png",@"Jump-1.png",@"Jump-2.png",@"Jump-3.png",@"Jump-4.png",nil];
-	[animationManager addAnimation:@"Jump" usingFrames:frameNames frameDelay:0.05];
+	[animationManager addAnimation:@"Jump" usingFrames:frameNames frameDelay:0.05 autoOffsetTo:bodySpriteDefaultSize];
 }
 
 -(void) initializeFallAnimation:(AnimationManager*)animationManager
 {
 	//Fall Animation
 	NSArray* frameNames = [NSArray arrayWithObjects:@"Jump-3.png",@"Jump-2.png",@"Jump-1.png",@"Default.png",@"Fall-1.png",@"Fall-2.png",nil];
-	[animationManager addAnimation:@"Fall" usingFrames:frameNames frameDelay:0.1];
+	[animationManager addAnimation:@"Fall" usingFrames:frameNames frameDelay:0.1 autoOffsetTo:bodySpriteDefaultSize];
 }
 
 -(void) initializeDeathAnimation:(AnimationManager*)animationManager

@@ -28,7 +28,7 @@
 	CCLabelTTF* ammoLabel;
 	CCLabelTTF* pingLabel;
 	CCLabelTTF* messageLabel;
-	CCMenuItemFont* resumeMenuItem;
+	CCMenuItemImage* resumeMenuItem;
 	CCMenu* pauseMenu;
 	CCMenu* gameMenu;
 	CCLayerColor* gameMenuParent;

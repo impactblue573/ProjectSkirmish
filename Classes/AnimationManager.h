@@ -19,13 +19,22 @@
 	NSMutableDictionary* lastAnimations;
 }
 
+typedef struct SpritePackage
+{
+    CCSprite* sprite;
+    CGSize size;
+} SpritePackage;
+
 -(void) initSpriteSheet:(NSString*)spriteSheetName;
 -(void) addAnimation:(NSString*)animationName usingFrames:(NSArray*)frameNames frameDelay:(float)delay;
+-(void) addAnimation:(NSString*)animationName usingFrames:(NSArray*)frameNames frameDelay:(float)delay autoOffsetTo:(CGSize)defaultSize;
+
 -(void) addToLayer:(CCLayer*)layer;
 -(void) playLoopAnimation:(NSString*)animationName forSprite:(NSString*)spriteName;
 -(void) playAnimation:(NSString *)animationName forSprite:(NSString *)spriteName ignoreDuplicate:(bool)ignoreDup;
 -(void) playAnimation:(NSString *)animationName forSprite:(NSString*)spriteName;
 -(void) runAction:(CCAction*)action forSprite:(NSString*)spriteName;
--(CCSprite*) addSprite:(NSString *)spriteName defaultFrame:(NSString*)frameName;
+-(SpritePackage) addSprite:(NSString *)spriteName defaultFrame:(NSString*)frameName;
 -(CCSprite*) getSprite:(NSString*)spriteName;
+
 @end

@@ -10,7 +10,7 @@
 #import "GamePawn.h"
 
 @interface GinjaNinjaPawn : GamePawn {
-
+    float muzzleOffsetSecondary;
 }
 
 @end

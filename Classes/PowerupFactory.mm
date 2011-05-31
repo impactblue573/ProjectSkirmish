@@ -49,7 +49,9 @@
     state = Active;
     position = pos;
     spriteName = [[NSString stringWithString:sName] retain];
-    sprite = [[CCSprite spriteWithFile:spriteName] retain];
+    sprite = [[CCSprite spriteWithSpriteFrameName:spriteName] retain];
+//    sprite = [[CCSprite spriteWithFile:spriteName] retain];
+//    [sprite.texture setAntiAliasTexParameters];
     isDummy = dummy;
     return self;
 }
@@ -79,14 +81,17 @@
 
 -(void) reset
 {
-    deactiveTime = 0;
-    sprite.rotation = 0;
-    sprite.position = position;
-    sprite.opacity = 255;
-    sprite.scale = 1;
-    angularDirection = 1;
-    verticalDirection = 1;
-    state = Activating; 
+    if(state == Deactive)
+    {
+        deactiveTime = 0;
+        sprite.rotation = 0;
+        sprite.position = position;
+        sprite.opacity = 255;
+        sprite.scale = 1;
+        angularDirection = 1;
+        verticalDirection = 1;
+        state = Activating;
+    }
 }
 
 -(void) step:(ccTime)dt

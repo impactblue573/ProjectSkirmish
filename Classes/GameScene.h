@@ -25,6 +25,7 @@
 #import "Leaderboard.h"
 #import "CharacterPicker.h"
 #import "WorldPicker.h"
+#import "LoadingScreen.h"
 
 typedef enum
 {
@@ -65,6 +66,8 @@ typedef enum
 	WorldPicker* singlePlayWorldPicker;
     TapTarget* tapTarget;
     SneakyJoystickSkinnedBase* joystickBase;
+    LoadingScreen* loadingScreen;
+    bool gameStarted;
 }
 
 
@@ -91,6 +94,8 @@ typedef enum
 -(void) startSinglePlay:(NSString*)pType;
 -(void) receiveData:(NSData *)data fromPeer:(NSString *)peer inSession: (GKSession *)session context:(void *)context;
 -(void) startGameScheduler;
+-(void) delayedStart;
+-(void) delayedStartDone;
 -(void) dispatchNetworkPlayerInput:(NetworkPlayerInput*)netInput;// packetID:(int)packetID;
 //-(void) dispatchNetworkPlayerInputs:(NSMutableArray*)netInputs;
 -(void) processNetworkPlayerInput:(NetworkPlayerInput*)netInput packetID:(int)packetID;

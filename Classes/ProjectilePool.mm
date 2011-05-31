@@ -35,6 +35,10 @@
 
 -(void) dealloc
 {
+    for(uint i = 0; i < [pendingProjectiles count]; i++)
+    {
+        [[pendingProjectiles objectAtIndex:i] release];
+    }
     [pendingProjectiles release];
     [super dealloc];
 }

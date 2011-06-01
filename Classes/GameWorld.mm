@@ -321,7 +321,7 @@ static bool debugDraw = false;
 				//play destroy sound;
 				[[SimpleAudioEngine sharedEngine] playEffect:@"Paintball-Impact.aif"];
 			}*/
-			[[SoundManager sharedManager] playSound:@"Splat.aif" atPosition:pos];
+			[[SoundManager sharedManager] playSound:@"Splat.mp3" atPosition:pos];
 			i--;
 		}
 		else 

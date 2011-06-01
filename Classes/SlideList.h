@@ -31,6 +31,8 @@
 }
 	
 -(id) initWithSlideListItems:(NSMutableArray*)items;
+-(id) initWithSlideListMenuItems:(NSMutableArray*)items;
+
 -(void) setTarget:(id)t selector:(SEL)s;
 
 @end

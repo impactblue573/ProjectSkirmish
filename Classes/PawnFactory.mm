@@ -41,7 +41,17 @@
 	else if([pawnType  isEqualToString:@"Ginja Ninja"])
 		return [[GinjaNinjaPawn alloc] init];
     else if([pawnType isEqualToString:@"Porcus Maximus"])
-        return [[PorcusMaximusPawn alloc] init];
-	return [[GamePawn alloc] init];
+    {
+        GamePawn* pawn = [[PorcusMaximusPawn alloc] init];
+        [pawn setVariation:1];
+        return pawn;
+	}
+    else if([pawnType isEqualToString:@"Porcus Maximus Alt"])
+    {
+        GamePawn* pawn = [[PorcusMaximusPawn alloc] init];
+        [pawn setVariation:2];
+        return pawn;
+	}
+    return [[GamePawn alloc] init];
 }
 @end

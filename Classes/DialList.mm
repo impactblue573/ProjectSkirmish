@@ -15,9 +15,9 @@
 {
 	self = [super init];
 	valueList = [[NSArray arrayWithArray:list] retain];
-	upButton = [CCMenuItemImage itemFromNormalImage:@"UpArrow.png" selectedImage:@"UpArrowSelected.png" target:self selector:@selector(upButtonPress:)];
+	upButton = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"UpArrow.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"UpArrowSelected.png"] target:self selector:@selector(upButtonPress:)];
 	upButton.position = ccp(0,10);
-	downButton = [CCMenuItemImage itemFromNormalImage:@"DownArrow.png" selectedImage:@"DownArrowSelected.png" target:self selector:@selector(downButtonPress:)];
+	downButton = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"DownArrow.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"DownArrowSelected.png"] target:self selector:@selector(downButtonPress:)];
 	downButton.position = ccp(0,-10);
 	CCMenu* dialMenu = [CCMenu menuWithItems:upButton,downButton,nil];
 	dialMenu.position = ccp(width,0);

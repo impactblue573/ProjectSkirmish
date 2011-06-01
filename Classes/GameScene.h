@@ -85,7 +85,6 @@ typedef enum
 -(void) initializeUI;
 -(void) initializePlayer:(NSString*)pType;
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name;
--(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name usingVariation:(int)variation;
 -(void) initializeBots:(int)numBots;
 -(void) updateViewport;
 -(void) loadSprites;

@@ -73,7 +73,7 @@
 		projectile.damage = fireDamage;
 		[projectilePool queueProjectile:projectile];
 		//Play Sound Effect
-		[[SoundManager sharedManager] playSound:@"Paintball-Shot-Tube.aif" atPosition:ccp(bodyPos.x,bodyPos.y)];
+		[[SoundManager sharedManager] playSound:@"Gunfire.mp3" atPosition:ccp(bodyPos.x,bodyPos.y)];
         
 		return true;
 	}

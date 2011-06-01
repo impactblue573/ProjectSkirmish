@@ -57,7 +57,8 @@
 
 -(void) setVariation:(int)variation
 {
-    spriteVariation = variation;
+    if(variation >= 0)
+        spriteVariation = variation;
 }
 
 -(id) initForController:(GameController*)ctrl
@@ -159,7 +160,7 @@
 		//projectile.deathEffect = [[PaintballSplatParticleSystem alloc] initVelocity:ccp(facing,-0.5f)];
 		[projectilePool queueProjectile:projectile];
 		//Play Sound Effect
-		[[SoundManager sharedManager] playSound:@"Paintball-Shot-Tube.aif" atPosition:ccp(bodyPos.x,bodyPos.y)];
+		[[SoundManager sharedManager] playSound:@"Gunfire.mp3" atPosition:ccp(bodyPos.x,bodyPos.y)];
 
 		return true;
 	}

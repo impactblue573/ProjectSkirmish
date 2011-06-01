@@ -10,10 +10,15 @@
 
 @interface SoundManager : NSObject {
     NSString* currentBackgroundMusic;
+    float currentBackgroundVolume;
+    float backgroundVolume;
 }
 
 +(SoundManager*) sharedManager;
 -(void) preloadSound:(NSString*)sound;
 -(void) playSound:(NSString*)sound atPosition:(CGPoint)position;
 -(void) playBackgroundMusic:(NSString*)music;
+-(void) fadeInBackgroundMusic:(float)volume;
+-(void) increaseBackgroundVolume;
+
 @end

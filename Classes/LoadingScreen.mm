@@ -36,9 +36,21 @@
 
 -(void) setProgress:(float)progress
 {
-    float width = maxClippingSize - maxClippingSize * clampf(progress, 0, 100)/100;
+    targetProgress = clampf(progress, 0, 100);
+    [self schedule:@selector(animateProgress:) interval:1.0/60.0];
+}
+
+-(void) animateProgress:(ccTime)dt
+{
+    dt = dt == 0 ? 1.0/60.0 : dt;
+    currentProgress = MIN(targetProgress, currentProgress + 4);
+    float width = maxClippingSize - maxClippingSize * currentProgress/100;
     [clippingMask setContentSize:CGSizeMake(width,clippingHeight)];
     clippingMask.position = ccp(maxLeftMargin - width,clippingY);
+    if(currentProgress == targetProgress)
+    {
+        [self unschedule:@selector(animateProgress:)];
+    }
 }
 
 @end

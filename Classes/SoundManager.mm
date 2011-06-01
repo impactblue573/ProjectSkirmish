@@ -52,12 +52,33 @@ static SoundManager* sharedSoundManager;
         [currentBackgroundMusic release];
         currentBackgroundMusic = [[NSString stringWithString:music] retain];
         [[SimpleAudioEngine sharedEngine] playBackgroundMusic:currentBackgroundMusic loop:true];
-        [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0.4];
+        [self fadeInBackgroundMusic:0.4];
     }
+}
+
+-(void) fadeInBackgroundMusic:(float)volume;
+{
+    backgroundVolume = volume;
+    currentBackgroundVolume = 0;
+    [[CCScheduler sharedScheduler] unscheduleSelector:@selector(increaseBackgroundVolume) forTarget:self];
+    [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:0];
+    [[CCScheduler sharedScheduler] scheduleSelector:@selector(increaseBackgroundVolume) forTarget:self interval:0.2 paused:false];
+}
+
+-(void) increaseBackgroundVolume
+{
+    currentBackgroundVolume += 0.05;
+    if(currentBackgroundVolume >= backgroundVolume)
+    {
+        currentBackgroundVolume = backgroundVolume;
+        [[CCScheduler sharedScheduler] unscheduleSelector:@selector(increaseBackgroundVolume) forTarget:self];
+    }
+    [[SimpleAudioEngine sharedEngine] setBackgroundMusicVolume:currentBackgroundVolume];
 }
 
 -(void) dealloc
 {
+    [[CCScheduler sharedScheduler] unscheduleSelector:@selector(increaseBackgroundVolume) forTarget:self];
     [currentBackgroundMusic release];
     [super dealloc];
 }

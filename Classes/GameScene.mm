@@ -150,11 +150,6 @@ static GameWorld* CurrentGameWorld;
 
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name
 {
-    [self initializePlayerWithPawnType:pType onTeam:team withName:name usingVariation:0];
-}
-
--(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name usingVariation:(int)variation
-{
 	NSString* playerID = @"LocalPlayer";
 	if(gameMode == Game_Online)
 	{
@@ -188,7 +183,7 @@ static GameWorld* CurrentGameWorld;
 	GameCamera* camera = [[[GameCamera alloc] initToViewportSize:screenSize WorldSize:gameWorld.worldSize Position:CGPointMake(0.0f,0.0f)] autorelease];
 	
 	//initialize player controller
-	playerController = [[PlayerController alloc] initInWorld:gameWorld usingPawn:pType asTeam:team withPlayerID:playerID withPlayerName:name];
+	playerController = [[PlayerController alloc] initInWorld:gameWorld usingPawn:pType asTeam:team withPlayerID:playerID withPlayerName:name usingVariation:-1];
 	[playerController setCamera:camera];
 	[playerController setPlayerInput:playerInput];
 	[gameWorld spawnGamePawn:playerController.pawn];
@@ -545,8 +540,8 @@ static GameWorld* CurrentGameWorld;
 	[self initializePlayerWithPawnType:[localPlayUI getSelectedCharacter] onTeam:([localPlayUI getSelectedTeam] == 1 ? team1 : team2) withName:[localPlayUI getPlayerName]];
 	[self removeChild:localPlayUI cleanup:true];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"TakeHit.aif"];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Splat.aif"];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Paintball-Shot-Tube.aif"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Splat.mp3"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Fire.mp3"];
 }
 
 -(void) endGame:(ccTime)delta
@@ -565,7 +560,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) delayedStart
 {
-    [loadingScreen setProgress:90];
+    [loadingScreen setProgress:100];
     [self schedule:@selector(delayedStartDone) interval:1];
     [self schedule:@selector(playBackgroundMusic) interval:0.3];
 }
@@ -608,7 +603,7 @@ static GameWorld* CurrentGameWorld;
 -(void) playBackgroundMusic
 {
     [self unschedule:@selector(playBackgroundMusic)];
-    [[SoundManager sharedManager] playBackgroundMusic:@"Its Over Now.aif"];
+    [[SoundManager sharedManager] playBackgroundMusic:@"Its Over Now.mp3"];
 }
 
 -(void) stopBackgroundMusic
@@ -1018,6 +1013,7 @@ static GameWorld* CurrentGameWorld;
 #pragma mark SlideListProtocol
 -(void) onCharacterSelect:(SlideListItem)item
 {
+    NSLog(@"Player using %@",item.key);
 	[self removeChild:singlePlayCharacterPicker cleanup:false];
 	[self startSinglePlay:item.key];
 }

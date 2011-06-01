@@ -15,6 +15,8 @@
     float maxLeftMargin;
     float clippingY;
     float clippingHeight;
+    float currentProgress;
+    float targetProgress;
 }
 
 -(void) setProgress:(float)progress;

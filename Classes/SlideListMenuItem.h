@@ -23,6 +23,8 @@ typedef struct SlideListItem SlideListItem;
 
 +(id) initWithSlideListItem:(SlideListItem)item target:(id)target selector:(SEL)selector;
 -(id) initWithSlideListItem:(SlideListItem)item target:(id)target selector:(SEL)selector;
+-(void) setTarget:(id)target selector:(SEL)selector;
+-(SlideListItem) getItem;
 
 @property(assign) SlideListItem slideListItem;
 @end

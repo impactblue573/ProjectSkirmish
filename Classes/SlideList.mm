@@ -14,6 +14,21 @@
 
 -(id) initWithSlideListItems:(NSMutableArray *)items
 {
+    NSMutableArray* menuItems = [NSMutableArray array];
+	for(uint i = 0; i < [items count]; i++)
+    {
+        SlideListItem item;
+        [[items objectAtIndex:i] getValue:&item];
+        SlideListMenuItem* slideListItem = [SlideListMenuItem initWithSlideListItem:item target:self selector:@selector(slideItemSelect:)];
+        [menuItems addObject:slideListItem];
+    }
+    [self initWithSlideListMenuItems:menuItems];
+    return self;
+}
+
+
+-(id) initWithSlideListMenuItems:(NSMutableArray *)items
+{
 	screenSize = [[CCDirector sharedDirector] winSize];
 	if((self = [super initWithColor:(ccColor4B){255,255,255,255} width:screenSize.width height:screenSize.height]))
 	{
@@ -22,13 +37,13 @@
 		length = [slideListItems count];
 		position = 0;
 		menu = [CCMenu menuWithItems:nil];
-		menu.position = ccp(-position * screenSize.width + 200,screenSize.height/2);
+        menu.anchorPoint = ccp(0,0);
+		menu.position = ccp(-position * screenSize.width,0);
 		for(uint i = 0; i < [slideListItems count]; i++)
 		{
-			SlideListItem item;
-			[[slideListItems objectAtIndex:i] getValue:&item];
-			SlideListMenuItem* slideListItem = [SlideListMenuItem initWithSlideListItem:item target:self selector:@selector(slideItemSelect:)];
-			slideListItem.position = ccp(i * screenSize.width + (screenSize.width-400)/2, 0);
+			SlideListMenuItem* slideListItem = [slideListItems objectAtIndex:i]; 
+            [slideListItem setTarget:self selector:@selector(slideItemSelect:)];
+            slideListItem.position = ccp(i * screenSize.width + (screenSize.width)/2, screenSize.height/2);
 			[menu addChild:slideListItem];
 		}
 		[self addChild:menu z:1];
@@ -46,6 +61,7 @@
 	}
 	return self;
 }
+
 
 -(void) setTarget:(id)t selector:(SEL)s
 {
@@ -71,7 +87,7 @@
 -(void) slideItemSelect:(id)menuItem
 {
 	SlideListMenuItem* item = menuItem;
-	SlideListItem slItem = item.slideListItem;
+	SlideListItem slItem = [item getItem];
 	[callbackInvocation setArgument:&slItem atIndex:2];
 	[callbackInvocation invoke];
 }
@@ -93,7 +109,7 @@
 	else
 		[rightArrow setIsEnabled:true];
 
-	target = ccp(-position * screenSize.width + 200,screenSize.height/2);
+	target = ccp(-position * screenSize.width,0);
 	[self unschedule:@selector(doSlideAnimation:)];
 	[self schedule:@selector(doSlideAnimation:)];
 }

@@ -8,6 +8,7 @@
 
 #import "TitleScene.h"
 #import "SoundManager.h"
+#import "Toggler.h"
 
 @implementation TitleScene
 
@@ -35,7 +36,7 @@
         background.position = ccp(240,160);
         [self addChild:background];
 		[self addChild:titleMenu];
-        [[SoundManager sharedManager] playBackgroundMusic:@"Twinkle.aif"];
+        [[SoundManager sharedManager] playBackgroundMusic:@"Twinkle.mp3"];
 	}
 	return self;
 }

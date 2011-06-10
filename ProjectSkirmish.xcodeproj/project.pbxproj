@@ -47,6 +47,9 @@
 		3F44985013442EB500742129 /* PorcusMaximusPawn.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F44984F13442EB500742129 /* PorcusMaximusPawn.mm */; };
 		3F460C3D1395B672003AE09F /* Toggler.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F460C3C1395B672003AE09F /* Toggler.mm */; };
 		3F460C401395C267003AE09F /* SlideListToggleMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F460C3F1395C267003AE09F /* SlideListToggleMenuItem.mm */; };
+		3F460C4413977FB1003AE09F /* CreepyWoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F460C4213977FB1003AE09F /* CreepyWoods.plist */; };
+		3F460C4513977FB1003AE09F /* CreepyWoods.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F460C4313977FB1003AE09F /* CreepyWoods.png */; };
+		3F460C4913978409003AE09F /* CreepyWoods_World.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F460C4813978409003AE09F /* CreepyWoods_World.plist */; };
 		3F4D6A9F138C7140007D00BC /* Healthbar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F4D6A9E138C7140007D00BC /* Healthbar.mm */; };
 		3F4D6AA4138CC0AC007D00BC /* UI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F4D6AA2138CC0AC007D00BC /* UI.plist */; };
 		3F4D6AA5138CC0AC007D00BC /* UI.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F4D6AA3138CC0AC007D00BC /* UI.png */; };
@@ -96,6 +99,8 @@
 		3FC9B05112E686F100552220 /* TakeHit.aif in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9B05012E686F100552220 /* TakeHit.aif */; };
 		3FC9B06D12E68B5300552220 /* SoundManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FC9B06C12E68B5300552220 /* SoundManager.mm */; };
 		3FD2380712DBF6D900EB3932 /* ProjectilePool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FD2380612DBF6D900EB3932 /* ProjectilePool.mm */; };
+		3FD2C74E13A1C542000383F1 /* LamboAlternate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FD2C74C13A1C542000383F1 /* LamboAlternate.plist */; };
+		3FD2C74F13A1C542000383F1 /* LamboAlternate.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD2C74D13A1C542000383F1 /* LamboAlternate.png */; };
 		3FE7766313775EDA0059DAB9 /* Powerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FE7766213775EDA0059DAB9 /* Powerup.mm */; };
 		3FEF14A112D56AD500F2689B /* LocalPlayUI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF14A012D56AD500F2689B /* LocalPlayUI.mm */; };
 		3FEF19C012D5EFB700F2689B /* DataHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF19BF12D5EFB700F2689B /* DataHelper.mm */; };
@@ -497,6 +502,9 @@
 		3F460C3C1395B672003AE09F /* Toggler.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Toggler.mm; sourceTree = "<group>"; };
 		3F460C3E1395C266003AE09F /* SlideListToggleMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideListToggleMenuItem.h; sourceTree = "<group>"; };
 		3F460C3F1395C267003AE09F /* SlideListToggleMenuItem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SlideListToggleMenuItem.mm; sourceTree = "<group>"; };
+		3F460C4213977FB1003AE09F /* CreepyWoods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CreepyWoods.plist; path = Illustrations/CreepyWoods/CreepyWoods.plist; sourceTree = SOURCE_ROOT; };
+		3F460C4313977FB1003AE09F /* CreepyWoods.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CreepyWoods.png; path = Illustrations/CreepyWoods/CreepyWoods.png; sourceTree = SOURCE_ROOT; };
+		3F460C4813978409003AE09F /* CreepyWoods_World.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CreepyWoods_World.plist; path = Illustrations/CreepyWoods/CreepyWoods_World.plist; sourceTree = SOURCE_ROOT; };
 		3F4D6A9D138C7140007D00BC /* Healthbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Healthbar.h; sourceTree = "<group>"; };
 		3F4D6A9E138C7140007D00BC /* Healthbar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Healthbar.mm; sourceTree = "<group>"; };
 		3F4D6AA2138CC0AC007D00BC /* UI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UI.plist; path = Illustrations/UI.plist; sourceTree = SOURCE_ROOT; };
@@ -574,6 +582,8 @@
 		3FC9B06C12E68B5300552220 /* SoundManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SoundManager.mm; sourceTree = "<group>"; };
 		3FD2380512DBF6D900EB3932 /* ProjectilePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectilePool.h; sourceTree = "<group>"; };
 		3FD2380612DBF6D900EB3932 /* ProjectilePool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProjectilePool.mm; sourceTree = "<group>"; };
+		3FD2C74C13A1C542000383F1 /* LamboAlternate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LamboAlternate.plist; path = Illustrations/Lambo/Alternate/LamboAlternate.plist; sourceTree = SOURCE_ROOT; };
+		3FD2C74D13A1C542000383F1 /* LamboAlternate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LamboAlternate.png; path = Illustrations/Lambo/Alternate/LamboAlternate.png; sourceTree = SOURCE_ROOT; };
 		3FE7766113775EDA0059DAB9 /* Powerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Powerup.h; sourceTree = "<group>"; };
 		3FE7766213775EDA0059DAB9 /* Powerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Powerup.mm; sourceTree = "<group>"; };
 		3FEF149F12D56AD500F2689B /* LocalPlayUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalPlayUI.h; sourceTree = "<group>"; };
@@ -1052,6 +1062,7 @@
 		3F3CF890132DA0440030611B /* World */ = {
 			isa = PBXGroup;
 			children = (
+				3F460C4113977F99003AE09F /* CreepyWoods */,
 				3F3CF891132DA04F0030611B /* FarmWorld */,
 			);
 			name = World;
@@ -1060,9 +1071,9 @@
 		3F3CF891132DA04F0030611B /* FarmWorld */ = {
 			isa = PBXGroup;
 			children = (
+				3F3CF75D132D79490030611B /* Farm_World.plist */,
 				3F4D6AAA138D196F007D00BC /* FarmWorld.plist */,
 				3F4D6AAB138D196F007D00BC /* FarmWorld.png */,
-				3F3CF75D132D79490030611B /* Farm_World.plist */,
 			);
 			name = FarmWorld;
 			sourceTree = "<group>";
@@ -1082,6 +1093,8 @@
 		3F3CF893132DA0850030611B /* Pawn */ = {
 			isa = PBXGroup;
 			children = (
+				3FD2C74C13A1C542000383F1 /* LamboAlternate.plist */,
+				3FD2C74D13A1C542000383F1 /* LamboAlternate.png */,
 				3F55C60B1392939900EF436D /* Lambo.plist */,
 				3F55C60C1392939900EF436D /* Lambo.png */,
 				3F35234F133C10E300DFECB2 /* LamboClassic.plist */,
@@ -1141,6 +1154,16 @@
 				3F460C3F1395C267003AE09F /* SlideListToggleMenuItem.mm */,
 			);
 			name = UI;
+			sourceTree = "<group>";
+		};
+		3F460C4113977F99003AE09F /* CreepyWoods */ = {
+			isa = PBXGroup;
+			children = (
+				3F460C4813978409003AE09F /* CreepyWoods_World.plist */,
+				3F460C4213977FB1003AE09F /* CreepyWoods.plist */,
+				3F460C4313977FB1003AE09F /* CreepyWoods.png */,
+			);
+			name = CreepyWoods;
 			sourceTree = "<group>";
 		};
 		3FA6BAEF12D475170045E40D /* Physics */ = {
@@ -2037,6 +2060,11 @@
 				3F55C6281394923B00EF436D /* Its Over Now.mp3 in Resources */,
 				3F55C62B1394931700EF436D /* Gunfire.mp3 in Resources */,
 				3F55C62C1394931700EF436D /* Splat.mp3 in Resources */,
+				3F460C4413977FB1003AE09F /* CreepyWoods.plist in Resources */,
+				3F460C4513977FB1003AE09F /* CreepyWoods.png in Resources */,
+				3F460C4913978409003AE09F /* CreepyWoods_World.plist in Resources */,
+				3FD2C74E13A1C542000383F1 /* LamboAlternate.plist in Resources */,
+				3FD2C74F13A1C542000383F1 /* LamboAlternate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

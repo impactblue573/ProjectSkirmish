@@ -196,7 +196,6 @@
 
 -(void) dealloc
 {
-    NSLog(@"GameController now deallocating");
     [playerID release];
     [playerName release];
     [pawnType release];

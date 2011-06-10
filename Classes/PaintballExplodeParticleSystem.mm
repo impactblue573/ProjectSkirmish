@@ -11,9 +11,9 @@
 
 @implementation PaintballExplodeParticleSystem
 
--(id) initVelocity:(CGPoint)vel withColor:(ccColor3B)color
+-(id) initVelocity:(CGPoint)vel withColor:(ccColor3B)color numParticles:(int)numParticles
 {
-	if( (self=[super initWithTotalParticles:500]) ) {
+	if( (self=[super initWithTotalParticles:numParticles]) ) {
 		
 		self.autoRemoveOnFinish = true;
 		// duration

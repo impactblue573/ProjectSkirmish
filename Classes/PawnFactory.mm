@@ -35,8 +35,18 @@
 +(GamePawn*) initializePawnType:(NSString *)pawnType
 {
 	if([pawnType isEqualToString:@"Lambo"])
-		return [[LamboPawn alloc] init];
-	else if([pawnType  isEqualToString:@"Bullseye"])
+	{
+		GamePawn* pawn = [[LamboPawn alloc] init];
+        [pawn setVariation:1];
+        return pawn;
+	}
+    else if([pawnType isEqualToString:@"Lambo Alternate"])
+    {
+		GamePawn* pawn = [[LamboPawn alloc] init];
+        [pawn setVariation:2];
+        return pawn;
+	}
+    else if([pawnType  isEqualToString:@"Bullseye"])
 		return [[BullseyePawn alloc] init];
 	else if([pawnType  isEqualToString:@"Ginja Ninja"])
 		return [[GinjaNinjaPawn alloc] init];

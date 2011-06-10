@@ -41,7 +41,10 @@ void ProjectileContactListener::BeginContact(b2Contact* contact)
     
     if(proj != nil && pawn != nil)
 	{
-		if([GameScene isServer] || [GameScene CurrentGameMode] == Game_Single)
+//        b2Vec2 velocity = proj.physicsBody->GetLinearVelocity();
+//		float speed = pow(velocity.x * velocity.x + velocity.y * velocity.y,0.5);
+//        NSLog(@"Projectile Speed %.2f",speed);
+        if([GameScene isServer] || [GameScene CurrentGameMode] == Game_Single)
 		{
 			if(![pawn isDead])
 			{

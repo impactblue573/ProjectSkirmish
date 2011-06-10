@@ -67,6 +67,7 @@ typedef enum
 	float lastMoveForce;
 	float moveForceInterval;
 	float walkDirection;
+    int projectileParticleCount;
     int spriteVariation;
 	GameTeam* team;
 	GameController* controller;
@@ -120,6 +121,7 @@ typedef enum
 -(void) clearPowerups;
 -(void) setVariation:(int)variation;
 -(float) getFireInterval;
+-(void) spawnProjectile:(float)angle atPosition:(CGPoint)pos;
 
 
 @property(readonly) GameController* controller;

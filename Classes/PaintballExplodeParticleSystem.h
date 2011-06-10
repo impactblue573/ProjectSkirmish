@@ -14,6 +14,6 @@
 
 }
 
--(id) initVelocity:(CGPoint)vel withColor:(ccColor3B)color;
+-(id) initVelocity:(CGPoint)vel withColor:(ccColor3B)color numParticles:(int)particles;
 
 @end

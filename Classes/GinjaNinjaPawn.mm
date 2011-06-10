@@ -27,6 +27,7 @@
 		muzzleOffset = CGPointMake(40.0,0);
         muzzleOffsetSecondary = 18;
 		tiltPosition = CGPointMake(0.0,0.0);
+        projectileParticleCount = 150;
 		fireForce = 2.5f;
 		fireInterval = 0.25f;		
 		fireDamage = 3.5;
@@ -51,27 +52,11 @@
 		aimAngle = -1 * CC_RADIANS_TO_DEGREES(angle);
 		
 		//spawn projectile
-		Projectile* projectile = [[Projectile alloc] init];
-		projectile.sprite = [[CCSprite spriteWithSpriteFrameName:team.paintballSprite] retain];
-		projectile.launchPosition = CGPointMake(tiltPos.x + facing * muzzleOffset.x * cos(angle),tiltPos.y + facing * muzzleOffset.x * sin(angle));;
-		projectile.launchForce = CGPointMake(facing * fireForce * fireForceMod * cos(angle), facing * fireForce * fireForceMod * sin(angle));
-		projectile.mass = 0.1;
-		projectile.controller = controller;
-		projectile.deathEffect = [[[PaintballExplodeParticleSystem alloc] initVelocity:ccp([Helper normalize:projectile.launchForce.x],projectile.launchForce.y/fabsf(projectile.launchForce.x)) withColor:team.teamColor] autorelease];		
-		projectile.teamIndex = team.teamIndex;
-		projectile.damage = fireDamage;
-		[projectilePool queueProjectile:projectile];
-        
-        projectile = [[Projectile alloc] init];
-		projectile.sprite = [[CCSprite spriteWithSpriteFrameName:team.paintballSprite] retain];
-		projectile.launchPosition = CGPointMake(tiltPos.x + facing * muzzleOffsetSecondary * cos(angle),tiltPos.y + facing * muzzleOffsetSecondary * sin(angle));;
-		projectile.launchForce = CGPointMake(facing * fireForce * fireForceMod * cos(angle), facing * fireForce * fireForceMod * sin(angle));
-		projectile.mass = 0.1;
-		projectile.controller = controller;
-		projectile.deathEffect = [[[PaintballExplodeParticleSystem alloc] initVelocity:ccp([Helper normalize:projectile.launchForce.x],projectile.launchForce.y/fabsf(projectile.launchForce.x)) withColor:team.teamColor] autorelease];		
-		projectile.teamIndex = team.teamIndex;
-		projectile.damage = fireDamage;
-		[projectilePool queueProjectile:projectile];
+		CGPoint launchPos1 = CGPointMake(tiltPos.x + facing * muzzleOffset.x * cos(angle),tiltPos.y + facing * muzzleOffset.x * sin(angle));;
+		CGPoint launchPos2 = CGPointMake(tiltPos.x + facing * muzzleOffsetSecondary * cos(angle),tiltPos.y + facing * muzzleOffsetSecondary * sin(angle));;
+		
+        [self spawnProjectile:angle atPosition:launchPos1];
+        [self spawnProjectile:angle atPosition:launchPos2];
 		//Play Sound Effect
 		[[SoundManager sharedManager] playSound:@"Gunfire.mp3" atPosition:ccp(bodyPos.x,bodyPos.y)];
         

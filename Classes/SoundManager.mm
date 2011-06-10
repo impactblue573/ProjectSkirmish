@@ -47,6 +47,8 @@ static SoundManager* sharedSoundManager;
 
 -(void) playBackgroundMusic:(NSString*)music
 {
+    if(!enabled)
+        return;
     if(!currentBackgroundMusic || ![music isEqualToString:currentBackgroundMusic])
     {
         [currentBackgroundMusic release];

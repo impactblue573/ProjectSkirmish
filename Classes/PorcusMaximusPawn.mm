@@ -19,7 +19,7 @@
     fireDamage = 12;
     jumpSpeed = 12.0;
     maxSpeed = 5.0;
-    jumpForceMag = 3000.0;
+    jumpForceMag = 3200.0;
     muzzleOffset = CGPointMake(64.0,0);
     pawnType = @"Porcus Maximus";
     

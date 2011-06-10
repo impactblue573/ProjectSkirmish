@@ -22,27 +22,31 @@ bool OneSideContactFilter::ShouldCollide (b2Fixture *fixtureA, b2Fixture *fixtur
 		
 		BodyBounds staticBounds = [Helper GetBounds:staticFixture];
         BodyBounds dynamicBounds = [Helper GetBounds:dynamicFixture];
-        b2Body* dynamicBody = dynamicFixture->GetBody();
+//        b2Body* dynamicBody = dynamicFixture->GetBody();
         
         //Basically make sure the lowest point of the dynamic body is higher than the highest point of the
 		//static body before allowing collision
 //        NSLog(@"Dynamic left:%f right:%f",dynamicBounds.left,dynamicBounds.right);
 //        NSLog(@"Static left:%f right:%f",staticBounds.left,staticBounds.right);
-        b2Vec2 dynamicVel = dynamicBody->GetLinearVelocity();
-        if(dynamicVel.y > 0 || (uint)dynamicVel.y == 0)
+//        b2Vec2 dynamicVel = dynamicBody->GetLinearVelocity();
+        if(dynamicBounds.bottom < staticBounds.top)
         {
-            if(dynamicBounds.bottom < staticBounds.top)
-            {
-                return false;
-            }
-        }
-        else
-        {
-            if(staticBounds.bottom - dynamicBounds.bottom > 1)
-            {
-                return false;
-            }
-        }
+            return false;
+        }  
+//        if(dynamicVel.y > 0 || (uint)dynamicVel.y == 0)
+//        {
+//            if(dynamicBounds.bottom < staticBounds.top)
+//            {
+//                return false;
+//            }            
+//        }
+//        else
+//        {
+//            if(staticBounds.bottom - dynamicBounds.bottom > 1)
+//            {
+//                return false;
+//            }
+//        }
 	}
 	return b2ContactFilter::ShouldCollide(fixtureA,fixtureB);
 }

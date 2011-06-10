@@ -52,7 +52,7 @@ static bool debugDraw = false;
 	//Load World Property List
 	NSDictionary* pListData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",worldName]]];
 	worldSize = CGSizeMake([[pListData objectForKey:@"WorldWidth"] floatValue], [[pListData objectForKey:@"WorldHeight"] floatValue]);
-	
+	float floorHeight = [[pListData objectForKey:@"FloorHeight"] floatValue];
 	b2Vec2 gravityVec;
 	gravityVec.Set(0.0f, gravity);
 	
@@ -82,10 +82,10 @@ static bool debugDraw = false;
 	b2PolygonShape groundBox;		
 	b2Fixture* fixture;
 	
-	b2Vec2 topLeft = b2Vec2(0,(worldSize.height + 100)/PTM_RATIO);
-	b2Vec2 bottomLeft = b2Vec2(0,20.0f/PTM_RATIO);
-	b2Vec2 topRight = b2Vec2(worldSize.width/PTM_RATIO,(worldSize.height + 100)/PTM_RATIO);
-	b2Vec2 bottomRight = b2Vec2(worldSize.width/PTM_RATIO,20.0f/PTM_RATIO);
+	b2Vec2 topLeft = b2Vec2(0,(worldSize.height + 600)/PTM_RATIO);
+	b2Vec2 bottomLeft = b2Vec2(0,floorHeight/PTM_RATIO);
+	b2Vec2 topRight = b2Vec2(worldSize.width/PTM_RATIO,(worldSize.height + 600)/PTM_RATIO);
+	b2Vec2 bottomRight = b2Vec2(worldSize.width/PTM_RATIO,floorHeight/PTM_RATIO);
 	// bottom
 	groundBox.SetAsEdge(bottomLeft,bottomRight);
 	fixture = groundBody->CreateFixture(&groundBox,0);
@@ -115,10 +115,18 @@ static bool debugDraw = false;
 		for(uint i = 0; i < [worldSprites count];i++)
 		{
 			NSDictionary* spriteData = (NSDictionary*)[worldSprites objectAtIndex:i];
-			CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:[spriteData objectForKey:@"SpriteName"]];
-//            [sprite.texture setAliasTexParameters];
-			sprite.position = ccp([[spriteData objectForKey:@"PosX"] floatValue],[[spriteData objectForKey:@"PosY"] floatValue]);
-			[self addChild:sprite z:[[spriteData objectForKey:@"Z"] intValue]];		
+            NSString* spriteName = [spriteData objectForKey:@"SpriteName"];
+            if(![spriteName isEqualToString:@""])
+            {
+                try {
+                    CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:[spriteData objectForKey:@"SpriteName"]];
+                    [sprite.texture setAliasTexParameters];
+                    sprite.position = ccp([[spriteData objectForKey:@"PosX"] floatValue],[[spriteData objectForKey:@"PosY"] floatValue]);
+                    [self addChild:sprite z:[[spriteData objectForKey:@"Z"] intValue]];		
+                } catch (NSException* ex) {
+                    
+                }	
+            }
 		}
 	}
 	
@@ -303,7 +311,9 @@ static bool debugDraw = false;
 	{
 		proj = [activeProjectiles objectAtIndex:i];
 		proj.lifetime = proj.lifetime + dt;
-		if(proj.destroyed || (fabsf(proj.physicsBody->GetLinearVelocity().x) < 3.0 && proj.lifetime > 0.2))
+        b2Vec2 velocity = proj.physicsBody->GetLinearVelocity();
+        float speed = pow(velocity.x * velocity.x + velocity.y * velocity.y,0.5);
+		if(proj.destroyed || speed < 5.0 && proj.lifetime > 0.2)
 		{
 			CGPoint pos = [Helper toCGPoint:proj.physicsBody->GetPosition() multiply:PTM_RATIO];
 			if(proj.deathEffect != nil)
@@ -369,7 +379,7 @@ static bool debugDraw = false;
 	b2FixtureDef fixtureDef;
 	fixtureDef.shape = &dynamicBox;	
 	fixtureDef.density = proj.mass;
-	fixtureDef.friction = 0.1f;
+	fixtureDef.friction = 1.0f;
 	fixtureDef.filter.categoryBits = proj.teamIndex + 1;
 	fixtureDef.filter.maskBits = 65535 - proj.teamIndex - 8 - 16;
 	proj.physicsBody->CreateFixture(&fixtureDef);

@@ -704,10 +704,6 @@
 			<string>Windwalk</string>
 		</dict>
 	</array>
-	<key>SpriteSheets</key>
-	<array>
-		<string>FarmWorld.plist</string>
-	</array>
 	<key>Sprites</key>
 	<array>
 		<dict>
@@ -781,6 +777,10 @@
 			<integer>2</integer>
 		</dict>
 	</array>
+	<key>SpriteSheets</key>
+	<array>
+		<string>FarmWorld.plist</string>
+	</array>
 	<key>TeamA</key>
 	<dict>
 		<key>HomeHeight</key>
@@ -815,5 +815,7 @@
 	<integer>640</integer>
 	<key>WorldWidth</key>
 	<integer>2880</integer>
+	<key>FloorHeight</key>
+	<string>20</string>
 </dict>
 </plist>

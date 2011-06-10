@@ -100,6 +100,7 @@ typedef enum
 -(void) processNetworkPlayerInput:(NetworkPlayerInput*)netInput packetID:(int)packetID;
 -(void) processPowerupEvent:(PowerupEvent*)powerupEvent;
 
+-(void) preloadSounds;
 -(void) playBackgroundMusic;
 -(void) stopBackgroundMusic;
 -(void) onQuitGame;

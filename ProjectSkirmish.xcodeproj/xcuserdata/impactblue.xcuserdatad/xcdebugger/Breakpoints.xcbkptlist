@@ -191,11 +191,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/GameScene.mm"
-         timestampString = "328613314.634054"
+         timestampString = "329370753.824014"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1017"
-         endingLineNumber = "1017"
+         startingLineNumber = "1024"
+         endingLineNumber = "1024"
          landmarkName = "-onCharacterSelect:"
          landmarkType = "5">
       </FileBreakpoint>

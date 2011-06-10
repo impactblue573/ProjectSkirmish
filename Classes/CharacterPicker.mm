@@ -16,8 +16,8 @@
 {
 	NSMutableArray* items = [NSMutableArray array];
 	SlideListToggleItem lamboItem;
-    lamboItem.images = [NSMutableArray arrayWithObjects:@"LamboProfile.png",nil];
-    lamboItem.keys = [NSMutableArray arrayWithObjects:@"Lambo", nil];
+    lamboItem.images = [NSMutableArray arrayWithObjects:@"LamboProfile.png",@"LamboAlternateProfile.png",nil];
+    lamboItem.keys = [NSMutableArray arrayWithObjects:@"Lambo",@"Lambo Alternate", nil];
     lamboItem.toggleSprite = @"Costume.png";
     lamboItem.activeToggleSprite = @"CostumeActive.png";
     lamboItem.labelSprite = @"LamboProfileLabel.png";

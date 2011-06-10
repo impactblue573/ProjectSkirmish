@@ -14,8 +14,10 @@
 -(id) init
 {
 	NSMutableArray* items = [NSMutableArray array];
-	SlideListItem item = (SlideListItem){@"TheFarmProfile.png",@"Farm_World",@"The Farm"};
-	[items addObject:[NSValue value:&item withObjCType:@encode(struct SlideListItem)]];
+	SlideListItem farmworld = (SlideListItem){@"TheFarmProfile.png",@"Farm_World",@"The Farm"};
+	[items addObject:[NSValue value:&farmworld withObjCType:@encode(struct SlideListItem)]];
+    SlideListItem creepywoods = (SlideListItem){@"CreepyWoodsProfile.png",@"CreepyWoods_World",@"Creepy Woods"};
+	[items addObject:[NSValue value:&creepywoods withObjCType:@encode(struct SlideListItem)]];
 	self = [self initWithSlideListItems:items];
 //	CCLabelTTF* topLabel = [CCLabelTTF labelWithString:@"World Select" fontName:@"Marker Felt" fontSize:24];
 //	[topLabel setColor:(ccColor3B){50,50,50}];

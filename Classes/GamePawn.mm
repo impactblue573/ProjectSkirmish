@@ -51,6 +51,7 @@
         spriteVariation = 1;
         fireForceMod = 0.75f;
         fireIntervalMod = 1.5f;
+        projectileParticleCount = 300;
 	}
 	return self;
 }
@@ -138,7 +139,7 @@
 	if(!isFiring && pawnState == Pawn_Alive)
 	{
 		CGPoint tiltPos = [self getWorldTiltPoint];
-		b2Vec2 bodyPos = [self position];
+        b2Vec2 bodyPos = [self position];
 		float fireFace = bodyPos.x < target.x ? 1:-1;	
 		facing = fireFace;
 		isFiring = YES;
@@ -146,22 +147,10 @@
 		float angle = atan( (target.y-tiltPos.y)/(target.x-tiltPos.x));
 		angle = clampf(angle,CC_DEGREES_TO_RADIANS(-60),CC_DEGREES_TO_RADIANS(45));
 		aimAngle = -1 * CC_RADIANS_TO_DEGREES(angle);
-		
-		//spawn projectile
-		Projectile* projectile = [[Projectile alloc] init];
-		projectile.sprite = [[CCSprite spriteWithSpriteFrameName:team.paintballSprite] retain];
-		projectile.launchPosition = CGPointMake(tiltPos.x + facing * muzzleOffset.x * cos(angle),tiltPos.y + facing * muzzleOffset.x * sin(angle));;
-		projectile.launchForce = CGPointMake(facing * fireForce * fireForceMod * cos(angle), facing * fireForce * fireForceMod * sin(angle));
-		projectile.mass = 0.1;
-		projectile.controller = controller;
-		projectile.deathEffect = [[[PaintballExplodeParticleSystem alloc] initVelocity:ccp([Helper normalize:projectile.launchForce.x],projectile.launchForce.y/fabsf(projectile.launchForce.x)) withColor:team.teamColor] autorelease];		
-		projectile.teamIndex = team.teamIndex;
-		projectile.damage = fireDamage;
-		//projectile.deathEffect = [[PaintballSplatParticleSystem alloc] initVelocity:ccp(facing,-0.5f)];
-		[projectilePool queueProjectile:projectile];
-		//Play Sound Effect
-		[[SoundManager sharedManager] playSound:@"Gunfire.mp3" atPosition:ccp(bodyPos.x,bodyPos.y)];
+		CGPoint launchPos = CGPointMake(tiltPos.x + facing * muzzleOffset.x * cos(angle),tiltPos.y + facing * muzzleOffset.x * sin(angle));
+		[self spawnProjectile:angle atPosition:launchPos];
 
+        [[SoundManager sharedManager] playSound:@"Gunfire.mp3" atPosition:ccp(bodyPos.x,bodyPos.y)];
 		return true;
 	}
 	else {		
@@ -170,6 +159,21 @@
 
 }
 
+-(void) spawnProjectile:(float)angle atPosition:(CGPoint)pos
+{
+    //spawn projectile
+    Projectile* projectile = [[Projectile alloc] init];
+    projectile.sprite = [[CCSprite spriteWithSpriteFrameName:team.paintballSprite] retain];
+    projectile.launchPosition = pos;
+    projectile.launchForce = CGPointMake(facing * fireForce * fireForceMod * cos(angle), facing * fireForce * fireForceMod * sin(angle));
+    projectile.mass = 0.1;
+    projectile.controller = controller;
+    projectile.deathEffect = [[[PaintballExplodeParticleSystem alloc] initVelocity:ccp([Helper normalize:projectile.launchForce.x],projectile.launchForce.y/fabsf(projectile.launchForce.x)) withColor:team.teamColor numParticles:projectileParticleCount] autorelease];		
+    projectile.teamIndex = team.teamIndex;
+    projectile.damage = fireDamage;
+    //projectile.deathEffect = [[PaintballSplatParticleSystem alloc] initVelocity:ccp(facing,-0.5f)];
+    [projectilePool queueProjectile:projectile];
+}
 -(void) endFire
 {
 	//CCLOG(@"End Fire");

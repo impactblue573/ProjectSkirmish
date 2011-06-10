@@ -535,13 +535,11 @@ static GameWorld* CurrentGameWorld;
     loadingScreen = [[[LoadingScreen alloc] init] autorelease];
     [loadingScreen setProgress:0];
     [self addChild:loadingScreen z:10];
+    [self schedule:@selector(preloadSounds) interval:0.2];
 	[self initializeUI];
 	[self initializeTeams];
 	[self initializePlayerWithPawnType:[localPlayUI getSelectedCharacter] onTeam:([localPlayUI getSelectedTeam] == 1 ? team1 : team2) withName:[localPlayUI getPlayerName]];
 	[self removeChild:localPlayUI cleanup:true];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"TakeHit.aif"];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Splat.mp3"];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Fire.mp3"];
 }
 
 -(void) endGame:(ccTime)delta
@@ -593,11 +591,21 @@ static GameWorld* CurrentGameWorld;
 {
     loadingScreen = [[[LoadingScreen alloc] init] autorelease];
     [self addChild:loadingScreen z:10];
+    [self schedule:@selector(preloadSounds) interval:0.2];
 	[self initializeUI];
 	[self initializeTeams];
 	[self initializePlayer:pType];
 	[self initializeBots:7];
     [self delayedStart];
+    
+}
+
+-(void) preloadSounds
+{
+    [self unschedule:@selector(preloadSounds)];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"TakeHit.aif"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Splat.mp3"];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Fire.mp3"];
 }
 
 -(void) playBackgroundMusic
@@ -1013,7 +1021,6 @@ static GameWorld* CurrentGameWorld;
 #pragma mark SlideListProtocol
 -(void) onCharacterSelect:(SlideListItem)item
 {
-    NSLog(@"Player using %@",item.key);
 	[self removeChild:singlePlayCharacterPicker cleanup:false];
 	[self startSinglePlay:item.key];
 }
@@ -1030,7 +1037,6 @@ static GameWorld* CurrentGameWorld;
 
 -(void) dealloc
 {
-    NSLog(@"GameScene now deallocating");
 //    [uiLayer release];
 //    [uiLayer removeChild:joystickBase cleanup:false];
 //    [joystickBase release];
@@ -1047,7 +1053,6 @@ static GameWorld* CurrentGameWorld;
         NSArray* keys = [networkPlayerControllers allKeys];
         for(uint i = 0; i < [keys count]; i++)
         {
-            NSLog(@"Releasing NetworkPlayerController");
             [[networkPlayerControllers objectForKey:[keys objectAtIndex:i]] release];
         }
         [networkPlayerControllers release];
@@ -1056,7 +1061,6 @@ static GameWorld* CurrentGameWorld;
     {
         for(uint i = 0; i < [botControllers count]; i++)
         {
-            NSLog(@"Releasing BotController");
             [[botControllers objectAtIndex:i] release];
         }
         [botControllers release];

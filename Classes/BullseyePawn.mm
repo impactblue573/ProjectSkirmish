@@ -15,16 +15,17 @@
 {
 	//use default values for now
 	if((self = [super init]))
-	{
+	{ 
 		startPosition = ccp(40.0f,150.0f);
 		size = b2Vec2(74.0f,84.0f);
 		offset = b2Vec2(0.0f,-8.0f);
-		jumpSpeed = 11.0;
+		jumpSpeed = 12.0;
 		maxSpeed = 4.5;
-		jumpForceMag = 3600.0;
+		jumpForceMag = 4000.0;
 		gunAnchorPoint = ccp(0.2,0.5);
 		gunOffset = CGPointMake(-25.0,-16.0);
 		muzzleOffset = CGPointMake(74.0,0);
+        projectileParticleCount = 600;
 		tiltPosition = CGPointMake(-10.0,-16.0);
 		fireForce = 5.0f;
 		fireInterval = 0.6f;		

@@ -191,11 +191,11 @@
          continueAfterRunningActions = "No"
          isPathRelative = "1"
          filePath = "Classes/GameScene.mm"
-         timestampString = "329370753.824014"
+         timestampString = "329968454.693145"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "1024"
-         endingLineNumber = "1024"
+         startingLineNumber = "1027"
+         endingLineNumber = "1027"
          landmarkName = "-onCharacterSelect:"
          landmarkType = "5">
       </FileBreakpoint>
@@ -211,6 +211,20 @@
          startingLineNumber = "37"
          endingLineNumber = "37"
          landmarkName = "+initializePawnType:"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "No"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         isPathRelative = "1"
+         filePath = "Classes/GamePawn.mm"
+         timestampString = "329796726.823759"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "396"
+         endingLineNumber = "396"
+         landmarkName = "-initializeAnimations:"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

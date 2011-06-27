@@ -36,6 +36,32 @@
 	return self;
 }
 
+-(void) setVariation:(int)variation
+{
+    if(variation == 0)
+    {
+        int rand = arc4random()%100;
+        if(rand > 50)
+        {
+            variation = 1; 
+        }
+        else
+        {
+            variation = 2; 
+        }
+    }
+    [super setVariation:variation];
+    switch(spriteVariation)
+    {
+        case 1:
+            spriteName = @"Bullseye";
+            break;
+        case 2:
+            spriteName = @"BullseyeAlternate";
+            break;
+    }
+}
+
 -(void) initializeJumpAnimation:(AnimationManager*)animationManager
 {
 	//Jump Animation

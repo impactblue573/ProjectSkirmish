@@ -23,6 +23,8 @@
 		3F1A165612C97164004D9D4B /* GameController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A165512C97164004D9D4B /* GameController.mm */; };
 		3F1A16D212C97639004D9D4B /* GameScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A16D112C97639004D9D4B /* GameScene.mm */; };
 		3F1A175C12C9BBE2004D9D4B /* Helper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A175B12C9BBE2004D9D4B /* Helper.mm */; };
+		3F1CF1CF13A84C56009E8099 /* GinjaNinjaAlternate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F1CF1CD13A84C56009E8099 /* GinjaNinjaAlternate.plist */; };
+		3F1CF1D013A84C56009E8099 /* GinjaNinjaAlternate.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1CF1CE13A84C56009E8099 /* GinjaNinjaAlternate.png */; };
 		3F21030F12D541FC00A52945 /* TitleScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F21030E12D541FC00A52945 /* TitleScene.mm */; };
 		3F21037212D54AD500A52945 /* OnlinePlayUI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F21037112D54AD500A52945 /* OnlinePlayUI.mm */; };
 		3F35234C133B1FDC00DFECB2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F35234B133B1FDC00DFECB2 /* Icon.png */; };
@@ -101,6 +103,8 @@
 		3FD2380712DBF6D900EB3932 /* ProjectilePool.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FD2380612DBF6D900EB3932 /* ProjectilePool.mm */; };
 		3FD2C74E13A1C542000383F1 /* LamboAlternate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FD2C74C13A1C542000383F1 /* LamboAlternate.plist */; };
 		3FD2C74F13A1C542000383F1 /* LamboAlternate.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD2C74D13A1C542000383F1 /* LamboAlternate.png */; };
+		3FD2C75213A21A89000383F1 /* BullseyeAlternate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3FD2C75013A21A89000383F1 /* BullseyeAlternate.plist */; };
+		3FD2C75313A21A89000383F1 /* BullseyeAlternate.png in Resources */ = {isa = PBXBuildFile; fileRef = 3FD2C75113A21A89000383F1 /* BullseyeAlternate.png */; };
 		3FE7766313775EDA0059DAB9 /* Powerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FE7766213775EDA0059DAB9 /* Powerup.mm */; };
 		3FEF14A112D56AD500F2689B /* LocalPlayUI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF14A012D56AD500F2689B /* LocalPlayUI.mm */; };
 		3FEF19C012D5EFB700F2689B /* DataHelper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FEF19BF12D5EFB700F2689B /* DataHelper.mm */; };
@@ -459,6 +463,8 @@
 		3F1A175A12C9BBE2004D9D4B /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		3F1A175B12C9BBE2004D9D4B /* Helper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Helper.mm; sourceTree = "<group>"; };
 		3F1A186012C9E8D5004D9D4B /* GameWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameWorld.h; sourceTree = "<group>"; };
+		3F1CF1CD13A84C56009E8099 /* GinjaNinjaAlternate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GinjaNinjaAlternate.plist; path = Illustrations/GingaNinja/Alternate/GinjaNinjaAlternate.plist; sourceTree = SOURCE_ROOT; };
+		3F1CF1CE13A84C56009E8099 /* GinjaNinjaAlternate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GinjaNinjaAlternate.png; path = Illustrations/GingaNinja/Alternate/GinjaNinjaAlternate.png; sourceTree = SOURCE_ROOT; };
 		3F21030D12D541FC00A52945 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScene.h; sourceTree = "<group>"; };
 		3F21030E12D541FC00A52945 /* TitleScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TitleScene.mm; sourceTree = "<group>"; };
 		3F21037012D54AD500A52945 /* OnlinePlayUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlinePlayUI.h; sourceTree = "<group>"; };
@@ -584,6 +590,8 @@
 		3FD2380612DBF6D900EB3932 /* ProjectilePool.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ProjectilePool.mm; sourceTree = "<group>"; };
 		3FD2C74C13A1C542000383F1 /* LamboAlternate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = LamboAlternate.plist; path = Illustrations/Lambo/Alternate/LamboAlternate.plist; sourceTree = SOURCE_ROOT; };
 		3FD2C74D13A1C542000383F1 /* LamboAlternate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LamboAlternate.png; path = Illustrations/Lambo/Alternate/LamboAlternate.png; sourceTree = SOURCE_ROOT; };
+		3FD2C75013A21A89000383F1 /* BullseyeAlternate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = BullseyeAlternate.plist; path = Illustrations/Bullseye/Alternate/BullseyeAlternate.plist; sourceTree = SOURCE_ROOT; };
+		3FD2C75113A21A89000383F1 /* BullseyeAlternate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = BullseyeAlternate.png; path = Illustrations/Bullseye/Alternate/BullseyeAlternate.png; sourceTree = SOURCE_ROOT; };
 		3FE7766113775EDA0059DAB9 /* Powerup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Powerup.h; sourceTree = "<group>"; };
 		3FE7766213775EDA0059DAB9 /* Powerup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Powerup.mm; sourceTree = "<group>"; };
 		3FEF149F12D56AD500F2689B /* LocalPlayUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocalPlayUI.h; sourceTree = "<group>"; };
@@ -1095,12 +1103,16 @@
 			children = (
 				3FD2C74C13A1C542000383F1 /* LamboAlternate.plist */,
 				3FD2C74D13A1C542000383F1 /* LamboAlternate.png */,
+				3F1CF1CD13A84C56009E8099 /* GinjaNinjaAlternate.plist */,
+				3F1CF1CE13A84C56009E8099 /* GinjaNinjaAlternate.png */,
 				3F55C60B1392939900EF436D /* Lambo.plist */,
 				3F55C60C1392939900EF436D /* Lambo.png */,
 				3F35234F133C10E300DFECB2 /* LamboClassic.plist */,
 				3F55C61F1393AA0200EF436D /* Bullseye.plist */,
 				3F55C6201393AA0200EF436D /* Bullseye.png */,
 				3F352350133C10E300DFECB2 /* LamboClassic.png */,
+				3FD2C75013A21A89000383F1 /* BullseyeAlternate.plist */,
+				3FD2C75113A21A89000383F1 /* BullseyeAlternate.png */,
 				3F55C61713934FA000EF436D /* GinjaNinja.plist */,
 				3F55C61813934FA000EF436D /* GinjaNinja.png */,
 				3F55C60F139313CB00EF436D /* PorcusMaximusAlternate.plist */,
@@ -2065,6 +2077,10 @@
 				3F460C4913978409003AE09F /* CreepyWoods_World.plist in Resources */,
 				3FD2C74E13A1C542000383F1 /* LamboAlternate.plist in Resources */,
 				3FD2C74F13A1C542000383F1 /* LamboAlternate.png in Resources */,
+				3FD2C75213A21A89000383F1 /* BullseyeAlternate.plist in Resources */,
+				3FD2C75313A21A89000383F1 /* BullseyeAlternate.png in Resources */,
+				3F1CF1CF13A84C56009E8099 /* GinjaNinjaAlternate.plist in Resources */,
+				3F1CF1D013A84C56009E8099 /* GinjaNinjaAlternate.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

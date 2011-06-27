@@ -495,6 +495,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) processNetworkPlayerInput:(NetworkPlayerInput *)netInput packetID:(int)packetID
 {
+    NSDate* start = [NSDate date];
 	NSString* peerID = [[GameKitHelper sharedGameKitHelper] getPeerID];
 	if([netInput.playerID isEqualToString:peerID])
 	{
@@ -520,6 +521,8 @@ static GameWorld* CurrentGameWorld;
 			[controller processNetworkInput:netInput packetID:packetID];				
 		}
 	}	
+    
+    NSLog(@"Network Input Process time: %.2fms", [start timeIntervalSinceNow] * -1000);
 }
 
 -(void) updateViewport

@@ -17,7 +17,7 @@
 	NSMutableArray* items = [NSMutableArray array];
 	SlideListToggleItem lamboItem;
     lamboItem.images = [NSMutableArray arrayWithObjects:@"LamboProfile.png",@"LamboAlternateProfile.png",nil];
-    lamboItem.keys = [NSMutableArray arrayWithObjects:@"Lambo",@"Lambo Alternate", nil];
+    lamboItem.keys = [NSMutableArray arrayWithObjects:@"Lambo",@"Lambo (Spec Ops)", nil];
     lamboItem.toggleSprite = @"Costume.png";
     lamboItem.activeToggleSprite = @"CostumeActive.png";
     lamboItem.labelSprite = @"LamboProfileLabel.png";
@@ -25,8 +25,8 @@
     [items addObject:toggleMenuItem];
     
     SlideListToggleItem bullseyeItem;
-    bullseyeItem.images = [NSMutableArray arrayWithObjects:@"BullseyeProfile.png", nil];
-    bullseyeItem.keys = [NSMutableArray arrayWithObjects:@"Bullseye",nil];
+    bullseyeItem.images = [NSMutableArray arrayWithObjects:@"BullseyeProfile.png",@"BullseyeAlternateProfile.png", nil];
+    bullseyeItem.keys = [NSMutableArray arrayWithObjects:@"Bullseye",@"Bullseye (Punk)", nil];
     bullseyeItem.toggleSprite = @"Costume.png";
     bullseyeItem.activeToggleSprite = @"CostumeActive.png";
     bullseyeItem.labelSprite = @"BullseyeProfileLabel.png";
@@ -34,8 +34,8 @@
     [items addObject:toggleMenuItem];
     
     SlideListToggleItem ginjaItem;
-    ginjaItem.images = [NSMutableArray arrayWithObjects:@"GinjaNinjaProfile.png", nil];
-    ginjaItem.keys = [NSMutableArray arrayWithObjects:@"Ginja Ninja", nil];
+    ginjaItem.images = [NSMutableArray arrayWithObjects:@"GinjaNinjaProfile.png",@"GinjaNinjaAlternateProfile.png", nil];
+    ginjaItem.keys = [NSMutableArray arrayWithObjects:@"Ginja Ninja", @"Ginja Ninja (Ghost)", nil];
     ginjaItem.toggleSprite = @"Costume.png";
     ginjaItem.activeToggleSprite = @"CostumeActive.png";
     ginjaItem.labelSprite = @"GinjaNinjaProfileLabel.png";
@@ -44,7 +44,7 @@
     
     SlideListToggleItem porcusItem;
     porcusItem.images = [NSMutableArray arrayWithObjects:@"PorcusMaximusProfile.png",@"PorcusMaximusAltProfile.png", nil];
-    porcusItem.keys = [NSMutableArray arrayWithObjects:@"Porcus Maximus", @"Porcus Maximus Alt", nil];
+    porcusItem.keys = [NSMutableArray arrayWithObjects:@"Porcus Maximus", @"Porcus Maximus (Caesar)", nil];
     porcusItem.toggleSprite = @"Costume.png";
     porcusItem.activeToggleSprite = @"CostumeActive.png";
     porcusItem.labelSprite = @"PorcusMaximusProfileLabel.png";

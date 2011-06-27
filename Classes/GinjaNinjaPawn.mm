@@ -68,11 +68,37 @@
     
 }
 
+-(void) setVariation:(int)variation
+{
+    if(variation == 0)
+    {
+        int rand = arc4random()%100;
+        if(rand > 50)
+        {
+            variation = 1; 
+        }
+        else
+        {
+            variation = 2; 
+        }
+    }
+    [super setVariation:variation];
+    switch(spriteVariation)
+    {
+        case 1:
+            spriteName = @"GinjaNinja";
+            break;
+        case 2:
+            spriteName = @"GinjaNinjaAlternate";
+            break;
+    }
+}
+
 -(void) initializeWalkAnimation:(AnimationManager*)animationManager
 {
 	//Walk Animation
 	NSArray* frameNames = [NSArray arrayWithObjects:@"Walk-Default.png",@"Walk-Left-1.png",@"Walk-Left-2.png",@"Walk-Left-1.png",@"Walk-Default.png",@"Walk-Right-1.png",@"Walk-Right-2.png",@"Walk-Right-1.png",nil];
-	[animationManager addAnimation:@"Walk" usingFrames:frameNames frameDelay:0.07 autoOffsetTo:bodySpriteDefaultSize];
+	[animationManager addAnimation:@"Walk" usingFrames:frameNames frameDelay:0.05 autoOffsetTo:bodySpriteDefaultSize];
 }
 
 -(void) initializeJumpAnimation:(AnimationManager*)animationManager

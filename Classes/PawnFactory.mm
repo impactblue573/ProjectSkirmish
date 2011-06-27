@@ -40,23 +40,43 @@
         [pawn setVariation:1];
         return pawn;
 	}
-    else if([pawnType isEqualToString:@"Lambo Alternate"])
+    else if([pawnType isEqualToString:@"Lambo (Spec Ops)"])
     {
 		GamePawn* pawn = [[LamboPawn alloc] init];
         [pawn setVariation:2];
         return pawn;
 	}
-    else if([pawnType  isEqualToString:@"Bullseye"])
-		return [[BullseyePawn alloc] init];
-	else if([pawnType  isEqualToString:@"Ginja Ninja"])
-		return [[GinjaNinjaPawn alloc] init];
+    else if([pawnType isEqualToString:@"Bullseye"])
+	{
+		GamePawn* pawn = [[BullseyePawn alloc] init];
+        [pawn setVariation:1];
+        return pawn;
+	}
+    else if([pawnType isEqualToString:@"Bullseye (Punk)"])
+    {
+		GamePawn* pawn = [[BullseyePawn alloc] init];
+        [pawn setVariation:2];
+        return pawn;
+	}
+	else if([pawnType isEqualToString:@"Ginja Ninja"])
+    {
+        GamePawn* pawn = [[GinjaNinjaPawn alloc] init];
+        [pawn setVariation:1];
+        return pawn;
+	}
+    else if([pawnType isEqualToString:@"Ginja Ninja (Ghost)"])
+    {
+        GamePawn* pawn = [[GinjaNinjaPawn alloc] init];
+        [pawn setVariation:2];
+        return pawn;
+	}
     else if([pawnType isEqualToString:@"Porcus Maximus"])
     {
         GamePawn* pawn = [[PorcusMaximusPawn alloc] init];
         [pawn setVariation:1];
         return pawn;
 	}
-    else if([pawnType isEqualToString:@"Porcus Maximus Alt"])
+    else if([pawnType isEqualToString:@"Porcus Maximus (Caesar)"])
     {
         GamePawn* pawn = [[PorcusMaximusPawn alloc] init];
         [pawn setVariation:2];

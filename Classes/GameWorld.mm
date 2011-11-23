@@ -116,7 +116,7 @@ static bool debugDraw = false;
 		{
 			NSDictionary* spriteData = (NSDictionary*)[worldSprites objectAtIndex:i];
             NSString* spriteName = [spriteData objectForKey:@"SpriteName"];
-            if(![spriteName isEqualToString:@""])
+            if(![spriteName isEqualToString:@""] && [spriteName characterAtIndex:0] != '#')
             {
                 try {
                     CCSprite* sprite = [CCSprite spriteWithSpriteFrameName:[spriteData objectForKey:@"SpriteName"]];

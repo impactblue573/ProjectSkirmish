@@ -13,6 +13,6 @@
 	NSInteger winScore;
 }
 
--(id) initWithWinScore:(NSInteger) score;
+-(id) initWithWinScore:(NSInteger)score numBots:(uint)bots;
 
 @end

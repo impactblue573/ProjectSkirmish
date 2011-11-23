@@ -82,6 +82,7 @@ typedef enum
     float fireForceMod;
     float fireIntervalMod;
     CGSize bodySpriteDefaultSize;
+    float handicap;
 }
 
 -(id) initForController:(GameController*)ctrl;
@@ -122,7 +123,7 @@ typedef enum
 -(void) setVariation:(int)variation;
 -(float) getFireInterval;
 -(void) spawnProjectile:(float)angle atPosition:(CGPoint)pos;
-
+-(void) applyHandicap:(float)h;
 
 @property(readonly) GameController* controller;
 @property(assign) CCSprite* bodySprite;

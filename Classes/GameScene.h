@@ -22,6 +22,7 @@
 #import "TitleScene.h"
 #import <GameKit/GameKit.h>
 #import "TeamDeathmatch.h"
+#import "Infiltration.h"
 #import "Leaderboard.h"
 #import "CharacterPicker.h"
 #import "WorldPicker.h"
@@ -34,7 +35,7 @@ typedef enum
 	Game_Online
 } GameMode;
 
-@interface GameScene : CCLayer <GameKitHelperProtocol,GKSessionDelegate, OnlinePlayUIProtocol,LocalPlayUIProtocol,UILayerProtocol> {
+@interface GameScene : CCLayer <GKSessionDelegate,LocalPlayUIProtocol,UILayerProtocol> {
 	GameWorld* gameWorld;
 	UILayer* uiLayer;
     ProjectSkirmishAppDelegate* appDelegate;
@@ -68,10 +69,11 @@ typedef enum
     SneakyJoystickSkinnedBase* joystickBase;
     LoadingScreen* loadingScreen;
     bool gameStarted;
+    GameTypes currentGameType;
 }
 
 
-+(id) sceneWithGameMode:(GameMode)mode;
++(id) sceneWithGameMode:(GameMode)mode gameType:(GameTypes)type;
 +(GameScene*) current;
 +(GameMode) CurrentGameMode;
 +(bool) isServer;
@@ -80,12 +82,12 @@ typedef enum
 +(float) getDifficultyFactor;
 +(void) ReturnToTitle;
 -(GameTeam*) getPlayerTeam;
--(id) initWithGameMode:(GameMode)mode;
+-(id) initWithGameMode:(GameMode)mode gameType:(GameTypes)type;
 -(NSString*) getPlayerId;
 -(void) initializeUI;
 -(void) initializePlayer:(NSString*)pType;
 -(void) initializePlayerWithPawnType:(NSString*)pType onTeam:(GameTeam*)team withName:(NSString*)name;
--(void) initializeBots:(int)numBots;
+-(void) initializeBots;
 -(void) updateViewport;
 -(void) loadSprites;
 -(NSMutableArray*) generateTeamLeaderboard;

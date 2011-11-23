@@ -86,6 +86,12 @@
 		3F92943D13388D610004619D /* SlideListMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F92943C13388D610004619D /* SlideListMenuItem.mm */; };
 		3F9295ED133978A50004619D /* CharacterPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9295EC133978A50004619D /* CharacterPicker.mm */; };
 		3F9296661339DE9A0004619D /* WorldPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9296651339DE9A0004619D /* WorldPicker.mm */; };
+		3F9C7776147B64B900F587AA /* Infiltration.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9C7775147B64B800F587AA /* Infiltration.mm */; };
+		3F9C7779147B895000F587AA /* GameTypeBot.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9C7778147B895000F587AA /* GameTypeBot.mm */; };
+		3F9C7787147BE20B00F587AA /* Resistance.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9C7786147BE20A00F587AA /* Resistance.mm */; };
+		3F9C7789147C595D00F587AA /* Farm_World_Infiltration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F9C7788147C595D00F587AA /* Farm_World_Infiltration.plist */; };
+		3F9C778E147C642C00F587AA /* ScoreManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9C778D147C642C00F587AA /* ScoreManager.mm */; };
+		3F9C7790147C782D00F587AA /* CreepyWoods_World_Infiltration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F9C778F147C782D00F587AA /* CreepyWoods_World_Infiltration.plist */; };
 		3F9CF96A1389EE78006691B6 /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F9CF9691389EE78006691B6 /* Entitlements.plist */; };
 		3FA5226E1325921B006B162A /* GinjaNinjaPawn.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FA5226D1325921B006B162A /* GinjaNinjaPawn.mm */; };
 		3FA6BAA512D454480045E40D /* NetworkGameController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FA6BAA412D454480045E40D /* NetworkGameController.mm */; };
@@ -561,6 +567,16 @@
 		3F9295EC133978A50004619D /* CharacterPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = CharacterPicker.mm; sourceTree = "<group>"; };
 		3F9296641339DE9A0004619D /* WorldPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WorldPicker.h; sourceTree = "<group>"; };
 		3F9296651339DE9A0004619D /* WorldPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = WorldPicker.mm; sourceTree = "<group>"; };
+		3F9C7774147B64B800F587AA /* Infiltration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Infiltration.h; sourceTree = "<group>"; };
+		3F9C7775147B64B800F587AA /* Infiltration.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Infiltration.mm; sourceTree = "<group>"; };
+		3F9C7777147B895000F587AA /* GameTypeBot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameTypeBot.h; sourceTree = "<group>"; };
+		3F9C7778147B895000F587AA /* GameTypeBot.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GameTypeBot.mm; sourceTree = "<group>"; };
+		3F9C7785147BE20A00F587AA /* Resistance.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Resistance.h; sourceTree = "<group>"; };
+		3F9C7786147BE20A00F587AA /* Resistance.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Resistance.mm; sourceTree = "<group>"; };
+		3F9C7788147C595D00F587AA /* Farm_World_Infiltration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Farm_World_Infiltration.plist; sourceTree = "<group>"; };
+		3F9C778C147C642C00F587AA /* ScoreManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScoreManager.h; sourceTree = "<group>"; };
+		3F9C778D147C642C00F587AA /* ScoreManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ScoreManager.mm; sourceTree = "<group>"; };
+		3F9C778F147C782D00F587AA /* CreepyWoods_World_Infiltration.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CreepyWoods_World_Infiltration.plist; sourceTree = "<group>"; };
 		3F9CF9691389EE78006691B6 /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = SOURCE_ROOT; };
 		3FA5226C1325921B006B162A /* GinjaNinjaPawn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GinjaNinjaPawn.h; sourceTree = "<group>"; };
 		3FA5226D1325921B006B162A /* GinjaNinjaPawn.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = GinjaNinjaPawn.mm; sourceTree = "<group>"; };
@@ -1082,6 +1098,7 @@
 				3F3CF75D132D79490030611B /* Farm_World.plist */,
 				3F4D6AAA138D196F007D00BC /* FarmWorld.plist */,
 				3F4D6AAB138D196F007D00BC /* FarmWorld.png */,
+				3F9C7788147C595D00F587AA /* Farm_World_Infiltration.plist */,
 			);
 			name = FarmWorld;
 			sourceTree = "<group>";
@@ -1174,6 +1191,7 @@
 				3F460C4813978409003AE09F /* CreepyWoods_World.plist */,
 				3F460C4213977FB1003AE09F /* CreepyWoods.plist */,
 				3F460C4313977FB1003AE09F /* CreepyWoods.png */,
+				3F9C778F147C782D00F587AA /* CreepyWoods_World_Infiltration.plist */,
 			);
 			name = CreepyWoods;
 			sourceTree = "<group>";
@@ -1194,6 +1212,8 @@
 			children = (
 				3FA6BB0D12D477AE0045E40D /* GameKitHelper.mm */,
 				3FA6BAF712D475C20045E40D /* GameKitHelper.h */,
+				3F9C778C147C642C00F587AA /* ScoreManager.h */,
+				3F9C778D147C642C00F587AA /* ScoreManager.mm */,
 			);
 			name = GameKit;
 			sourceTree = "<group>";
@@ -1357,6 +1377,12 @@
 				3FF3B959131E7379000B7F06 /* GameType.mm */,
 				3FF3B95B131E7503000B7F06 /* TeamDeathmatch.h */,
 				3FF3B95C131E7503000B7F06 /* TeamDeathmatch.mm */,
+				3F9C7774147B64B800F587AA /* Infiltration.h */,
+				3F9C7775147B64B800F587AA /* Infiltration.mm */,
+				3F9C7777147B895000F587AA /* GameTypeBot.h */,
+				3F9C7778147B895000F587AA /* GameTypeBot.mm */,
+				3F9C7785147BE20A00F587AA /* Resistance.h */,
+				3F9C7786147BE20A00F587AA /* Resistance.mm */,
 			);
 			name = GameType;
 			sourceTree = "<group>";
@@ -2081,6 +2107,8 @@
 				3FD2C75313A21A89000383F1 /* BullseyeAlternate.png in Resources */,
 				3F1CF1CF13A84C56009E8099 /* GinjaNinjaAlternate.plist in Resources */,
 				3F1CF1D013A84C56009E8099 /* GinjaNinjaAlternate.png in Resources */,
+				3F9C7789147C595D00F587AA /* Farm_World_Infiltration.plist in Resources */,
+				3F9C7790147C782D00F587AA /* CreepyWoods_World_Infiltration.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2165,6 +2193,10 @@
 				3F55C604138F9C6B00EF436D /* LoadingScreen.mm in Sources */,
 				3F460C3D1395B672003AE09F /* Toggler.mm in Sources */,
 				3F460C401395C267003AE09F /* SlideListToggleMenuItem.mm in Sources */,
+				3F9C7776147B64B900F587AA /* Infiltration.mm in Sources */,
+				3F9C7779147B895000F587AA /* GameTypeBot.mm in Sources */,
+				3F9C7787147BE20B00F587AA /* Resistance.mm in Sources */,
+				3F9C778E147C642C00F587AA /* ScoreManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2333,6 +2365,7 @@
 				GCC_VERSION = 4.2;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
@@ -2355,12 +2388,14 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
 				PREBINDING = NO;
 				PRODUCT_NAME = ProjectSkirmish;
+				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "-Wall";
 			};
@@ -2384,7 +2419,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
-				PRODUCT_NAME = "Proj Skirmish";
+				PRODUCT_NAME = "Paint Paws";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2504,9 +2539,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
+				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fvisibility=hidden";
 				PREBINDING = NO;
-				PRODUCT_NAME = "Proj Skirmish";
+				PRODUCT_NAME = "Paint Paws";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

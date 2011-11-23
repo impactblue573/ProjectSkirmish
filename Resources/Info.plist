@@ -5,13 +5,13 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleDisplayName</key>
-	<string>ProjSkirmish</string>
+	<string>Paint Paws</string>
 	<key>CFBundleExecutable</key>
 	<string>ProjectSkirmish</string>
 	<key>CFBundleIconFile</key>
 	<string></string>
 	<key>CFBundleIdentifier</key>
-	<string>com.projectskirmish</string>
+	<string>com.impactbluestudios.paintpaws</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>

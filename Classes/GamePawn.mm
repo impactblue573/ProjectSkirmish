@@ -52,8 +52,18 @@
         fireForceMod = 0.75f;
         fireIntervalMod = 1.5f;
         projectileParticleCount = 300;
+        handicap = 1.0;
 	}
 	return self;
+}
+
+-(void) applyHandicap:(float)h{
+    health /= handicap;
+    fireDamage /= handicap;
+    
+    handicap = h;
+    health *= handicap;
+    fireDamage *= handicap;
 }
 
 -(void) setVariation:(int)variation
@@ -371,7 +381,7 @@
 	isFiring = NO;
 	physicsState = Physics_Walking;
 	pawnState = Pawn_Alive;
-	health = 100;
+	health = 100 * handicap;
     [self clearPowerups];
 }
 

@@ -12,11 +12,17 @@
 #import "CharacterPicker.h"
 
 @interface TitleScene : CCLayer {
+    CCMenu* titleMenu;
+    CCMenu* gameTypeMenu;
 }
 
 +(id) scene;
 
 -(void) singlePlayMenuTouched:(id) sender;
+-(void) skirmishTouched:(id) sender;
+-(void) infiltrationTouched:(id) sender;
+-(void) resistanceTouched:(id) sender;
+-(void) backTouched:(id)sender;
 -(void) onlinePlayMenuTouched:(id) sender;
 -(void) localPlayMenuTouched:(id) sender;
 @end

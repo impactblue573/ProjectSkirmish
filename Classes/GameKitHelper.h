@@ -8,68 +8,29 @@
 #import "cocos2d.h"
 #import <GameKit/GameKit.h>
 
-@protocol GameKitHelperProtocol
-
--(void) onLocalPlayerAuthenticationChanged;
-
--(void) onFriendListReceived:(NSArray*)friends;
--(void) onPlayerInfoReceived:(NSArray*)players;
-
--(void) onMatchFound:(GKMatch*)match;
--(void) onPlayersAddedToMatch:(bool)success;
--(void) onReceivedMatchmakingActivity:(NSInteger)activity;
-
--(void) onPlayerConnected:(NSString*)playerID;
--(void) onPlayerDisconnected:(NSString*)playerID;
--(void) onStartMatch;
--(void) onReceivedData:(NSData*)data fromPlayer:(NSString*)playerID;
-
--(void) onMatchmakingViewDismissed;
--(void) onMatchmakingViewError;
-
-@end
-
-
-@interface GameKitHelper : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKPeerPickerControllerDelegate>
+@interface GameKitHelper : NSObject
 {
-	id<GameKitHelperProtocol> delegate;
 	bool isGameCenterAvailable;
-	NSError* lastError;
-	
-	NSMutableDictionary* achievements;
-	NSMutableDictionary* cachedAchievements;
-	
-	GKMatch* currentMatch;
+	NSError* lastError;	
 	GKSession* currentSession;
-	bool matchStarted;
-	bool peerServerMode;
 }
 
-@property (nonatomic, retain) id<GameKitHelperProtocol> delegate;
 @property (nonatomic, readonly) bool isGameCenterAvailable;
 @property (nonatomic, readonly) NSError* lastError;
-@property (nonatomic, readonly) NSMutableDictionary* achievements;
-@property (nonatomic, readonly) GKMatch* currentMatch;
-@property (nonatomic, readonly) bool matchStarted;
+@property(assign) NSMutableDictionary* categoryScores;
+
 
 /** returns the singleton object, like this: [GameKitHelper sharedGameKitHelper] */
 +(GameKitHelper*) sharedGameKitHelper;
 
 // Player authentication, info
 -(void) authenticateLocalPlayer;
--(void) getLocalPlayerFriends;
+-(int64_t) getPlayerScoreForCategory:(NSString*)category;
 -(void) getPlayerInfo:(NSArray*)players;
 
-// Matchmaking
--(void) disconnectCurrentMatch;
--(void) findMatchForRequest:(GKMatchRequest*)request;
--(void) addPlayersToMatch:(GKMatchRequest*)request;
--(void) cancelMatchmakingRequest;
--(void) queryMatchmakingActivity;
-
-// Game Center Views
--(void) showMatchmakerWithInvite:(GKInvite*)invite;
--(void) showMatchmakerWithRequest:(GKMatchRequest*)request;
+// Leaderboards
+- (void) reloadHighScoresForCategory: (NSString*) category;
+- (void) reportScore: (int64_t) score forCategory: (NSString*) category;
 
 //p2p
 -(void) hostServer:(NSString*)displayName delegate:(id<GKSessionDelegate>)del;

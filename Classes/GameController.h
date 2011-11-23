@@ -62,5 +62,6 @@
 @property(assign) GameTeam* team;
 @property(assign) NSString* playerName;
 @property(assign) bool updated;
+@property(assign) bool respawn;
 
 @end

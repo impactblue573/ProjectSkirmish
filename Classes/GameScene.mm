@@ -10,6 +10,7 @@
 #import "DataHelper.h"
 #import "PowerupFactory.h"
 #import "SoundManager.h"
+#import "ScoreManager.h"
 
 static GameScene* currentGameScene = nil;
 static GameMode gameMode;
@@ -21,13 +22,13 @@ static GameWorld* CurrentGameWorld;
 @implementation GameScene
 @synthesize  uiLayer;
 
-+(id) sceneWithGameMode:(GameMode)gameMode
++(id) sceneWithGameMode:(GameMode)gameMode gameType:(GameTypes)type
 {
 	//srandom([[NSDate date] timeIntervalSince1970]);
 	// 'scene' is an autorelease object.
 	CCScene* scene = [CCScene node];
 
-	currentGameScene = [[GameScene alloc] initWithGameMode:gameMode];
+	currentGameScene = [[GameScene alloc] initWithGameMode:gameMode gameType:type];
 	[scene addChild:currentGameScene];
 	// return the scene
 	return scene;
@@ -86,25 +87,31 @@ static GameWorld* CurrentGameWorld;
 	return isServer;
 }
 
--(id) initWithGameMode:(GameMode)gMode
+-(id) initWithGameMode:(GameMode)gMode gameType:(GameTypes)type
 {
 	if((self = ([super init])))
 	{		
         appDelegate = [UIApplication sharedApplication].delegate;
 		difficultyFactor = 0.6f;
-		gameType = [[TeamDeathmatch alloc] initWithWinScore:30];
 		gameMode = gMode;
 		broadcastInterval = 0;
 		pingInterval = 5;
 		screenSize = [CCDirector sharedDirector].winSize;
 		playerList = [[NSMutableArray alloc] init];
+        currentGameType = type;
+        if(type == GameType_TeamDeathmatch)
+            gameType = [[[TeamDeathmatch alloc] initWithWinScore:30 numBots:7] retain];
+        else if(type == GameType_Infiltration)
+            gameType = [[[Infiltration alloc] init] retain];
+        
+        //No longer supported
 		if(gameMode == Game_Online)
 		{
-			onlinePlayUI = [OnlinePlayUI node];
-			onlinePlayUI.delegate = self;
-			GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper]; 
-			gkHelper.delegate = self; 
-			[gkHelper authenticateLocalPlayer];
+//			onlinePlayUI = [OnlinePlayUI node];
+//			onlinePlayUI.delegate = self;
+//			GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper]; 
+//			gkHelper.delegate = self; 
+//			[gkHelper authenticateLocalPlayer];
 		}
 		else if(gameMode == Game_Local)
 		{
@@ -184,7 +191,8 @@ static GameWorld* CurrentGameWorld;
 	
 	//initialize player controller
 	playerController = [[PlayerController alloc] initInWorld:gameWorld usingPawn:pType asTeam:team withPlayerID:playerID withPlayerName:name usingVariation:-1];
-	[playerController setCamera:camera];
+	playerController.respawn = gameType.Respawn;
+    [playerController setCamera:camera];
 	[playerController setPlayerInput:playerInput];
 	[gameWorld spawnGamePawn:playerController.pawn];
 }
@@ -201,7 +209,8 @@ static GameWorld* CurrentGameWorld;
 		if(![info.playerID isEqualToString:peerID])
 		{
 			NetworkGameController* controller = [[NetworkGameController alloc] initInWorld:gameWorld usingPawn:info.pawnType asTeam:([info.teamID intValue] == 2 ? team1:team2) withPlayerID:info.playerID withPlayerName:info.playerName usingVariation:[info.spriteVariation intValue]];
-			[networkPlayerControllers setObject:controller forKey:info.playerID];
+			controller.respawn = gameType.Respawn;
+            [networkPlayerControllers setObject:controller forKey:info.playerID];
             if(controller.team != playerController.team)
             {
                 [controller setTargetted:true];
@@ -280,20 +289,32 @@ static GameWorld* CurrentGameWorld;
 	return pawnInfos;
 }
 
--(void) initializeBots:(int)numBots
+-(void) initializeBots
 {
 	botControllers = [[NSMutableArray array] retain];
-	for(int i = 0; i < numBots; i++)
+    NSMutableArray* gameBots = [gameType GetBots];
+	for(uint i = 0; i < [gameBots count]; i++)
 	{
+        GameTypeBot* botDef = [gameBots objectAtIndex:i];
+        [botDef retain];
 		NSString* botName = [NSString stringWithFormat:@"%d",i];
-		GameTeam* team = team1.teamCount > team2.teamCount ? team2 : team1;
-		BotController* botController1 = [[BotController alloc] initInWorld:gameWorld usingPawn:nil asTeam:team withPlayerID:botName withPlayerName:botName];
-		[gameWorld spawnGamePawn:botController1.pawn];
+		GameTeam* team;
+        if(botDef.team == 0)
+            team = team1.teamCount > team2.teamCount ? team2 : team1;
+        else if(botDef.team == 1)
+            team = team1;
+        else
+            team = team2;
+		BotController* botController1 = [[BotController alloc] initInWorld:gameWorld usingPawn:botDef.pawnType asTeam:team withPlayerID:botName withPlayerName:botName];
+        botController1.respawn = gameType.Respawn;
+        [gameWorld spawnGamePawn:botController1.pawn];
+        [botController1.pawn applyHandicap:botDef.handicap];
 		[botControllers addObject:botController1];
         if(botController1.team != playerController.team)
         {
             [botController1 setTargetted:true];
         }
+        [botDef release];
 
 	}
 }
@@ -421,11 +442,27 @@ static GameWorld* CurrentGameWorld;
 	GameTeam* winningTeam = [gameType GetWinningTeam:[NSArray arrayWithObjects:team1,team2,nil]];
 	if(winningTeam != nil)
 	{
-		if(team1 == winningTeam)
+        gameActive =	false;
+        [gameType GameEnd];
+        uint16_t score = [gameType GetScoreForPlayer:playerController team:playerController.team enemyTeam:(playerController.team == team1 ? team1: team2)];
+		GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
+        if(gkHelper.isGameCenterAvailable)
+        {
+            if(currentGameType == GameType_Infiltration)
+            {
+                uint64_t infScore = [[ScoreManager sharedScoreManager] GetTotalInfiltrationScore];
+                [gkHelper reportScore:infScore forCategory:[gameType GetScoreCategory]];
+            }
+            else if(currentGameType == GameType_TeamDeathmatch)
+            {
+                [gkHelper reportScore:[[ScoreManager sharedScoreManager] GetTeamDeathmatchScore] forCategory:[gameType GetScoreCategory]];
+            }
+        }
+        
+        if(team1 == winningTeam)
 			[uiLayer showMessage:@"Red Team Wins!" forInterval:0 withColor : ccc3(255,0,0)];
 		else
-			[uiLayer showMessage:@"Blue Team Wins!" forInterval:0 withColor : ccc3(0,0,255)];
-		gameActive =	false;
+			[uiLayer showMessage:@"Blue Team Wins!" forInterval:0 withColor : ccc3(0,0,255)];		
 		[self schedule:@selector(showLeaderboard:) interval:3];
 		return;
 	}	
@@ -575,6 +612,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) startGameScheduler
 {
+    [gameType GameStart];
 	[self schedule: @selector(tick:)];
 }
 
@@ -598,7 +636,7 @@ static GameWorld* CurrentGameWorld;
 	[self initializeUI];
 	[self initializeTeams];
 	[self initializePlayer:pType];
-	[self initializeBots:7];
+	[self initializeBots];
     [self delayedStart];
     
 }
@@ -634,100 +672,21 @@ static GameWorld* CurrentGameWorld;
 }
 
 //GameKit stuff
-#pragma mark GameKitHelper delegate methods
--(void) onLocalPlayerAuthenticationChanged
-{
-	GKLocalPlayer* localPlayer = [GKLocalPlayer localPlayer];
-	CCLOG(@"LocalPlayer isAuthenticated changed to: %@", localPlayer.authenticated ? @"YES" : @"NO");
-	
-	if (localPlayer.authenticated)
-	{
-		[self addChild:onlinePlayUI];		
-		[onlinePlayUI showMainMenu];
-		//[gkHelper getLocalPlayerFriends];
-		//[gkHelper resetAchievements];
-	}	
-}
-
--(void) onFriendListReceived:(NSArray*)friends
-{
-	CCLOG(@"onFriendListReceived: %@", [friends description]);
-	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
-	[gkHelper getPlayerInfo:friends];
-}
-
--(void) onPlayerInfoReceived:(NSArray*)players
-{
-	CCLOG(@"onPlayerInfoReceived: %@", [players description]);
-	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
-	
-	GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
-	request.minPlayers = 2;
-	request.maxPlayers = 4;
-	
-	[gkHelper showMatchmakerWithRequest:request];
-	[gkHelper queryMatchmakingActivity];
-}
-
--(void) onReceivedMatchmakingActivity:(NSInteger)activity
-{
-	CCLOG(@"receivedMatchmakingActivity: %i", activity);
-}
-
--(void) onMatchFound:(GKMatch*)match
-{
-	CCLOG(@"onMatchFound: %@", match);
-}
-
--(void) onPlayersAddedToMatch:(bool)success
-{
-	CCLOG(@"onPlayersAddedToMatch: %@", success ? @"YES" : @"NO");
-}
-
--(void) onMatchmakingViewDismissed
-{
-	CCLOG(@"onMatchmakingViewDismissed");
-}
--(void) onMatchmakingViewError
-{
-	CCLOG(@"onMatchmakingViewError");
-}
-
--(void) onPlayerConnected:(NSString*)playerID
-{
-	CCLOG(@"onPlayerConnected: %@", playerID);
-	[playerList addObject:playerID];
-}
-
--(void) onPlayerDisconnected:(NSString*)playerID
-{
-	CCLOG(@"onPlayerDisconnected: %@", playerID);
-	[playerList removeObject:playerID];
-}
-
--(void) onStartMatch
-{
-	CCLOG(@"onStartMatch");
-}
-
--(void) onReceivedData:(NSData*)data fromPlayer:(NSString*)playerID
-{
-	CCLOG(@"onReceivedData: %@ fromPlayer: %@", data, playerID);
-}
 
 #pragma mark Online Play & Local Play UI Protocol
 -(void) hostGame
 {	
 	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
 	
-	if(gameMode == Game_Online)
-	{
-		GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
-		request.minPlayers = 2; 
-		request.maxPlayers = 4;		 
-		[gkHelper showMatchmakerWithRequest:request];
-	}
-	else if(gameMode == Game_Local)
+//	if(gameMode == Game_Online)
+//	{
+//		GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
+//		request.minPlayers = 2; 
+//		request.maxPlayers = 4;		 
+//		[gkHelper showMatchmakerWithRequest:request];
+//	}
+//	else 
+    if(gameMode == Game_Local)
 	{
 		isServer = true;
 		[gkHelper hostServer:appDelegate.playerName delegate:self];
@@ -744,17 +703,18 @@ static GameWorld* CurrentGameWorld;
 -(void) joinGame
 {
 	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
-	if(gameMode == Game_Online)
-	{
-		GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
-		request.minPlayers = 2; 
-		request.maxPlayers = 4;
-		
-		GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper]; 
-		[gkHelper findMatchForRequest:request];
-		[onlinePlayUI showJoiningMenu];
-	}
-	else if(gameMode == Game_Local)
+//	if(gameMode == Game_Online)
+//	{
+//		GKMatchRequest* request = [[[GKMatchRequest alloc] init] autorelease];
+//		request.minPlayers = 2; 
+//		request.maxPlayers = 4;
+//		
+//		GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper]; 
+//		[gkHelper findMatchForRequest:request];
+//		[onlinePlayUI showJoiningMenu];
+//	}
+//	else 
+    if(gameMode == Game_Local)
 	{
 		isServer = false;
 		[gkHelper startClient:appDelegate.playerName delegate:self];
@@ -775,12 +735,12 @@ static GameWorld* CurrentGameWorld;
 	[gkHelper terminateSession];
 }
 
--(void) cancelJoinGame
-{		
-	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
-	[gkHelper cancelMatchmakingRequest];
-	[onlinePlayUI showMainMenu];
-}
+//-(void) cancelJoinGame
+//{		
+//	GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
+//	[gkHelper cancelMatchmakingRequest];
+//	[onlinePlayUI showMainMenu];
+//}
 
 -(void) cancelGame
 {
@@ -791,6 +751,7 @@ static GameWorld* CurrentGameWorld;
 -(void) startGame
 {	
 	hostNumBots = [localPlayUI getNumBots];
+    gameType.NumBots = hostNumBots;
 	worldName = [NSString stringWithString:[localPlayUI getSelectedWorld]];
 	[self initializeGame];
     [loadingScreen setProgress:25];
@@ -901,7 +862,7 @@ static GameWorld* CurrentGameWorld;
 		//ok all initialized...lets synchronize on the clients
 		if(clientInitCount == [playerList count])
 		{
-			[self initializeBots:hostNumBots];
+			[self initializeBots];
 			response.dataType = Data_SynchPawnRequest;
 			NSMutableArray* pawnInfos = [[self getPawnInfos] retain];
             response.pawnInitData = pawnInfos;
@@ -1031,6 +992,7 @@ static GameWorld* CurrentGameWorld;
 -(void) onWorldSelect:(SlideListItem)item
 {
 	worldName = [NSString stringWithString:item.key];
+    [gameType SetLevel:2 ForWorld:worldName];
     [self removeChild:singlePlayWorldPicker cleanup:false];
 	singlePlayCharacterPicker = [[CharacterPicker alloc] init];
 	[singlePlayCharacterPicker setTarget:self selector:@selector(onCharacterSelect:)];

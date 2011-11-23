@@ -12,7 +12,7 @@
 
 @implementation GameController
 
-@synthesize pawn,playerID,pawnType,deaths,kills,team,playerName,updated;
+@synthesize pawn,playerID,pawnType,deaths,kills,team,playerName,updated,respawn;
 
 -(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName
 {
@@ -166,8 +166,13 @@
 -(void) killPawn
 {
 	[pawn killPawn];
-	timeSinceDeath = 0;
-	respawnCountBegun = true;
+	
+    if(respawn)
+    {
+        timeSinceDeath = 0;
+        respawnCountBegun = true;
+    }
+    
 	if([GameScene isServer] || [GameScene CurrentGameMode] == Game_Single)
 	{
 		deaths++;

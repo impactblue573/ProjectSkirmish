@@ -638,7 +638,7 @@
 			<key>PosY</key>
 			<integer>142</integer>
 			<key>SpriteName</key>
-			<string>Mist1.png</string>
+			<string>#Mist1.png</string>
 			<key>Z</key>
 			<integer>2</integer>
 		</dict>
@@ -648,7 +648,7 @@
 			<key>PosY</key>
 			<integer>389</integer>
 			<key>SpriteName</key>
-			<string>Mist2.png</string>
+			<string>#Mist2.png</string>
 			<key>Z</key>
 			<integer>3</integer>
 		</dict>
@@ -658,7 +658,7 @@
 			<key>PosY</key>
 			<integer>198</integer>
 			<key>SpriteName</key>
-			<string>Mist3.png</string>
+			<string>#Mist3.png</string>
 			<key>Z</key>
 			<integer>3</integer>
 		</dict>
@@ -668,7 +668,7 @@
 			<key>PosY</key>
 			<integer>421</integer>
 			<key>SpriteName</key>
-			<string>Mist4.png</string>
+			<string>#Mist4.png</string>
 			<key>Z</key>
 			<integer>3</integer>
 		</dict>
@@ -678,7 +678,7 @@
 			<key>PosY</key>
 			<integer>142</integer>
 			<key>SpriteName</key>
-			<string>Mist5.png</string>
+			<string>#Mist5.png</string>
 			<key>Z</key>
 			<integer>3</integer>
 		</dict>

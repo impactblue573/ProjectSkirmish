@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Projectile.h";
+#import "Projectile.h"
 
 @interface ProjectilePool : NSObject {
 	NSMutableArray* pendingProjectiles;
@@ -16,4 +16,5 @@
 -(void) queueProjectile:(Projectile*)p;
 
 -(Projectile*) getNextProjectile;
+-(void) clearFirstProjectile;
 @end

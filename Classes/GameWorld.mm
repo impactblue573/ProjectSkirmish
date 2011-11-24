@@ -76,11 +76,13 @@ static bool debugDraw = false;
 	// Call the body factory which allocates memory for the ground body
 	// from a pool and creates the ground box shape (also from a pool).
 	// The body is also added to the world.
-	b2Body* groundBody = physicsWorld->CreateBody(&groundBodyDef);
+	physicsWorld->CreateBody(&groundBodyDef);
+    b2Body* groundBody = physicsWorld->CreateBody(&groundBodyDef);
+
 	
 	// Define the ground box shape.
 	b2PolygonShape groundBox;		
-	b2Fixture* fixture;
+//	b2Fixture* fixture;
 	
 	b2Vec2 topLeft = b2Vec2(0,(worldSize.height + 600)/PTM_RATIO);
 	b2Vec2 bottomLeft = b2Vec2(0,floorHeight/PTM_RATIO);
@@ -88,18 +90,18 @@ static bool debugDraw = false;
 	b2Vec2 bottomRight = b2Vec2(worldSize.width/PTM_RATIO,floorHeight/PTM_RATIO);
 	// bottom
 	groundBox.SetAsEdge(bottomLeft,bottomRight);
-	fixture = groundBody->CreateFixture(&groundBox,0);
+	groundBody->CreateFixture(&groundBox,0);
 	// top
 	//groundBox.SetAsEdge(topLeft,topRight);
 //	fixture = groundBody->CreateFixture(&groundBox,0);
 	
 	// left
 	groundBox.SetAsEdge(topLeft,bottomLeft);
-	fixture = groundBody->CreateFixture(&groundBox,0);
+	groundBody->CreateFixture(&groundBox,0);
 	
 	// right
 	groundBox.SetAsEdge(topRight,bottomRight);
-	fixture = groundBody->CreateFixture(&groundBox,0);
+	groundBody->CreateFixture(&groundBox,0);
 	
 	//Load World Sprites
 	if(!debugDraw)
@@ -244,9 +246,12 @@ static bool debugDraw = false;
 {
 	// Define the dynamic body.
 	//Set up a 1m squared box in the physics world
+    CGPoint spawnPoint = pawn.startPosition;
+    if(spawnPoint.x == -1 && spawnPoint.y == -1)
+        spawnPoint = pawn.team.spawnPoint.spawnPoint;
 	b2BodyDef bodyDef;
 	bodyDef.type = b2_dynamicBody;
-	bodyDef.position.Set(pawn.team.spawnPoint.spawnPoint.x/PTM_RATIO, pawn.team.spawnPoint.spawnPoint.y/PTM_RATIO);
+	bodyDef.position.Set(spawnPoint.x/PTM_RATIO, spawnPoint.y/PTM_RATIO);
 	bodyDef.userData = pawn;
 	bodyDef.fixedRotation = true;
 	pawn.physicsBody = physicsWorld->CreateBody(&bodyDef);
@@ -301,19 +306,23 @@ static bool debugDraw = false;
 	Projectile* proj;
 	while((proj = [projectilePool getNextProjectile]))
 	{
-        //[proj retain];
+        [proj retain];
 		[self spawnProjectile:proj];
 		[activeProjectiles addObject:proj];
+        [proj release];
+        [projectilePool clearFirstProjectile];
 	}
+    proj = nil;
 	
 	//Update position of active projectiles
 	for(NSUInteger i = 0; i < [activeProjectiles count];i++)
 	{
 		proj = [activeProjectiles objectAtIndex:i];
+        [proj retain];
 		proj.lifetime = proj.lifetime + dt;
         b2Vec2 velocity = proj.physicsBody->GetLinearVelocity();
         float speed = pow(velocity.x * velocity.x + velocity.y * velocity.y,0.5);
-		if(proj.destroyed || speed < 5.0 && proj.lifetime > 0.2)
+		if(proj.destroyed || (speed < 5.0 && proj.lifetime > 0.2))
 		{
 			CGPoint pos = [Helper toCGPoint:proj.physicsBody->GetPosition() multiply:PTM_RATIO];
 			if(proj.deathEffect != nil)
@@ -324,7 +333,6 @@ static bool debugDraw = false;
 			[self removeChild:proj.sprite cleanup:true];
 			[activeProjectiles removeObjectAtIndex:i];
 			physicsWorld->DestroyBody(proj.physicsBody);
-			[proj release]; 
 			//Determine if sound should be played
 			/*if(pos.x >= p.x && pos.x <= (p.x + s.width) && pos.y >= p.y && pos.y <= (p.y + s.height))
 			{
@@ -345,6 +353,7 @@ static bool debugDraw = false;
                 proj.physicsBody->SetLinearVelocity(b2Vec2(pBodyVel.x,pBodyVel.y + gravity * projectileGravityMod * dt));
             }            
 		}
+        [proj release];
 	}
 }
 
@@ -428,10 +437,10 @@ NSInteger sortByPawnPosition(id arg1,id arg2, void* reverse)
     [powerupManager release];
     [gamePawnList release];
     [projectilePool release];	
-	for(uint i = 0; i < [activeProjectiles count]; i++)
-    {
-        [[activeProjectiles objectAtIndex:i] release];
-    }
+//	for(uint i = 0; i < [activeProjectiles count]; i++)
+//    {
+//        [[activeProjectiles objectAtIndex:i] release];
+//    }
     [activeProjectiles release];
     [super dealloc];
 }

@@ -22,7 +22,7 @@
 	//use default values for now
 	if((self = [super init]))
 	{
-		startPosition = ccp(40.0f,150.0f);
+		startPosition = ccp(-1,-1);
 		size = b2Vec2(64.0f,80.0f);
 		offset = b2Vec2(4.0f,0.0f);
 		jumpSpeed = 12.0;
@@ -75,7 +75,7 @@
 -(id) initForController:(GameController*)ctrl
 {
 	//use default values for now
-	[self init];
+	self = [self init];
 	controller = ctrl;
 	return self;
 }
@@ -172,8 +172,8 @@
 -(void) spawnProjectile:(float)angle atPosition:(CGPoint)pos
 {
     //spawn projectile
-    Projectile* projectile = [[Projectile alloc] init];
-    projectile.sprite = [[CCSprite spriteWithSpriteFrameName:team.paintballSprite] retain];
+    Projectile* projectile = [[[Projectile alloc] init] autorelease];
+    [projectile setProjectileSprite:[CCSprite spriteWithSpriteFrameName:team.paintballSprite]];
     projectile.launchPosition = pos;
     projectile.launchForce = CGPointMake(facing * fireForce * fireForceMod * cos(angle), facing * fireForce * fireForceMod * sin(angle));
     projectile.mass = 0.1;

@@ -17,11 +17,6 @@
     return self;
 }
 
--(NSMutableArray*) GetBots
-{
-    return bots;
-}
-
 -(void) GameStart{
     startDate = [[NSDate date] retain];
 }
@@ -70,15 +65,29 @@
     }
 }
 
+-(GameTypes) getGameType{
+    return GameType_Infiltration;
+}
+
 -(NSString*) GetScoreCategory
 {
     return @"PaintPawsInfiltration";
 }
 
 -(uint) GetScoreForPlayer:(PlayerController*)player team:(GameTeam*)team1 enemyTeam:(GameTeam*)team2{
-    uint score = botScore + MAX(0, targetTime - completionTime) * 20;
-    [[ScoreManager sharedScoreManager] SetInfiltrationScore:score ForLevel:level InWorld:world];
-    return score;
+    if(player.deaths > 0)
+    {
+        return 0;
+    }
+    else
+    {
+        uint score = botScore + MAX(0, targetTime - completionTime) * 20;
+        if([[ScoreManager sharedScoreManager] SetInfiltrationScore:score ForLevel:level InWorld:world])
+        {
+            [[ScoreManager sharedScoreManager] SaveScores];
+        }
+        return score;
+    }
 }
 
 -(void) dealloc

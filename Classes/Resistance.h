@@ -12,7 +12,7 @@
 @interface Resistance : GameType {
 @private
     NSDate* startDate;
-    NSTimeInterval completionTime;
+    uint botScore;
 }
 
 @end

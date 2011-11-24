@@ -44,6 +44,24 @@
 	messageLabel.position = ccp(screenSize.width/2,screenSize.height/2 -20);
 	[self addChild:messageLabel z:0];
 	
+    //Timer
+    timer = [[[Timer alloc] initWithMode:TimerType_StopWatch limit:0] autorelease];
+    timer.anchorPoint = ccp(0.5,1);
+    timer.position = ccp(screenSize.width/2, screenSize.height - 3);
+    [self addChild:timer];
+    
+    //Win/Lose Image
+    winImage = [CCSprite spriteWithSpriteFrameName:@"YouWin.png"];
+    winImage.anchorPoint = ccp(0.5,0.5);
+    winImage.position = ccp(screenSize.width/2, screenSize.height/2);
+    [self addChild:winImage];
+    
+    loseImage = [CCSprite spriteWithSpriteFrameName:@"YouLose.png"];
+    loseImage.anchorPoint = ccp(0.5,0.5);
+    loseImage.position = ccp(screenSize.width/2, screenSize.height/2);
+    [self addChild:loseImage];
+    [self hideWin];
+    
 	CCLabelTTF* pauseLabel = [CCLabelTTF labelWithString:@"Menu" fontName:@"Marker Felt" fontSize:20];
 	[pauseLabel setColor:(ccColor3B){128,128,128}];
 	CCMenuItemImage* pauseMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Menu.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"MenuActive.png"] target:self selector:@selector(showPauseMenu:)];	
@@ -87,6 +105,26 @@
 	[pingLabel setString:[NSString stringWithFormat:@"%.0fms",ping]];
 }
 
+-(void) showWin:(bool)won{
+    if(won)
+    {
+        [winImage setVisible:true];
+        [loseImage setVisible:false];
+    }
+    else
+    {        
+        [winImage setVisible:false];
+        [loseImage setVisible:true];
+    }
+    [self schedule:@selector(hideWin) interval:3];
+}
+
+-(void) hideWin{
+    [self unschedule:@selector(hideWin)];
+    [winImage setVisible:false];
+    [loseImage setVisible:false];
+}
+
 -(void) showMessage:(NSString*) message forInterval:(float)interval
 {
 	[self showMessage:message forInterval:interval withColor:ccc3(255, 255, 255)];
@@ -115,6 +153,26 @@
 	[self hidePauseMenuItem];
     if(!pauseMenuVisible)
         [self showPauseMenu:nil];
+}
+
+-(void) showScores:(bool)show{
+    [team1ScoreLabel setVisible:show];
+    [team2ScoreLabel setVisible:show];
+}
+
+-(void) showTimer:(bool)show{
+    [timer setVisible:show];
+}
+
+-(void) setTimer:(TimerTypes)type limit:(NSTimeInterval)limit{
+    [timer stop];
+    [timer setTimerType:type];
+    [timer setLimit:limit];
+    [timer start];
+}
+
+-(void) updateTimer:(NSTimeInterval)dt{
+    [timer tick:dt];
 }
 
 -(void) showPauseMenu:(id)sender

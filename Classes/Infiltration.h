@@ -13,8 +13,6 @@
 @private
     NSDate* startDate;
     uint botScore;
-    NSTimeInterval targetTime;
-    NSTimeInterval completionTime;
 }
 
 @end

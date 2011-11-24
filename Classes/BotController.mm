@@ -29,12 +29,25 @@
 	return [super init];
 }
 
+-(void) setAiTypeWithString:(NSString*)type{
+    if([type isEqualToString:@"Com"])
+        aiType = AI_Commando;
+    else if([type isEqualToString:@"Sni"])
+        aiType = AI_Sniper;
+    else if([type isEqualToString:@"Def"])
+        aiType = AI_Defender;
+    else if([type isEqualToString:@"Nin"])
+        aiType = AI_Ninja;
+}
+
 -(NSString*) getAIAsString
 {
 	if(aiType == AI_Commando)
 		return @"Com";
 	else if(aiType == AI_Sniper)
 		return @"Sni";
+    else if(aiType == AI_Defender)
+        return @"Def";
 	else
 		return @"Nin";
 }
@@ -42,8 +55,15 @@
 -(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName;
 {
 	self = [super initInWorld:world usingPawn:pType asTeam:t withPlayerID:pID withPlayerName:nil];
-	playerName = [[NSString stringWithFormat:@"%@ %@ %@",pawn.pawnType,[self getAIAsString],pName] retain];
+    if(botName != nil)
+        [botName release];
+    botName = [pName retain];
+    [self updateBotName];
 	return self;
+}
+
+-(void) updateBotName{
+    playerName = [[NSString stringWithFormat:@"%@ %@",pawn.pawnType,botName] retain];
 }
 
 -(NetworkPlayerInput*) processBattleInfo:(BattleInfo*)battleInfo delta:(float)dt
@@ -126,15 +146,23 @@
 					{
 						maintainDistance = 120;
 					}
+                    else if(aiType == AI_Defender)
+                    {
+                        maintainDistance = 0;
+                        shootDistance = 600;
+                    }
 					
 					if(fabsf(distance) > shootDistance)
 					{
-						moveVec = b2Vec2([Helper normalize:distance],0);
-						//jump and move towards them
-						if([pawn walk:moveVec])					
-							netInput.moveVector = [NSNumber numberWithFloat:moveVec.x];
-						if([pawn jump:1.0])
-							netInput.hasJump = [NSNumber numberWithBool:true];
+                        if(aiType != AI_Defender)
+                        {
+                            moveVec = b2Vec2([Helper normalize:distance],0);
+                            //jump and move towards them
+                            if([pawn walk:moveVec])					
+                                netInput.moveVector = [NSNumber numberWithFloat:moveVec.x];
+                            if([pawn jump:1.0])
+                                netInput.hasJump = [NSNumber numberWithBool:true];
+                        }
 					}
 					else
 					{			
@@ -147,7 +175,7 @@
 							if([pawn jump:1.0])
 								netInput.hasJump = [NSNumber numberWithBool:true];
 						}		
-						else {
+						else if(aiType != AI_Defender){
 							if([pawn walk:b2Vec2(0,0)])
 								netInput.moveVector = [NSNumber numberWithFloat:0];
 						}
@@ -179,5 +207,11 @@
 		}
 	}
 	return netInput;
+}
+
+-(void) dealloc{
+    [super dealloc];
+    if(botName != nil)
+        [botName release];
 }
 @end

@@ -20,15 +20,28 @@
 
 -(NSMutableArray*) GetBots
 {
-    return nil;
+    return bots;
 }
 
 -(void) GameStart{
-    
+    completionTime = 0;
 }
 
 -(void) GameEnd{
     
+}
+
+
+-(NSTimeInterval) getTargetTime{
+    return targetTime;
+}
+
+-(void) Tick:(NSTimeInterval)dt{
+    completionTime+=dt;
+}
+
+-(GameTypes) getGameType{
+    return GameType_TeamDeathmatch;
 }
 
 -(void) SetLevel:(uint)l ForWorld:(NSString*)w{
@@ -56,5 +69,7 @@
     [super dealloc];
     if(world != nil)
         [world release];
+    if(bots != nil)
+        [bots release];
 }
 @end

@@ -10,6 +10,7 @@
 #import "SoundManager.h"
 #import "Toggler.h"
 #import "ScoreManager.h"
+#import "LevelPicker.h"
 
 @implementation TitleScene
 
@@ -57,9 +58,7 @@
         [self addChild:gameTypeMenu];
         [[SoundManager sharedManager] playBackgroundMusic:@"Twinkle.mp3"];
         GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper]; 
-//        gkHelper.delegate = self; 
         [gkHelper authenticateLocalPlayer];
-        [[ScoreManager sharedScoreManager] LoadScores];
 	}
 	return self;
 }
@@ -79,7 +78,8 @@
 }
 
 -(void) resistanceTouched:(id)sender{
-    
+    [[CCDirector sharedDirector] replaceScene:[GameScene sceneWithGameMode:Game_Single gameType:GameType_Resistance]];
+
 }
 
 -(void) backTouched:(id)sender{

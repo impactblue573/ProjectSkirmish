@@ -18,6 +18,8 @@
 {
     self = [super init];
     handicap = 1.0;
+    x = -1;
+    y = -1;
     return self;
 }
 

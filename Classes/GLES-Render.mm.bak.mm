@@ -23,7 +23,6 @@
 // http://www.cocos2d-iphone.org
 //
 
-#import "cocos2d.h"
 #include "GLES-Render.h"
 
 
@@ -41,32 +40,26 @@ GLESDebugDraw::GLESDebugDraw( float32 ratio )
 {
 }
 
+
 void GLESDebugDraw::DrawPolygon(const b2Vec2* old_vertices, int32 vertexCount, const b2Color& color)
 {
-	ccVertex2F vertices[vertexCount];
-	
-	for( int i=0;i<vertexCount;i++) {
-		b2Vec2 tmp = old_vertices[i];
-		tmp *= mRatio;
-		vertices[i].x = tmp.x;
-		vertices[i].y = tmp.y;
-	}
-
-	glColor4f(color.r, color.g, color.b,1);
-	glVertexPointer(2, GL_FLOAT, 0, vertices);
-	glDrawArrays(GL_LINE_LOOP, 0, vertexCount);	
+//	b2Vec2 vertices[vertexCount];
+//	for( int i=0;i<vertexCount;i++) {
+//		vertices[i] = old_vertices[i];
+//		vertices[i] *= mRatio;
+//	}
+//
+//	glColor4f(color.r, color.g, color.b,1);
+//	glVertexPointer(2, GL_FLOAT, 0, vertices);
+//	glDrawArrays(GL_LINE_LOOP, 0, vertexCount);	
 }
 
 void GLESDebugDraw::DrawSolidPolygon(const b2Vec2* old_vertices, int32 vertexCount, const b2Color& color)
 {
-	ccVertex2F vertices[vertexCount];
-	
+	b2Vec2 vertices[vertexCount];
 	for( int i=0;i<vertexCount;i++) {
-		b2Vec2 tmp = old_vertices[i];
-		tmp = old_vertices[i];
-		tmp *= mRatio;
-		vertices[i].x = tmp.x;
-		vertices[i].y = tmp.y;
+		vertices[i] = old_vertices[i];
+		vertices[i] *= mRatio;
 	}
 	
 	glVertexPointer(2, GL_FLOAT, 0, vertices);

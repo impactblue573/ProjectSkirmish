@@ -15,7 +15,8 @@ typedef enum
 {
 	AI_Commando,
 	AI_Sniper,
-	AI_Ninja
+	AI_Ninja,
+    AI_Defender
 } AIType;
 
 @interface BotController : NetworkGameController {
@@ -23,8 +24,11 @@ typedef enum
 	float timeSinceLastShot;
 	float shootInterval;
 	int mishotFactor;
+    NSString* botName;
 }
 
 @property(assign) AIType aiType;
 -(NetworkPlayerInput*) processBattleInfo:(BattleInfo*)battleInfo delta:(float)dt;
+-(void) setAiTypeWithString:(NSString*)type;
+-(void) updateBotName;
 @end

@@ -16,19 +16,19 @@
 	int p = arc4random()%100;
 	if(p <= 25)
 	{
-		return [[LamboPawn alloc] init];
+		return [[[LamboPawn alloc] init] autorelease];
 	}
 	else if(p <= 50)
 	{
-		return [[BullseyePawn alloc] init];
+		return [[[BullseyePawn alloc] init] autorelease];
 	}
     else if(p <= 75)
 	{
-		return [[PorcusMaximusPawn alloc] init];
+		return [[[PorcusMaximusPawn alloc] init] autorelease];
 	}
 	else
 	{
-		return [[GinjaNinjaPawn alloc] init];
+		return [[[GinjaNinjaPawn alloc] init] autorelease];
 	}
 }
 
@@ -36,52 +36,52 @@
 {
 	if([pawnType isEqualToString:@"Lambo"])
 	{
-		GamePawn* pawn = [[LamboPawn alloc] init];
+		GamePawn* pawn = [[[LamboPawn alloc] init] autorelease];
         [pawn setVariation:1];
         return pawn;
 	}
     else if([pawnType isEqualToString:@"Lambo (Spec Ops)"])
     {
-		GamePawn* pawn = [[LamboPawn alloc] init];
+		GamePawn* pawn = [[[LamboPawn alloc] init] autorelease];
         [pawn setVariation:2];
         return pawn;
 	}
     else if([pawnType isEqualToString:@"Bullseye"])
 	{
-		GamePawn* pawn = [[BullseyePawn alloc] init];
+		GamePawn* pawn = [[[BullseyePawn alloc] init] autorelease];
         [pawn setVariation:1];
         return pawn;
 	}
     else if([pawnType isEqualToString:@"Bullseye (Punk)"])
     {
-		GamePawn* pawn = [[BullseyePawn alloc] init];
+		GamePawn* pawn = [[[BullseyePawn alloc] init] autorelease];
         [pawn setVariation:2];
         return pawn;
 	}
 	else if([pawnType isEqualToString:@"Ginja Ninja"])
     {
-        GamePawn* pawn = [[GinjaNinjaPawn alloc] init];
+        GamePawn* pawn = [[[GinjaNinjaPawn alloc] init] autorelease];
         [pawn setVariation:1];
         return pawn;
 	}
     else if([pawnType isEqualToString:@"Ginja Ninja (Ghost)"])
     {
-        GamePawn* pawn = [[GinjaNinjaPawn alloc] init];
+        GamePawn* pawn = [[[GinjaNinjaPawn alloc] init] autorelease];
         [pawn setVariation:2];
         return pawn;
 	}
     else if([pawnType isEqualToString:@"Porcus Maximus"])
     {
-        GamePawn* pawn = [[PorcusMaximusPawn alloc] init];
+        GamePawn* pawn = [[[PorcusMaximusPawn alloc] init] autorelease];
         [pawn setVariation:1];
         return pawn;
 	}
     else if([pawnType isEqualToString:@"Porcus Maximus (Caesar)"])
     {
-        GamePawn* pawn = [[PorcusMaximusPawn alloc] init];
+        GamePawn* pawn = [[[PorcusMaximusPawn alloc] init] autorelease];
         [pawn setVariation:2];
         return pawn;
 	}
-    return [[GamePawn alloc] init];
+    return [[[GamePawn alloc] init] autorelease];
 }
 @end

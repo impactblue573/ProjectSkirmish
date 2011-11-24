@@ -24,6 +24,8 @@ static ScoreManager* sharedScoreManager;
     if (self) {
         infiltrationScores = [[NSMutableDictionary alloc] init];
         resistanceScores = [[NSMutableDictionary alloc] init];
+        NSArray *path =	NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+        filepath = [[[path objectAtIndex:0] stringByAppendingPathComponent:@"UserData.plist"] retain];
         // Initialization code here.
     }
     
@@ -31,8 +33,7 @@ static ScoreManager* sharedScoreManager;
 }
 
 -(void) LoadScores{
-//    NSDictionary* savedData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Infiltration.plist",world]]];
-    NSData* codedData = [[[NSData alloc] initWithContentsOfFile:@"UserData.plist"] autorelease];
+    NSData* codedData = [[[NSData alloc] initWithContentsOfFile:filepath] autorelease];
     NSKeyedUnarchiver* unarchiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:codedData];
     NSDictionary* userData = [unarchiver decodeObjectForKey:@"UserData"];  
     
@@ -55,6 +56,7 @@ static ScoreManager* sharedScoreManager;
 }
 
 -(void) SaveScores{
+    
     NSMutableDictionary* userData = [NSMutableDictionary dictionary];
     [userData setObject:infiltrationScores forKey:@"InfiltrationScores"];
     [userData setObject:resistanceScores forKey:@"ResistanceScores"];
@@ -66,19 +68,24 @@ static ScoreManager* sharedScoreManager;
     NSKeyedArchiver *archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:codedData];          
     [archiver encodeObject:userData forKey:@"UserData"];
     [archiver finishEncoding];
-    [codedData writeToFile:@"UserData.plist" atomically:YES];
+    NSError* error;
+    [codedData writeToFile:filepath options:NSDataWritingAtomic error:&error];
     [codedData release];
     [archiver release];
+//    if(error && error.localizedDescription)
+//    {
+//        NSLog(@"Error writing data to file: %@", error.localizedDescription);
+//    }
 }
 
 -(NSMutableArray*) GetInfiltrationScores:(NSString *)world{
     NSMutableArray* scores = [infiltrationScores objectForKey:world];
     if(scores != nil)
         return scores;
-    return nil;
+    return [NSMutableArray array];
 }
 
--(void) SetInfiltrationScore:(uint)score ForLevel:(uint)level InWorld:(NSString *)world{
+-(bool) SetInfiltrationScore:(uint)score ForLevel:(uint)level InWorld:(NSString *)world{
     NSMutableArray* scores = [infiltrationScores objectForKey:world];
     if(scores == nil)
         scores = [NSMutableArray array];
@@ -96,10 +103,10 @@ static ScoreManager* sharedScoreManager;
         if(score > oldScore)
             [scores replaceObjectAtIndex:(level-1) withObject:[NSNumber numberWithFloat:score]];
         else
-            return;
+            return false;
     }
     [infiltrationScores setObject:scores forKey:world];
-    [self SaveScores];
+    return true;
 }
 
 -(uint64_t) GetTotalInfiltrationScore
@@ -109,6 +116,53 @@ static ScoreManager* sharedScoreManager;
     for(uint w = 0; w < [worlds count]; w++)
     {
         NSMutableArray* scores = [infiltrationScores objectForKey:[worlds objectAtIndex:w]];
+        if(scores != nil)
+        {
+            for(uint i = 0; i < [scores count];i++)
+                total += [[scores objectAtIndex:i] intValue];
+        }
+    }
+    return total;
+}
+
+-(NSMutableArray*) GetResistanceScores:(NSString *)world{
+    NSMutableArray* scores = [resistanceScores objectForKey:world];
+    if(scores != nil)
+        return scores;
+    return [NSMutableArray array];
+}
+
+-(bool) SetResistanceScore:(uint)score ForLevel:(uint)level InWorld:(NSString *)world{
+    NSMutableArray* scores = [resistanceScores objectForKey:world];
+    if(scores == nil)
+        scores = [NSMutableArray array];
+    if([scores count] < level)
+    {
+        for(uint i = 1; i < level - [scores count]; i++)
+        {
+            [scores addObject:[NSNumber numberWithFloat:0]];
+        }
+        [scores addObject:[NSNumber numberWithFloat:score]];
+    }
+    else
+    {
+        uint oldScore = [[scores objectAtIndex:(level-1)] intValue];
+        if(score > oldScore)
+            [scores replaceObjectAtIndex:(level-1) withObject:[NSNumber numberWithFloat:score]];
+        else
+            return false;
+    }
+    [resistanceScores setObject:scores forKey:world];
+    return true;
+}
+
+-(uint64_t) GetTotalResistanceScore
+{
+    uint64_t total = 0;
+    NSArray* worlds = [NSArray arrayWithObjects:@"Farm_World",@"CreepyWoods_World", nil];
+    for(uint w = 0; w < [worlds count]; w++)
+    {
+        NSMutableArray* scores = [resistanceScores objectForKey:[worlds objectAtIndex:w]];
         if(scores != nil)
         {
             for(uint i = 0; i < [scores count];i++)
@@ -134,6 +188,14 @@ static ScoreManager* sharedScoreManager;
     teamDeathmatchScore += score;
 }
 
+-(float) GetKDR{
+    return totalKills / totalDeaths * 10000;
+}
+
+-(uint) GetKills{
+    return totalKills;
+}
+
 - (void)dealloc
 {
     [super dealloc];
@@ -141,6 +203,8 @@ static ScoreManager* sharedScoreManager;
         [infiltrationScores release];
     if(resistanceScores != nil)
         [resistanceScores release];
+    if(filepath != nil)
+        [filepath release];
 }
 
 @end

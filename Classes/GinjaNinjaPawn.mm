@@ -16,7 +16,6 @@
 	//use default values for now
 	if((self = [super init]))
 	{
-		startPosition = ccp(40.0f,150.0f);
 		size = b2Vec2(50.0f,90.0f);
 		offset = b2Vec2(-10.0f,-3.0f);
 		jumpSpeed = 13.0;		

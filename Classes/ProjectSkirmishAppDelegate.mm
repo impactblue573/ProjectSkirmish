@@ -14,6 +14,7 @@
 #import "GameScene.h"
 #import "RootViewController.h"
 #import "TitleScene.h"
+#import "ScoreManager.h"
 @implementation ProjectSkirmishAppDelegate
 
 @synthesize window,playerName;
@@ -126,6 +127,9 @@
     [cache addSpriteFramesWithFile:@"UI.plist"];
 //    [cache addSpriteFramesWithFile:@"FullscreenTextures.plist"];
 
+    
+    [[ScoreManager sharedScoreManager] LoadScores];
+//    [[ScoreManager sharedScoreManager] SaveScores];
 
 	[[CCDirector sharedDirector] runWithScene: [TitleScene scene]];
 	//[[CCDirector sharedDirector] runWithScene: [HelloWorld scene]];

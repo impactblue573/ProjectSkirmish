@@ -51,9 +51,9 @@
 		[CCMenuItemFont setFontSize:22];
 		
 		//Player Name
-		CCLabelTTF* playerLabel = [[CCLabelTTF labelWithString:@"Player Name:" dimensions:CGSizeMake(200,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22] retain];
+		CCLabelTTF* playerLabel = [CCLabelTTF labelWithString:@"Player Name:" dimensions:CGSizeMake(200,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22];
 		playerLabel.position = ccp(screensize.width * 0.05 + 100,screensize.height * 0.65);
-		playerTextField = [[[UITextField alloc] initWithFrame:CGRectMake(screensize.height * 0.65 - 100, screensize.width * 0.05 + 220,200, 30)] retain];
+		playerTextField = [[UITextField alloc] initWithFrame:CGRectMake(screensize.height * 0.65 - 100, screensize.width * 0.05 + 220,200, 30)];
 		playerTextField.transform = CGAffineTransformMakeRotation(M_PI * (90.0 / 180.0));
 		playerTextField.delegate = self;
 		playerTextField.returnKeyType = UIReturnKeyDone;        
@@ -62,7 +62,7 @@
 		[playerTextField setFont:[UIFont fontWithName:@"Marker Felt" size:22]];
 		
 		//World Select
-		worldPicker = [[[WorldPicker alloc] init] retain];
+		worldPicker = [[WorldPicker alloc] init];
 		[worldPicker setTarget:self selector:@selector(onWorldSelect:)];
 		worldLabel = [[CCLabelTTF labelWithString:@"World:" dimensions:CGSizeMake(200,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22] retain];
 		worldLabel.position = ccp(screensize.width * 0.05,screensize.height * 0.2);
@@ -77,7 +77,7 @@
 		botLabel = [[CCLabelTTF labelWithString:@"Num Bots:" dimensions:CGSizeMake(200,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22] retain];
 		botLabel.position = ccp(screensize.width * 0.05,screensize.height * 0.1);
 		botLabel.anchorPoint = ccp(0,0.5);
-        botDial = [[[DialList alloc] initWithList:[NSArray arrayWithObjects: @"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil] withWidth:70] retain];
+        botDial = [[DialList alloc] initWithList:[NSArray arrayWithObjects: @"0",@"1",@"2",@"3",@"4",@"5",@"6",@"7",@"8",nil] withWidth:70];
 		botDial.position = ccp(screensize.width * 0.05 + 120,screensize.height * 0.1);
 		
 		//team select
@@ -95,7 +95,7 @@
 		teamMenu.position = ccp(screensize.width * 0.05 + 120,screensize.height * 0.35);
 		
 		//character select
-		characterPicker = [[[CharacterPicker alloc] init] retain];
+		characterPicker = [[CharacterPicker alloc] init];
 		[characterPicker setTarget:self selector:@selector(onCharacterSelect:)];
 		
 		CCLabelTTF* characterLabel = [CCLabelTTF labelWithString:@"Character:" dimensions:CGSizeMake(100,30) alignment:CCTextAlignmentLeft fontName:@"Marker Felt" fontSize:22];
@@ -323,21 +323,6 @@
     }
 }
 
--(void) dealloc
-{
-	[botDial release];
-	[botLabel release];
-	[startMenuItem release];	
-	[mainMenuLayer release];
-	[pendingGameMenuLayer release];
-//    for(uint i = 0; i < [backgrounds count];i++)
-//    {
-//        [[backgrounds objectAtIndex:i] release];
-//    }
-    [backgrounds release];
-    [super dealloc];
-}
-
 #pragma mark UITextField Delegate
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {	
@@ -366,4 +351,19 @@
 	[self showPlayerNameField:true];
 }
 
+-(void) dealloc
+{
+	[botDial release];
+	[botLabel release];
+	[startMenuItem release];	
+	[mainMenuLayer release];
+	[pendingGameMenuLayer release];
+    [characterPicker release];
+    [worldPicker release];
+    [worldLabel release];
+    [playerTextField release];
+    [worldLauncherMenu release];
+    [backgrounds release];
+    [super dealloc];
+}
 @end

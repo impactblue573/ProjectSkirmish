@@ -18,9 +18,9 @@
     bool releaseProperties;
 }
 
-@property(assign) NSString* pawnType;
-@property(assign) NSString* playerID;
-@property(assign) NSNumber* teamID;
-@property(assign) NSString* playerName;
-@property(assign) NSNumber* spriteVariation;
+@property(retain) NSString* pawnType;
+@property(retain) NSString* playerID;
+@property(retain) NSNumber* teamID;
+@property(retain) NSString* playerName;
+@property(retain) NSNumber* spriteVariation;
 @end

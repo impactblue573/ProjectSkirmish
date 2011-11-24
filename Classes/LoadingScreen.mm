@@ -42,7 +42,7 @@
 
 -(void) animateProgress:(ccTime)dt
 {
-    dt = dt == 0 ? 1.0/60.0 : dt;
+//    dt = dt == 0 ? 1.0/60.0 : dt;
     currentProgress = MIN(targetProgress, currentProgress + 4);
     float width = maxClippingSize - maxClippingSize * currentProgress/100;
     [clippingMask setContentSize:CGSizeMake(width,clippingHeight)];

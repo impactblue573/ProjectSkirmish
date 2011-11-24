@@ -11,6 +11,7 @@
 #import "SneakyJoystick.h"
 #import "Leaderboard.h"
 #import "Healthbar.h"
+#import "Timer.h"
 
 @protocol UILayerProtocol
 
@@ -31,9 +32,12 @@
 	CCMenuItemImage* resumeMenuItem;
 	CCMenu* pauseMenu;
 	CCMenu* gameMenu;
+    CCSprite* winImage;
+    CCSprite* loseImage;
 	CCLayerColor* gameMenuParent;
 	Leaderboard* leaderboard;
     Healthbar* healthbar;
+    Timer* timer;
 	bool pauseMenuVisible;
 }
 
@@ -49,6 +53,12 @@
 -(void) showCompletitionScreen;
 -(void) hideResume;
 -(void) hidePauseMenuItem;
+-(void) showScores:(bool)show;
+-(void) showTimer:(bool)show;
+-(void) setTimer:(TimerTypes)type limit:(NSTimeInterval)limit;
+-(void) updateTimer:(NSTimeInterval)dt;
+-(void) showWin:(bool)won;
+-(void) hideWin;
 
 @property(assign) id<UILayerProtocol> delegate;
 @end

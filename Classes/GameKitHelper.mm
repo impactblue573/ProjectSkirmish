@@ -111,6 +111,9 @@ static GameKitHelper *instanceOfGameKitHelper;
 			{
                 [self reloadHighScoresForCategory:@"PaintPawsTeamDeathmatch"];
                 [self reloadHighScoresForCategory:@"PaintPawsInfiltration"];
+                [self reloadHighScoresForCategory:@"PaintPawsResistance"];
+                [self reloadHighScoresForCategory:@"PaintPawsKills"];	
+                [self reloadHighScoresForCategory:@"PaintPawsProwess"];
 			}
 		}];
 	}

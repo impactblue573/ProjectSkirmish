@@ -26,6 +26,8 @@
 	float damage;
 }
 
+-(void) setProjectileSprite:(CCSprite*)spr;
+
 @property(assign) GameController* controller;
 @property(assign) CCSprite* sprite;
 @property(assign) b2Body* physicsBody;
@@ -37,6 +39,5 @@
 @property(assign) CCParticleSystem* deathEffect; 
 @property(assign) int teamIndex;
 @property(assign) float damage;
-
 
 @end

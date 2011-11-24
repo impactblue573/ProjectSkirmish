@@ -23,10 +23,12 @@
 #import <GameKit/GameKit.h>
 #import "TeamDeathmatch.h"
 #import "Infiltration.h"
+#import "Resistance.h"
 #import "Leaderboard.h"
 #import "CharacterPicker.h"
 #import "WorldPicker.h"
 #import "LoadingScreen.h"
+#import "LevelPicker.h"
 
 typedef enum
 {
@@ -64,6 +66,7 @@ typedef enum
 	bool gameActive;
 	GameType* gameType;
 	CharacterPicker* singlePlayCharacterPicker;
+    LevelPicker* singlePlayLevelPicker;
 	WorldPicker* singlePlayWorldPicker;
     TapTarget* tapTarget;
     SneakyJoystickSkinnedBase* joystickBase;

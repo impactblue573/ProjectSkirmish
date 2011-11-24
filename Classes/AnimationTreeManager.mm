@@ -13,13 +13,14 @@
 
 -(id)init
 {
+    self = [super init];
 	nodeList = [[NSMutableArray alloc] init];
 	return self;
 }
 
 -(void) appendNode:(AnimationNode *)node
 {
-    [node retain];
+//    [node retain];
 	if(rootNode == nil)
 		rootNode = node;
 	else 
@@ -37,10 +38,10 @@
 
 -(void) dealloc
 {
-    for(uint i = 0; i < [nodeList count];i++)
-    {
-        [[nodeList objectAtIndex:i] release];
-    }
+//    for(uint i = 0; i < [nodeList count];i++)
+//    {
+//        [[nodeList objectAtIndex:i] release];
+//    }
     [nodeList release];
     [super dealloc];
 }

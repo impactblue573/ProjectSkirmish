@@ -13,6 +13,7 @@
 
 -(id) init
 {
+    self = [super init];
 	pendingProjectiles = [[NSMutableArray alloc] init];
 	return self;
 }
@@ -27,18 +28,24 @@
 	if([pendingProjectiles count] > 0)
 	{
 		Projectile* projectile = [pendingProjectiles objectAtIndex:0];
-		[pendingProjectiles removeObjectAtIndex:0];
 		return projectile;
 	}
 	return nil;
 }
 
+-(void) clearFirstProjectile{
+    if([pendingProjectiles count] > 0)
+	{
+		[pendingProjectiles removeObjectAtIndex:0];
+	}
+}
+
 -(void) dealloc
 {
-    for(uint i = 0; i < [pendingProjectiles count]; i++)
-    {
-        [[pendingProjectiles objectAtIndex:i] release];
-    }
+//    for(uint i = 0; i < [pendingProjectiles count]; i++)
+//    {
+//        [[pendingProjectiles objectAtIndex:i] release];
+//    }
     [pendingProjectiles release];
     [super dealloc];
 }

@@ -21,7 +21,7 @@
 -(id) initWithSlideListItem:(SlideListItem)item target:(id)target selector:(SEL)selector
 {
     slideListItem = item;
-	[self initFromNormalSprite:[CCSprite spriteWithSpriteFrameName:item.image] selectedSprite:[CCSprite spriteWithSpriteFrameName:item.image] disabledSprite:nil target:target selector:selector];
+	self = [self initFromNormalSprite:[CCSprite spriteWithSpriteFrameName:item.image] selectedSprite:[CCSprite spriteWithSpriteFrameName:item.image] disabledSprite:nil target:target selector:selector];
 //	CCLabelTTF* text = [CCLabelTTF labelWithString:item.text fontName:@"Marker Felt" fontSize:20];
 //	[text setColor:(ccColor3B){50,50,50}];
 //	text.position = ccp(200,30);

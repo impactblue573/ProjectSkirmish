@@ -35,19 +35,21 @@ static PowerupManager* currentPowerupManager;
 
 -(void) addPowerupFactory:(PowerupFactory *)powerup
 {
-    [powerup retain];
+//    [powerup retain];
     [powerups addObject:powerup];
+    [powerup retain];
     [world spawnPowerup:powerup];
+    [powerup release];
     //spawn
 }
 
 -(void) dealloc
 {
-    for(uint i = 0; i < [powerups count]; i++)
-    {
-        PowerupFactory* p = [powerups objectAtIndex:i];
-        [p release];
-    }
+//    for(uint i = 0; i < [powerups count]; i++)
+//    {
+//        PowerupFactory* p = [powerups objectAtIndex:i];
+//        [p release];
+//    }
     [powerups release];    
     [super dealloc];
 }

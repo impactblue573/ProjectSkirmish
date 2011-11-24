@@ -22,14 +22,14 @@
 -(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName usingVariation:(int)variation
 {
 	if(pID != nil)
-		self.playerID = [[NSMutableString alloc ] initWithString:pID];
+		self.playerID = [NSString stringWithString:pID];
 	if(pName != nil)		
-		self.playerName = [[NSMutableString alloc ] initWithString:pName];
+		self.playerName = [NSString stringWithString:pName];
 	gameWorld = world;
 	team = t;
     spriteVariation = variation;
 	if(pType != nil)
-		self.pawnType = [[NSMutableString alloc ] initWithString:pType];
+		self.pawnType = [NSString stringWithString:pType];
 	self = [self init];
 	[animationManager addToLayer:world];
     targetter = [[Targetter alloc] initWithSprite:(team.teamIndex == 2 ? @"RedCrosshair2.png" : @"BlueCrosshair2.png") inLayer:gameWorld];
@@ -62,7 +62,7 @@
 
 -(void) initializeGamePawn
 {
-	pawn = pawnType == nil ? [PawnFactory initializePawn] : [PawnFactory initializePawnType:pawnType];
+	pawn = pawnType == nil ? [[PawnFactory initializePawn] retain] : [[PawnFactory initializePawnType:pawnType] retain];
 	[pawn setGameController:self];
 	pawn.team = team;
     [pawn setVariation:spriteVariation];

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 45;
+	objectVersion = 46;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -25,6 +25,7 @@
 		3F1A175C12C9BBE2004D9D4B /* Helper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F1A175B12C9BBE2004D9D4B /* Helper.mm */; };
 		3F1CF1CF13A84C56009E8099 /* GinjaNinjaAlternate.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F1CF1CD13A84C56009E8099 /* GinjaNinjaAlternate.plist */; };
 		3F1CF1D013A84C56009E8099 /* GinjaNinjaAlternate.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F1CF1CE13A84C56009E8099 /* GinjaNinjaAlternate.png */; };
+		3F1E3803147CD4020082BC54 /* LevelPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F1E3802147CD4020082BC54 /* LevelPicker.mm */; };
 		3F21030F12D541FC00A52945 /* TitleScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F21030E12D541FC00A52945 /* TitleScene.mm */; };
 		3F21037212D54AD500A52945 /* OnlinePlayUI.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F21037112D54AD500A52945 /* OnlinePlayUI.mm */; };
 		3F35234C133B1FDC00DFECB2 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F35234B133B1FDC00DFECB2 /* Icon.png */; };
@@ -52,6 +53,8 @@
 		3F460C4413977FB1003AE09F /* CreepyWoods.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F460C4213977FB1003AE09F /* CreepyWoods.plist */; };
 		3F460C4513977FB1003AE09F /* CreepyWoods.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F460C4313977FB1003AE09F /* CreepyWoods.png */; };
 		3F460C4913978409003AE09F /* CreepyWoods_World.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F460C4813978409003AE09F /* CreepyWoods_World.plist */; };
+		3F472E3A147D3F08008903B7 /* Farm_World_Resistance.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F472E39147D3F08008903B7 /* Farm_World_Resistance.plist */; };
+		3F472E3C147D3FB4008903B7 /* CreepyWoods_World_Resistance.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F472E3B147D3FB4008903B7 /* CreepyWoods_World_Resistance.plist */; };
 		3F4D6A9F138C7140007D00BC /* Healthbar.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F4D6A9E138C7140007D00BC /* Healthbar.mm */; };
 		3F4D6AA4138CC0AC007D00BC /* UI.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F4D6AA2138CC0AC007D00BC /* UI.plist */; };
 		3F4D6AA5138CC0AC007D00BC /* UI.png in Resources */ = {isa = PBXBuildFile; fileRef = 3F4D6AA3138CC0AC007D00BC /* UI.png */; };
@@ -72,6 +75,7 @@
 		3F55C6281394923B00EF436D /* Its Over Now.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F55C6271394923B00EF436D /* Its Over Now.mp3 */; };
 		3F55C62B1394931700EF436D /* Gunfire.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F55C6291394931700EF436D /* Gunfire.mp3 */; };
 		3F55C62C1394931700EF436D /* Splat.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 3F55C62A1394931700EF436D /* Splat.mp3 */; };
+		3F593EB1147DB4900024B462 /* Timer.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F593EB0147DB4900024B462 /* Timer.m */; };
 		3F5953D6137D1FF600D33676 /* PowerupEvent.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5953D5137D1FF600D33676 /* PowerupEvent.mm */; };
 		3F5C1E421377C7610029D4EE /* PowerupFactory.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E411377C7610029D4EE /* PowerupFactory.mm */; };
 		3F5C1E451378C5790029D4EE /* ProteinPowerup.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C1E441378C5790029D4EE /* ProteinPowerup.mm */; };
@@ -471,6 +475,8 @@
 		3F1A186012C9E8D5004D9D4B /* GameWorld.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameWorld.h; sourceTree = "<group>"; };
 		3F1CF1CD13A84C56009E8099 /* GinjaNinjaAlternate.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = GinjaNinjaAlternate.plist; path = Illustrations/GingaNinja/Alternate/GinjaNinjaAlternate.plist; sourceTree = SOURCE_ROOT; };
 		3F1CF1CE13A84C56009E8099 /* GinjaNinjaAlternate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = GinjaNinjaAlternate.png; path = Illustrations/GingaNinja/Alternate/GinjaNinjaAlternate.png; sourceTree = SOURCE_ROOT; };
+		3F1E3801147CD4020082BC54 /* LevelPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LevelPicker.h; sourceTree = "<group>"; };
+		3F1E3802147CD4020082BC54 /* LevelPicker.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LevelPicker.mm; sourceTree = "<group>"; };
 		3F21030D12D541FC00A52945 /* TitleScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitleScene.h; sourceTree = "<group>"; };
 		3F21030E12D541FC00A52945 /* TitleScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = TitleScene.mm; sourceTree = "<group>"; };
 		3F21037012D54AD500A52945 /* OnlinePlayUI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OnlinePlayUI.h; sourceTree = "<group>"; };
@@ -517,6 +523,8 @@
 		3F460C4213977FB1003AE09F /* CreepyWoods.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CreepyWoods.plist; path = Illustrations/CreepyWoods/CreepyWoods.plist; sourceTree = SOURCE_ROOT; };
 		3F460C4313977FB1003AE09F /* CreepyWoods.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = CreepyWoods.png; path = Illustrations/CreepyWoods/CreepyWoods.png; sourceTree = SOURCE_ROOT; };
 		3F460C4813978409003AE09F /* CreepyWoods_World.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = CreepyWoods_World.plist; path = Illustrations/CreepyWoods/CreepyWoods_World.plist; sourceTree = SOURCE_ROOT; };
+		3F472E39147D3F08008903B7 /* Farm_World_Resistance.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Farm_World_Resistance.plist; sourceTree = "<group>"; };
+		3F472E3B147D3FB4008903B7 /* CreepyWoods_World_Resistance.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = CreepyWoods_World_Resistance.plist; sourceTree = "<group>"; };
 		3F4D6A9D138C7140007D00BC /* Healthbar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Healthbar.h; sourceTree = "<group>"; };
 		3F4D6A9E138C7140007D00BC /* Healthbar.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Healthbar.mm; sourceTree = "<group>"; };
 		3F4D6AA2138CC0AC007D00BC /* UI.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = UI.plist; path = Illustrations/UI.plist; sourceTree = SOURCE_ROOT; };
@@ -539,6 +547,8 @@
 		3F55C6271394923B00EF436D /* Its Over Now.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Its Over Now.mp3"; path = "Sound/Its Over Now.mp3"; sourceTree = SOURCE_ROOT; };
 		3F55C6291394931700EF436D /* Gunfire.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Gunfire.mp3; path = Sound/Gunfire.mp3; sourceTree = SOURCE_ROOT; };
 		3F55C62A1394931700EF436D /* Splat.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Splat.mp3; path = Sound/Splat.mp3; sourceTree = SOURCE_ROOT; };
+		3F593EAF147DB4900024B462 /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
+		3F593EB0147DB4900024B462 /* Timer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Timer.m; sourceTree = "<group>"; };
 		3F5953D4137D1FF600D33676 /* PowerupEvent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerupEvent.h; sourceTree = "<group>"; };
 		3F5953D5137D1FF600D33676 /* PowerupEvent.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PowerupEvent.mm; sourceTree = "<group>"; };
 		3F5C1E401377C7610029D4EE /* PowerupFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PowerupFactory.h; sourceTree = "<group>"; };
@@ -1099,6 +1109,7 @@
 				3F4D6AAA138D196F007D00BC /* FarmWorld.plist */,
 				3F4D6AAB138D196F007D00BC /* FarmWorld.png */,
 				3F9C7788147C595D00F587AA /* Farm_World_Infiltration.plist */,
+				3F472E39147D3F08008903B7 /* Farm_World_Resistance.plist */,
 			);
 			name = FarmWorld;
 			sourceTree = "<group>";
@@ -1181,6 +1192,10 @@
 				3F460C3C1395B672003AE09F /* Toggler.mm */,
 				3F460C3E1395C266003AE09F /* SlideListToggleMenuItem.h */,
 				3F460C3F1395C267003AE09F /* SlideListToggleMenuItem.mm */,
+				3F1E3801147CD4020082BC54 /* LevelPicker.h */,
+				3F1E3802147CD4020082BC54 /* LevelPicker.mm */,
+				3F593EAF147DB4900024B462 /* Timer.h */,
+				3F593EB0147DB4900024B462 /* Timer.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -1192,6 +1207,7 @@
 				3F460C4213977FB1003AE09F /* CreepyWoods.plist */,
 				3F460C4313977FB1003AE09F /* CreepyWoods.png */,
 				3F9C778F147C782D00F587AA /* CreepyWoods_World_Infiltration.plist */,
+				3F472E3B147D3FB4008903B7 /* CreepyWoods_World_Resistance.plist */,
 			);
 			name = CreepyWoods;
 			sourceTree = "<group>";
@@ -2044,8 +2060,11 @@
 /* Begin PBXProject section */
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0420;
+			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "ProjectSkirmish" */;
-			compatibilityVersion = "Xcode 3.1";
+			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 1;
 			knownRegions = (
@@ -2109,6 +2128,8 @@
 				3F1CF1D013A84C56009E8099 /* GinjaNinjaAlternate.png in Resources */,
 				3F9C7789147C595D00F587AA /* Farm_World_Infiltration.plist in Resources */,
 				3F9C7790147C782D00F587AA /* CreepyWoods_World_Infiltration.plist in Resources */,
+				3F472E3A147D3F08008903B7 /* Farm_World_Resistance.plist in Resources */,
+				3F472E3C147D3FB4008903B7 /* CreepyWoods_World_Resistance.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2197,6 +2218,8 @@
 				3F9C7779147B895000F587AA /* GameTypeBot.mm in Sources */,
 				3F9C7787147BE20B00F587AA /* Resistance.mm in Sources */,
 				3F9C778E147C642C00F587AA /* ScoreManager.mm in Sources */,
+				3F1E3803147CD4020082BC54 /* LevelPicker.mm in Sources */,
+				3F593EB1147DB4900024B462 /* Timer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2357,12 +2380,11 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_DYNAMIC_NO_PIC = NO;
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ProjectSkirmish_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2370,7 +2392,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = ProjectSkirmish;
 				WARNING_CFLAGS = "-Wall";
 			};
@@ -2382,10 +2403,10 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ProjectSkirmish_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
 				ONLY_ACTIVE_ARCH = NO;
@@ -2393,7 +2414,6 @@
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = ProjectSkirmish;
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2418,7 +2438,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Paint Paws";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -2431,17 +2450,16 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = ProjectSkirmish_Prefix.pch;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = libs;
 				INFOPLIST_FILE = Resources/Info.plist;
 				OTHER_LDFLAGS = (
 					"-all_load",
 					"-ObjC",
 				);
-				PREBINDING = NO;
 				PRODUCT_NAME = ProjectSkirmish;
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "-Wall";
@@ -2454,11 +2472,10 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = libs;
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				PREBINDING = NO;
 				PRODUCT_NAME = "cocos2d libraries";
 				SKIP_INSTALL = YES;
 				ZERO_LINK = NO;
@@ -2473,8 +2490,8 @@
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = libs;
-				PREBINDING = NO;
 				PRODUCT_NAME = "cocos2d libraries";
 				SKIP_INSTALL = YES;
 			};
@@ -2486,11 +2503,10 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				GCC_ENABLE_FIX_AND_CONTINUE = NO;
 				GCC_TREAT_WARNINGS_AS_ERRORS = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				HEADER_SEARCH_PATHS = libs;
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				PREBINDING = NO;
 				PRODUCT_NAME = "cocos2d libraries";
 				SKIP_INSTALL = YES;
 				ZERO_LINK = NO;
@@ -2518,7 +2534,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				PREBINDING = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -2541,7 +2556,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 3.0;
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "-fvisibility=hidden";
-				PREBINDING = NO;
 				PRODUCT_NAME = "Paint Paws";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;

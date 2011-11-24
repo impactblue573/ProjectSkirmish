@@ -19,7 +19,7 @@
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Com</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
@@ -31,7 +31,19 @@
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Def</string>
 				</dict>
 			</array>
 		</dict>
@@ -50,7 +62,7 @@
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Com</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
@@ -62,7 +74,7 @@
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Nin</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
@@ -74,7 +86,165 @@
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>TargetTime</key>
+			<integer>35</integer>
+			<key>Bots</key>
+			<array>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2600</integer>
+					<key>Y</key>
+					<integer>400</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>TargetTime</key>
+			<integer>35</integer>
+			<key>Bots</key>
+			<array>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2580</integer>
+					<key>Y</key>
+					<integer>400</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Def</string>
 				</dict>
 			</array>
 		</dict>
@@ -93,7 +263,7 @@
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Com</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
@@ -105,7 +275,7 @@
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Nin</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
@@ -117,86 +287,55 @@
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.3</real>
+					<key>AI</key>
+					<string>Com</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
 					<string>Bullseye</string>
 					<key>X</key>
-					<integer>-1</integer>
+					<integer>2480</integer>
 					<key>Y</key>
-					<integer>-1</integer>
+					<integer>200</integer>
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
-				</dict>
-			</array>
-		</dict>
-		<dict>
-			<key>TargetTime</key>
-			<integer>40</integer>
-			<key>Bots</key>
-			<array>
-				<dict>
-					<key>PawnType</key>
-					<string>Lambo</string>
-					<key>X</key>
-					<integer>-1</integer>
-					<key>Y</key>
-					<integer>-1</integer>
-					<key>Handicap</key>
-					<real>0.3</real>
-					<key>AI</key>
-					<string></string>
-				</dict>
-				<dict>
-					<key>PawnType</key>
-					<string>Lambo</string>
-					<key>X</key>
-					<integer>-1</integer>
-					<key>Y</key>
-					<integer>-1</integer>
-					<key>Handicap</key>
-					<real>0.3</real>
-					<key>AI</key>
-					<string></string>
-				</dict>
-				<dict>
-					<key>PawnType</key>
-					<string>Lambo</string>
-					<key>X</key>
-					<integer>-1</integer>
-					<key>Y</key>
-					<integer>-1</integer>
-					<key>Handicap</key>
-					<real>0.3</real>
-					<key>AI</key>
-					<string></string>
+					<string>Def</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
 					<string>Bullseye</string>
 					<key>X</key>
-					<integer>-1</integer>
+					<integer>2580</integer>
 					<key>Y</key>
-					<integer>-1</integer>
+					<integer>400</integer>
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Def</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
 					<string>Bullseye</string>
 					<key>X</key>
-					<integer>-1</integer>
+					<integer>1500</integer>
 					<key>Y</key>
-					<integer>-1</integer>
+					<integer>400</integer>
 					<key>Handicap</key>
 					<real>0.3</real>
 					<key>AI</key>
-					<string></string>
+					<string>Def</string>
 				</dict>
 			</array>
 		</dict>
@@ -213,9 +352,9 @@
 					<key>Y</key>
 					<integer>-1</integer>
 					<key>Handicap</key>
-					<real>0.3</real>
+					<real>0.5</real>
 					<key>AI</key>
-					<string></string>
+					<string>Com</string>
 				</dict>
 				<dict>
 					<key>PawnType</key>
@@ -225,9 +364,373 @@
 					<key>Y</key>
 					<integer>-1</integer>
 					<key>Handicap</key>
-					<real>0.3</real>
+					<real>0.5</real>
 					<key>AI</key>
-					<string></string>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>TargetTime</key>
+			<integer>50</integer>
+			<key>Bots</key>
+			<array>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2600</integer>
+					<key>Y</key>
+					<integer>400</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>TargetTime</key>
+			<integer>55</integer>
+			<key>Bots</key>
+			<array>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Porcus Maximus</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2600</integer>
+					<key>Y</key>
+					<integer>400</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>TargetTime</key>
+			<integer>55</integer>
+			<key>Bots</key>
+			<array>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Porcus Maximus</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Porcus Maximus</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2600</integer>
+					<key>Y</key>
+					<integer>400</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+			</array>
+		</dict>
+		<dict>
+			<key>TargetTime</key>
+			<integer>60</integer>
+			<key>Bots</key>
+			<array>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Porcus Maximus</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Sni</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Porcus Maximus</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Com</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Lambo</string>
+					<key>X</key>
+					<integer>-1</integer>
+					<key>Y</key>
+					<integer>-1</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Nin</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2480</integer>
+					<key>Y</key>
+					<integer>200</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>2600</integer>
+					<key>Y</key>
+					<integer>400</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
+				</dict>
+				<dict>
+					<key>PawnType</key>
+					<string>Bullseye</string>
+					<key>X</key>
+					<integer>1500</integer>
+					<key>Y</key>
+					<integer>400</integer>
+					<key>Handicap</key>
+					<real>0.5</real>
+					<key>AI</key>
+					<string>Def</string>
 				</dict>
 			</array>
 		</dict>

@@ -29,17 +29,18 @@
 
 - (id)initWithCoder:(NSCoder *)aDecoder
 {
+    self = [super init];
     doRelease = true;
-	self.hasJump = [[aDecoder decodeObject] retain];
-	self.moveVector = [[aDecoder decodeObject] retain];
-	self.positionX = [[aDecoder decodeObject] retain];
-	self.positionY = [[aDecoder decodeObject] retain];
-	self.velocityX = [[aDecoder decodeObject] retain];
-	self.velocityY = [[aDecoder decodeObject] retain];
-	self.shootPointX = [[aDecoder decodeObject] retain];
-	self.shootPointY = [[aDecoder decodeObject] retain];
-	self.health = [[aDecoder decodeObject] retain];
-	self.playerID = [[aDecoder decodeObject] retain];
+	hasJump = [[aDecoder decodeObject] retain];
+	moveVector = [[aDecoder decodeObject] retain];
+	positionX = [[aDecoder decodeObject] retain];
+	positionY = [[aDecoder decodeObject] retain];
+	velocityX = [[aDecoder decodeObject] retain];
+	velocityY = [[aDecoder decodeObject] retain];
+	shootPointX = [[aDecoder decodeObject] retain];
+	shootPointY = [[aDecoder decodeObject] retain];
+	health = [[aDecoder decodeObject] retain];
+	playerID = [[aDecoder decodeObject] retain];
 	return self;
 }
 

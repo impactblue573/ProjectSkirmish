@@ -14,6 +14,7 @@
 
 -(id) initWithSlideListItems:(NSMutableArray *)items
 {
+    self = [super init];
     NSMutableArray* menuItems = [NSMutableArray array];
 	for(uint i = 0; i < [items count]; i++)
     {

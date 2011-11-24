@@ -7,28 +7,14 @@
 //
 
 #import "Resistance.h"
-
+#import "ScoreManager.h"
 
 @implementation Resistance
 
 -(id) init{
     self = [super init];
-    self.Respawn = false;
+    self.Respawn = true;
     return self;
-}
-
--(NSMutableArray*) GetBots
-{
-    NSMutableArray* botArray = [NSMutableArray array];
-    for(uint i = 0; i < 3;i++)
-    {
-        GameTypeBot* bot = [[[GameTypeBot alloc] init] autorelease];
-        bot.pawnType = @"Lambo";
-        bot.team = 2;
-        bot.handicap = 0.3;
-        [botArray addObject:bot];
-    }
-    return botArray;
 }
 
 -(void) GameStart{
@@ -36,6 +22,35 @@
 }
 
 -(void) GameEnd{
+}
+
+-(void) LoadLevel{
+    NSDictionary* pListData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Resistance.plist",world]]];
+    NSArray* levels = [pListData objectForKey:@"Levels"];
+    NSDictionary* levelDefinition = [levels objectAtIndex:(level-1)];
+    targetTime = [[levelDefinition objectForKey:@"TargetTime"] doubleValue];
+    botScore = [[levelDefinition objectForKey:@"BotScore"] intValue];
+    NSArray* botArray = [levelDefinition objectForKey:@"Bots"];
+    
+    if(bots != nil)
+        [bots release];
+    bots = [[NSMutableArray array] retain];
+    for(uint i = 0; i < [botArray count];i++){
+        NSDictionary* botDef = [botArray objectAtIndex:i];
+        GameTypeBot* bot = [[[GameTypeBot alloc] init] autorelease];
+        bot.x = [[botDef objectForKey:@"X"] floatValue];
+        bot.y = [[botDef objectForKey:@"Y"] floatValue];
+        bot.pawnType = [botDef objectForKey:@"PawnType"];
+        bot.ai = [botDef objectForKey:@"AI"];
+        bot.handicap = [[botDef objectForKey:@"Handicap"] floatValue];
+        
+        bot.team = 2;
+        [bots addObject:bot];
+    }
+}
+
+-(GameTypes) getGameType{
+    return GameType_Resistance;
 }
 
 -(GameTeam*) GetWinningTeam:(NSArray *)teams
@@ -46,9 +61,7 @@
     if(enemyTeam.teamKills > 0)
         return enemyTeam;
     else {        
-        NSDate* endDate = [NSDate date];
-        completionTime = [endDate timeIntervalSinceDate:startDate];
-        if(completionTime >= 30)
+        if(completionTime >= targetTime)
             return playerTeam;
     }
     
@@ -62,7 +75,15 @@
 
 -(uint) GetScoreForPlayer:(PlayerController*)player team:(GameTeam*)team1 enemyTeam:(GameTeam*)team2
 {
-    return completionTime > 30 ? player.kills * 20 : player.kills * 5;
+    if(player.deaths > 0)
+        return 0;
+    uint score = player.kills * botScore + targetTime;
+    if([[ScoreManager sharedScoreManager] SetResistanceScore:score ForLevel:level InWorld:world])
+    {
+        [[ScoreManager sharedScoreManager] SaveScores];
+    }
+    
+    return score;
 }
 
 -(void) dealloc

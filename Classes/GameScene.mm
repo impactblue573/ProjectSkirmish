@@ -100,9 +100,11 @@ static GameWorld* CurrentGameWorld;
 		playerList = [[NSMutableArray alloc] init];
         currentGameType = type;
         if(type == GameType_TeamDeathmatch)
-            gameType = [[[TeamDeathmatch alloc] initWithWinScore:30 numBots:7] retain];
+            gameType = [[TeamDeathmatch alloc] initWithWinScore:30 numBots:7];
         else if(type == GameType_Infiltration)
-            gameType = [[[Infiltration alloc] init] retain];
+            gameType = [[Infiltration alloc] init];
+        else if (type == GameType_Resistance)
+            gameType = [[Resistance alloc] init];
         
         //No longer supported
 		if(gameMode == Game_Online)
@@ -208,7 +210,7 @@ static GameWorld* CurrentGameWorld;
 		PawnInfo* info = [pawnInfo objectAtIndex:i];
 		if(![info.playerID isEqualToString:peerID])
 		{
-			NetworkGameController* controller = [[NetworkGameController alloc] initInWorld:gameWorld usingPawn:info.pawnType asTeam:([info.teamID intValue] == 2 ? team1:team2) withPlayerID:info.playerID withPlayerName:info.playerName usingVariation:[info.spriteVariation intValue]];
+			NetworkGameController* controller = [[[NetworkGameController alloc] initInWorld:gameWorld usingPawn:info.pawnType asTeam:([info.teamID intValue] == 2 ? team1:team2) withPlayerID:info.playerID withPlayerName:info.playerName usingVariation:[info.spriteVariation intValue]] autorelease];
 			controller.respawn = gameType.Respawn;
             [networkPlayerControllers setObject:controller forKey:info.playerID];
             if(controller.team != playerController.team)
@@ -271,19 +273,19 @@ static GameWorld* CurrentGameWorld;
 -(NSMutableArray*) getPawnInfos
 {
 	NSMutableArray* pawnInfos = [NSMutableArray array];
-	PawnInfo* info = [[playerController.pawn getPawnInfo] retain];
+	PawnInfo* info = [playerController.pawn getPawnInfo];
 	[pawnInfos addObject:info];
 	NSArray* keys = [networkPlayerControllers allKeys];
 	for(NSUInteger i = 0; i < [keys count]; i++)
 	{
 		GameController* ctrl = [networkPlayerControllers objectForKey:[keys objectAtIndex:i]];
-		PawnInfo* pInfo = [[ctrl.pawn getPawnInfo] retain];
+		PawnInfo* pInfo = [ctrl.pawn getPawnInfo];
 		[pawnInfos addObject:pInfo];
 	}
 	for(NSUInteger i = 0; i < [botControllers count]; i++)
 	{
 		GameController* ctrl = [botControllers objectAtIndex:i];
-		PawnInfo* pInfo = [[ctrl.pawn getPawnInfo] retain];
+		PawnInfo* pInfo = [ctrl.pawn getPawnInfo];
 		[pawnInfos addObject:pInfo];
 	}
 	return pawnInfos;
@@ -305,8 +307,14 @@ static GameWorld* CurrentGameWorld;
             team = team1;
         else
             team = team2;
-		BotController* botController1 = [[BotController alloc] initInWorld:gameWorld usingPawn:botDef.pawnType asTeam:team withPlayerID:botName withPlayerName:botName];
+		BotController* botController1 = [[[BotController alloc] initInWorld:gameWorld usingPawn:botDef.pawnType asTeam:team withPlayerID:botName withPlayerName:botName] autorelease];
         botController1.respawn = gameType.Respawn;
+        botController1.pawn.startPosition = ccp(botDef.x,botDef.y);
+        if(botDef.ai)
+        {
+            [botController1 setAiTypeWithString:botDef.ai];
+            [botController1 updateBotName];
+        }
         [gameWorld spawnGamePawn:botController1.pawn];
         [botController1.pawn applyHandicap:botDef.handicap];
 		[botControllers addObject:botController1];
@@ -440,12 +448,15 @@ static GameWorld* CurrentGameWorld;
 	
 	//Check Game Completion
 	GameTeam* winningTeam = [gameType GetWinningTeam:[NSArray arrayWithObjects:team1,team2,nil]];
+    [gameType Tick:dt];
+    [uiLayer updateTimer:dt];
 	if(winningTeam != nil)
 	{
         gameActive =	false;
         [gameType GameEnd];
-        uint16_t score = [gameType GetScoreForPlayer:playerController team:playerController.team enemyTeam:(playerController.team == team1 ? team1: team2)];
+//        uint16_t score = [gameType GetScoreForPlayer:playerController team:playerController.team enemyTeam:(playerController.team == team1 ? team2: team1)];
 		GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
+        
         if(gkHelper.isGameCenterAvailable)
         {
             if(currentGameType == GameType_Infiltration)
@@ -453,16 +464,20 @@ static GameWorld* CurrentGameWorld;
                 uint64_t infScore = [[ScoreManager sharedScoreManager] GetTotalInfiltrationScore];
                 [gkHelper reportScore:infScore forCategory:[gameType GetScoreCategory]];
             }
+            else if(currentGameType == GameType_Resistance)
+            {
+                uint64_t infScore = [[ScoreManager sharedScoreManager] GetTotalResistanceScore];
+                [gkHelper reportScore:infScore forCategory:[gameType GetScoreCategory]];
+            }
             else if(currentGameType == GameType_TeamDeathmatch)
             {
                 [gkHelper reportScore:[[ScoreManager sharedScoreManager] GetTeamDeathmatchScore] forCategory:[gameType GetScoreCategory]];
+                [gkHelper reportScore:[[ScoreManager sharedScoreManager] GetKills] forCategory:@"PaintPawsKills"];
+                [gkHelper reportScore:[[ScoreManager sharedScoreManager] GetKDR] forCategory:@"PaintPawsProwess"];
             }
         }
         
-        if(team1 == winningTeam)
-			[uiLayer showMessage:@"Red Team Wins!" forInterval:0 withColor : ccc3(255,0,0)];
-		else
-			[uiLayer showMessage:@"Blue Team Wins!" forInterval:0 withColor : ccc3(0,0,255)];		
+        [uiLayer showWin:playerController.team == winningTeam];
 		[self schedule:@selector(showLeaderboard:) interval:3];
 		return;
 	}	
@@ -532,7 +547,7 @@ static GameWorld* CurrentGameWorld;
 
 -(void) processNetworkPlayerInput:(NetworkPlayerInput *)netInput packetID:(int)packetID
 {
-    NSDate* start = [NSDate date];
+//    NSDate* start = [NSDate date];
 	NSString* peerID = [[GameKitHelper sharedGameKitHelper] getPeerID];
 	if([netInput.playerID isEqualToString:peerID])
 	{
@@ -559,7 +574,7 @@ static GameWorld* CurrentGameWorld;
 		}
 	}	
     
-    NSLog(@"Network Input Process time: %.2fms", [start timeIntervalSinceNow] * -1000);
+//    NSLog(@"Network Input Process time: %.2fms", [start timeIntervalSinceNow] * -1000);
 }
 
 -(void) updateViewport
@@ -625,12 +640,29 @@ static GameWorld* CurrentGameWorld;
 	uiLayer = [UILayer node];
 	[self addChild:uiLayer];
 	uiLayer.delegate = self;
+    
+    //setup gametype ui
+    if([gameType getGameType] == GameType_Infiltration){
+        [uiLayer showScores:false];
+        [uiLayer showTimer:true];
+        [uiLayer setTimer:TimerType_StopWatch limit:[gameType getTargetTime]];
+    }
+    else if([gameType getGameType] == GameType_Resistance){
+        [uiLayer showScores:false];
+        [uiLayer showTimer:true];
+        [uiLayer setTimer:TimerType_Countdown limit:[gameType getTargetTime]];
+    }
+    else if([gameType getGameType] == GameType_TeamDeathmatch){        
+        [uiLayer showScores:true];
+        [uiLayer showTimer:false];
+    }
 }
 
 //Single Player
 -(void) startSinglePlay:(NSString*)pType
 {
     loadingScreen = [[[LoadingScreen alloc] init] autorelease];
+    
     [self addChild:loadingScreen z:10];
     [self schedule:@selector(preloadSounds) interval:0.2];
 	[self initializeUI];
@@ -867,10 +899,10 @@ static GameWorld* CurrentGameWorld;
 			NSMutableArray* pawnInfos = [[self getPawnInfos] retain];
             response.pawnInitData = pawnInfos;
 			[gkHelper sendDataToAllPeers:[DataHelper serializeDataPacket:response] withMode:GKSendDataReliable];
-            for(uint i = 0; i < [pawnInfos count]; i++)
-            {
-                [[pawnInfos objectAtIndex:i] release];
-            }
+//            for(uint i = 0; i < [pawnInfos count]; i++)
+//            {
+//                [[pawnInfos objectAtIndex:i] release];
+//            }
             [pawnInfos release];
 		}
 	}
@@ -992,12 +1024,38 @@ static GameWorld* CurrentGameWorld;
 -(void) onWorldSelect:(SlideListItem)item
 {
 	worldName = [NSString stringWithString:item.key];
-    [gameType SetLevel:2 ForWorld:worldName];
     [self removeChild:singlePlayWorldPicker cleanup:false];
-	singlePlayCharacterPicker = [[CharacterPicker alloc] init];
-	[singlePlayCharacterPicker setTarget:self selector:@selector(onCharacterSelect:)];
-	[self addChild:singlePlayCharacterPicker z:5];
-	
+    
+    if(currentGameType == GameType_TeamDeathmatch)
+    {
+        singlePlayCharacterPicker = [[CharacterPicker alloc] init];
+        [singlePlayCharacterPicker setTarget:self selector:@selector(onCharacterSelect:)];
+        [self addChild:singlePlayCharacterPicker z:5];
+    }
+    else
+    {
+        singlePlayLevelPicker = [[LevelPicker alloc] initWithLevels:10 target:self selector:@selector(onLevelSelect:)];
+        NSMutableArray* scores = [NSMutableArray array];
+        if([gameType getGameType] == GameType_Infiltration)
+        {
+            scores = [[ScoreManager sharedScoreManager] GetInfiltrationScores:worldName];
+        }
+        else if([gameType getGameType] == GameType_Resistance)
+        {
+            scores = [[ScoreManager sharedScoreManager] GetResistanceScores:worldName];
+        }
+        [singlePlayLevelPicker SetLevelScores:scores];
+        [singlePlayLevelPicker SetBackgroundImage:item.image];
+        [self addChild:singlePlayLevelPicker z:5];
+    }	
+}
+
+-(void) onLevelSelect:(uint)level{
+    [self removeChild:singlePlayLevelPicker cleanup:false];
+    [gameType SetLevel:level ForWorld:worldName];
+    singlePlayCharacterPicker = [[CharacterPicker alloc] init];
+    [singlePlayCharacterPicker setTarget:self selector:@selector(onCharacterSelect:)];
+    [self addChild:singlePlayCharacterPicker z:5];
 }
 
 -(void) dealloc
@@ -1005,6 +1063,8 @@ static GameWorld* CurrentGameWorld;
 //    [uiLayer release];
 //    [uiLayer removeChild:joystickBase cleanup:false];
 //    [joystickBase release];
+    if(singlePlayLevelPicker)
+        [singlePlayLevelPicker release];
     if(singlePlayWorldPicker)
         [singlePlayWorldPicker release];
     if(singlePlayCharacterPicker)
@@ -1015,19 +1075,10 @@ static GameWorld* CurrentGameWorld;
     [playerController release];
     if(networkPlayerControllers)
     {
-        NSArray* keys = [networkPlayerControllers allKeys];
-        for(uint i = 0; i < [keys count]; i++)
-        {
-            [[networkPlayerControllers objectForKey:[keys objectAtIndex:i]] release];
-        }
         [networkPlayerControllers release];
     }
     if(botControllers)
     {
-        for(uint i = 0; i < [botControllers count]; i++)
-        {
-            [[botControllers objectAtIndex:i] release];
-        }
         [botControllers release];
     }
     if(onlinePlayUI)

@@ -13,10 +13,18 @@
 
 @synthesize sprite,physicsBody,launchForce,launchPosition,mass,destroyed,controller,lifetime,deathEffect,teamIndex,damage;
 
+-(void) setProjectileSprite:(CCSprite*)spr
+{
+    if(sprite != nil)
+        [sprite release];
+    sprite = [spr retain];
+}
+
 -(void) dealloc
 {
-	[sprite release];
 	//[physicsBody release];
+    if(sprite != nil)
+        [sprite release];
 	[super dealloc];
 }
 @end

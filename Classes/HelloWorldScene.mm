@@ -321,7 +321,7 @@ b2Body* PlayerBody;
 	leftJoy.position = ccp(64,64);
 	leftJoy.backgroundSprite = [ColoredCircleSprite circleWithColor:ccc4(255, 0, 0, 128) radius:64];
 	leftJoy.thumbSprite = [ColoredCircleSprite circleWithColor:ccc4(0, 0, 255, 200) radius:32];
-	leftJoy.joystick = [[SneakyJoystick alloc] initWithRect:CGRectMake(0,0,128,128)];
+	leftJoy.joystick = [[[SneakyJoystick alloc] initWithRect:CGRectMake(0,0,128,128)] autorelease];
 	leftJoystick = [leftJoy.joystick retain];
 	[uiLayer addChild:leftJoy];
 }
@@ -364,7 +364,7 @@ b2Body* PlayerBody;
 	// in case you have something to dealloc, do it in this method
 	delete world;
 	world = NULL;
-	
+	[leftJoystick release];
 	delete m_debugDraw;
 
 	// don't forget to call "super dealloc"

@@ -20,6 +20,10 @@
 	return self;
 }
 
+-(GameTypes) getGameType{
+    return GameType_TeamDeathmatch;
+}
+
 -(NSMutableArray*) GetBots
 {
     NSMutableArray* botArray = [NSMutableArray array];
@@ -54,6 +58,7 @@
     [[ScoreManager sharedScoreManager] AddTDMScore:score];
     [[ScoreManager sharedScoreManager] AddKills:player.kills];
     [[ScoreManager sharedScoreManager] AddDeaths:player.deaths];
+    [[ScoreManager sharedScoreManager] SaveScores];
     return score;
 }
 

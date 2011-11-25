@@ -57,7 +57,8 @@
 	self = [super initInWorld:world usingPawn:pType asTeam:t withPlayerID:pID withPlayerName:nil];
     if(botName != nil)
         [botName release];
-    botName = [pName retain];
+    botName = [NSString stringWithString:pName];
+    [botName retain];
     [self updateBotName];
 	return self;
 }
@@ -212,6 +213,8 @@
 -(void) dealloc{
     [super dealloc];
     if(botName != nil)
+    {
         [botName release];
+    }
 }
 @end

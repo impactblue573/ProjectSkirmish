@@ -74,6 +74,10 @@
     return @"PaintPawsInfiltration";
 }
 
+-(NSString*) getObjective{
+    return [NSString stringWithFormat:@"Eliminate all opponents! Complete within %d seconds for bonus points",(uint)targetTime];
+}
+
 -(uint) GetScoreForPlayer:(PlayerController*)player team:(GameTeam*)team1 enemyTeam:(GameTeam*)team2{
     if(player.deaths > 0)
     {

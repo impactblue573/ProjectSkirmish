@@ -8,7 +8,7 @@
 #import "cocos2d.h"
 #import <GameKit/GameKit.h>
 
-@interface GameKitHelper : NSObject
+@interface GameKitHelper : NSObject<GKLeaderboardViewControllerDelegate>
 {
 	bool isGameCenterAvailable;
 	NSError* lastError;	
@@ -31,6 +31,7 @@
 // Leaderboards
 - (void) reloadHighScoresForCategory: (NSString*) category;
 - (void) reportScore: (int64_t) score forCategory: (NSString*) category;
+- (void) showLeaderboard;
 
 //p2p
 -(void) hostServer:(NSString*)displayName delegate:(id<GKSessionDelegate>)del;

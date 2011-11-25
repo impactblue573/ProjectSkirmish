@@ -62,6 +62,13 @@
     [self addChild:loseImage];
     [self hideWin];
     
+    //Message Box
+    messageBox = [[[MessageBox alloc] init] autorelease];
+    messageBox.position = ccp(screenSize.width/2-125,screenSize.height/2-70);
+    [messageBox setVisible:false];
+    [messageBox setTarget:self selector:@selector(hideMessageBox)];
+    [self addChild:messageBox z:10];
+    
 	CCLabelTTF* pauseLabel = [CCLabelTTF labelWithString:@"Menu" fontName:@"Marker Felt" fontSize:20];
 	[pauseLabel setColor:(ccColor3B){128,128,128}];
 	CCMenuItemImage* pauseMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Menu.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"MenuActive.png"] target:self selector:@selector(showPauseMenu:)];	
@@ -83,6 +90,18 @@
 	gameMenuParent.position = ccp(40,6);
 	[gameMenuParent addChild:gameMenu];
 	return self;
+}
+
+-(void) showMessageBox:(NSString*)text fontSize:(float)fontSize color:(ccColor3B)color
+{
+    [messageBox setVisible:true];
+    [text retain];
+    [messageBox setText:text fontSize:fontSize color:color];
+    [text release];
+}
+
+-(void) hideMessageBox{
+    [messageBox setVisible:false];
 }
 
 -(void) updateTeam1Score:(int)t1Score team2Score:(int)t2Score

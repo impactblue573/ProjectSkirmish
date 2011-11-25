@@ -10,11 +10,9 @@
 
 #import "ProjectSkirmishAppDelegate.h"
 #import "GameConfig.h"
-#import "HelloWorldScene.h"
-#import "GameScene.h"
 #import "RootViewController.h"
-#import "TitleScene.h"
-#import "ScoreManager.h"
+#import "LoadManager.h"
+
 @implementation ProjectSkirmishAppDelegate
 
 @synthesize window,playerName;
@@ -119,20 +117,7 @@
 	// Removes the startup flicker
 	[self removeStartupFlicker];
 	
-	// Run the intro Scene
-	//[[CCDirector sharedDirector] runWithScene: [GameScene sceneMultiplay:false]];	
-    
-    //Load Shared Sprite Frame Cache
-    CCSpriteFrameCache* cache = [CCSpriteFrameCache sharedSpriteFrameCache];
-    [cache addSpriteFramesWithFile:@"UI.plist"];
-//    [cache addSpriteFramesWithFile:@"FullscreenTextures.plist"];
-
-    
-    [[ScoreManager sharedScoreManager] LoadScores];
-//    [[ScoreManager sharedScoreManager] SaveScores];
-
-	[[CCDirector sharedDirector] runWithScene: [TitleScene scene]];
-	//[[CCDirector sharedDirector] runWithScene: [HelloWorld scene]];
+    [[LoadManager sharedLoadManager] startLoad];
 }
 
 

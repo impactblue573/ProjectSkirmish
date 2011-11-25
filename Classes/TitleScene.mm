@@ -10,7 +10,7 @@
 #import "SoundManager.h"
 #import "Toggler.h"
 #import "ScoreManager.h"
-#import "LevelPicker.h"
+#import "MessageBox.h"
 
 @implementation TitleScene
 
@@ -32,7 +32,10 @@
 		CCMenuItemImage* localPlayMenu = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"MultiPlay.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"MultiPlayActive.png"] target:self selector:@selector(localPlayMenuTouched:)]; 
         localPlayMenu.position = ccp(0,-50);
         localPlayMenu.selectedImage.position = ccp(-15,-3);
-		titleMenu = [CCMenu menuWithItems:singlePlayMenu,localPlayMenu,nil];
+        CCMenuItemImage* leaderboardsMenu = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Leaderboards.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"LeaderboardsActive.png"] target:self selector:@selector(leaderboardsTouched:)]; 
+        leaderboardsMenu.position = ccp(0,-100);
+        leaderboardsMenu.selectedImage.position = ccp(-15,-3);
+		titleMenu = [CCMenu menuWithItems:singlePlayMenu,localPlayMenu,leaderboardsMenu,nil];
 		titleMenu.position = ccp(screensize.width/2,screensize.height/2);
         
         CCMenuItemImage* skirmishMenu = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Skirmish.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"SkirmishActive.png"] target:self selector:@selector(skirmishTouched:)];
@@ -80,6 +83,10 @@
 -(void) resistanceTouched:(id)sender{
     [[CCDirector sharedDirector] replaceScene:[GameScene sceneWithGameMode:Game_Single gameType:GameType_Resistance]];
 
+}
+
+-(void) leaderboardsTouched:(id)sender{
+    [[GameKitHelper sharedGameKitHelper] showLeaderboard];
 }
 
 -(void) backTouched:(id)sender{

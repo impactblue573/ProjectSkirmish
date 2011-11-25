@@ -25,4 +25,5 @@
 -(void) backTouched:(id)sender;
 -(void) onlinePlayMenuTouched:(id) sender;
 -(void) localPlayMenuTouched:(id) sender;
+-(void) leaderboardsTouched:(id) sender;
 @end

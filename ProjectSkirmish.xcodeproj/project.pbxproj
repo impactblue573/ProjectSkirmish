@@ -86,6 +86,7 @@
 		3F5C467912CEBF8000EA310A /* BattleInfo.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F5C467812CEBF8000EA310A /* BattleInfo.mm */; };
 		3F7FED3512CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FED3412CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm */; };
 		3F7FEE5912CDAC4800B71665 /* PaintballSplatParticleSystem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F7FEE5812CDAC4800B71665 /* PaintballSplatParticleSystem.mm */; };
+		3F914F6C147E57DB003876A7 /* LoadManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F914F6B147E57DB003876A7 /* LoadManager.mm */; };
 		3F929418133883440004619D /* SlideList.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F929417133883440004619D /* SlideList.mm */; };
 		3F92943D13388D610004619D /* SlideListMenuItem.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F92943C13388D610004619D /* SlideListMenuItem.mm */; };
 		3F9295ED133978A50004619D /* CharacterPicker.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3F9295EC133978A50004619D /* CharacterPicker.mm */; };
@@ -106,6 +107,7 @@
 		3FB156BC12CB368500F8D082 /* BlendBySpeedAnimationNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FB156BB12CB368500F8D082 /* BlendBySpeedAnimationNode.mm */; };
 		3FB156D712CB3B8F00F8D082 /* BlendByFallAnimationNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FB156D612CB3B8F00F8D082 /* BlendByFallAnimationNode.mm */; };
 		3FB156E212CB3DE600F8D082 /* AnimationTreeManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FB156E112CB3DE600F8D082 /* AnimationTreeManager.mm */; };
+		3FB6A128147E3842003D1890 /* MessageBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FB6A127147E3841003D1890 /* MessageBox.m */; };
 		3FB6BFE812CC0B88005BBBB6 /* BlendByFiringAnimationNode.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FB6BFE712CC0B88005BBBB6 /* BlendByFiringAnimationNode.mm */; };
 		3FB6C12E12CC5610005BBBB6 /* Projectile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 3FB6C12D12CC5610005BBBB6 /* Projectile.mm */; };
 		3FC9B05112E686F100552220 /* TakeHit.aif in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9B05012E686F100552220 /* TakeHit.aif */; };
@@ -569,6 +571,8 @@
 		3F7FED3412CD9D9B00B71665 /* PaintballExplodeParticleSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaintballExplodeParticleSystem.mm; sourceTree = "<group>"; };
 		3F7FEE5712CDAC4800B71665 /* PaintballSplatParticleSystem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaintballSplatParticleSystem.h; sourceTree = "<group>"; };
 		3F7FEE5812CDAC4800B71665 /* PaintballSplatParticleSystem.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PaintballSplatParticleSystem.mm; sourceTree = "<group>"; };
+		3F914F6A147E57DB003876A7 /* LoadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoadManager.h; sourceTree = "<group>"; };
+		3F914F6B147E57DB003876A7 /* LoadManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = LoadManager.mm; sourceTree = "<group>"; };
 		3F929416133883440004619D /* SlideList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideList.h; sourceTree = "<group>"; };
 		3F929417133883440004619D /* SlideList.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = SlideList.mm; sourceTree = "<group>"; };
 		3F92943B13388D610004619D /* SlideListMenuItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideListMenuItem.h; sourceTree = "<group>"; };
@@ -605,6 +609,8 @@
 		3FB156D612CB3B8F00F8D082 /* BlendByFallAnimationNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BlendByFallAnimationNode.mm; sourceTree = "<group>"; };
 		3FB156E012CB3DE600F8D082 /* AnimationTreeManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimationTreeManager.h; sourceTree = "<group>"; };
 		3FB156E112CB3DE600F8D082 /* AnimationTreeManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AnimationTreeManager.mm; sourceTree = "<group>"; };
+		3FB6A126147E3840003D1890 /* MessageBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageBox.h; sourceTree = "<group>"; };
+		3FB6A127147E3841003D1890 /* MessageBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageBox.m; sourceTree = "<group>"; };
 		3FB6BFE612CC0B88005BBBB6 /* BlendByFiringAnimationNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlendByFiringAnimationNode.h; sourceTree = "<group>"; };
 		3FB6BFE712CC0B88005BBBB6 /* BlendByFiringAnimationNode.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = BlendByFiringAnimationNode.mm; sourceTree = "<group>"; };
 		3FB6C12C12CC5610005BBBB6 /* Projectile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Projectile.h; sourceTree = "<group>"; };
@@ -1081,6 +1087,8 @@
 				E0F81063120A17DF005866B8 /* RootViewController.m */,
 				3F1115E312CBED55001F6B90 /* TapTarget.h */,
 				3F1115E412CBED55001F6B90 /* TapTarget.mm */,
+				3F914F6A147E57DB003876A7 /* LoadManager.h */,
+				3F914F6B147E57DB003876A7 /* LoadManager.mm */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -1196,6 +1204,8 @@
 				3F1E3802147CD4020082BC54 /* LevelPicker.mm */,
 				3F593EAF147DB4900024B462 /* Timer.h */,
 				3F593EB0147DB4900024B462 /* Timer.m */,
+				3FB6A126147E3840003D1890 /* MessageBox.h */,
+				3FB6A127147E3841003D1890 /* MessageBox.m */,
 			);
 			name = UI;
 			sourceTree = "<group>";
@@ -2220,6 +2230,8 @@
 				3F9C778E147C642C00F587AA /* ScoreManager.mm in Sources */,
 				3F1E3803147CD4020082BC54 /* LevelPicker.mm in Sources */,
 				3F593EB1147DB4900024B462 /* Timer.m in Sources */,
+				3FB6A128147E3842003D1890 /* MessageBox.m in Sources */,
+				3F914F6C147E57DB003876A7 /* LoadManager.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2401,6 +2413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -2415,6 +2428,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = ProjectSkirmish;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SKIP_INSTALL = NO;
 				TARGETED_DEVICE_FAMILY = 1;
 				WARNING_CFLAGS = "-Wall";
@@ -2543,8 +2557,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				GCC_C_LANGUAGE_STANDARD = c99;
 				"GCC_THUMB_SUPPORT[arch=armv6]" = NO;
 				"GCC_THUMB_SUPPORT[arch=armv7]" = YES;

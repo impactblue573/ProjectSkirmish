@@ -73,6 +73,10 @@
     return @"PaintPawsResistance";
 }
 
+-(NSString*) getObjective{
+    return [NSString stringWithFormat:@"Survive for %d seconds! Eliminate opponents for bonus points!",(uint)targetTime];
+}
+
 -(uint) GetScoreForPlayer:(PlayerController*)player team:(GameTeam*)team1 enemyTeam:(GameTeam*)team2
 {
     if(player.deaths > 0)

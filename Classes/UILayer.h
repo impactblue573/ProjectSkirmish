@@ -12,6 +12,7 @@
 #import "Leaderboard.h"
 #import "Healthbar.h"
 #import "Timer.h"
+#import "MessageBox.h"
 
 @protocol UILayerProtocol
 
@@ -38,6 +39,7 @@
 	Leaderboard* leaderboard;
     Healthbar* healthbar;
     Timer* timer;
+    MessageBox* messageBox;
 	bool pauseMenuVisible;
 }
 
@@ -59,6 +61,8 @@
 -(void) updateTimer:(NSTimeInterval)dt;
 -(void) showWin:(bool)won;
 -(void) hideWin;
+-(void) showMessageBox:(NSString*)text fontSize:(float)fontSize color:(ccColor3B)color;
+-(void) hideMessageBox;
 
 @property(assign) id<UILayerProtocol> delegate;
 @end

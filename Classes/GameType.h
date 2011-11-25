@@ -38,6 +38,7 @@ typedef enum
 -(void) SetLevel:(uint)l ForWorld:(NSString*)w;
 -(NSTimeInterval) getTargetTime;
 -(GameTypes) getGameType;
+-(NSString*) getObjective;
 
 @property(assign) uint NumBots;
 @property(assign) bool Respawn;

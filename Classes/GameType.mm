@@ -31,6 +31,9 @@
     
 }
 
+-(NSString*) getObjective{
+    return @"Eliminate opponents!";
+}
 
 -(NSTimeInterval) getTargetTime{
     return targetTime;

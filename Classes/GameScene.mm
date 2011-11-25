@@ -225,6 +225,7 @@ static GameWorld* CurrentGameWorld;
 -(void) showLeaderboard:(ccTime)delta
 {
 	[self unschedule:@selector(showLeaderboard:)];
+    [uiLayer showMessageBox:[NSString stringWithFormat:@"Score: %d",score] fontSize:40 color:ccc3(255, 50, 50)];
 	[uiLayer showMessage:@"" forInterval:0];
 	NSArray* array = [[self generateTeamLeaderboard] retain];
 	Leaderboard* leaderboard = [[[Leaderboard alloc] initWithLeaderboardEntries:array] autorelease];
@@ -454,8 +455,8 @@ static GameWorld* CurrentGameWorld;
 	{
         gameActive =	false;
         [gameType GameEnd];
-//        uint16_t score = [gameType GetScoreForPlayer:playerController team:playerController.team enemyTeam:(playerController.team == team1 ? team2: team1)];
-		GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
+        score = [gameType GetScoreForPlayer:playerController team:playerController.team enemyTeam:(playerController.team == team1 ? team2: team1)];
+        GameKitHelper* gkHelper = [GameKitHelper sharedGameKitHelper];
         
         if(gkHelper.isGameCenterAvailable)
         {
@@ -590,7 +591,6 @@ static GameWorld* CurrentGameWorld;
     loadingScreen = [[[LoadingScreen alloc] init] autorelease];
     [loadingScreen setProgress:0];
     [self addChild:loadingScreen z:10];
-    [self schedule:@selector(preloadSounds) interval:0.2];
 	[self initializeUI];
 	[self initializeTeams];
 	[self initializePlayerWithPawnType:[localPlayUI getSelectedCharacter] onTeam:([localPlayUI getSelectedTeam] == 1 ? team1 : team2) withName:[localPlayUI getPlayerName]];
@@ -613,9 +613,8 @@ static GameWorld* CurrentGameWorld;
 
 -(void) delayedStart
 {
-    [loadingScreen setProgress:100];
-    [self schedule:@selector(delayedStartDone) interval:1];
-    [self schedule:@selector(playBackgroundMusic) interval:0.3];
+    [loadingScreen setProgress:75];
+    [self schedule:@selector(preloadSounds) interval:1];
 }
 
 -(void) delayedStartDone
@@ -646,11 +645,13 @@ static GameWorld* CurrentGameWorld;
         [uiLayer showScores:false];
         [uiLayer showTimer:true];
         [uiLayer setTimer:TimerType_StopWatch limit:[gameType getTargetTime]];
+        [uiLayer showMessageBox:[gameType getObjective] fontSize:20 color:ccc3(0, 0, 0)];
     }
     else if([gameType getGameType] == GameType_Resistance){
         [uiLayer showScores:false];
         [uiLayer showTimer:true];
         [uiLayer setTimer:TimerType_Countdown limit:[gameType getTargetTime]];
+        [uiLayer showMessageBox:[gameType getObjective] fontSize:20 color:ccc3(0, 0, 0)];
     }
     else if([gameType getGameType] == GameType_TeamDeathmatch){        
         [uiLayer showScores:true];
@@ -659,15 +660,12 @@ static GameWorld* CurrentGameWorld;
 }
 
 //Single Player
--(void) startSinglePlay:(NSString*)pType
+-(void) startSinglePlay
 {
-    loadingScreen = [[[LoadingScreen alloc] init] autorelease];
-    
-    [self addChild:loadingScreen z:10];
-    [self schedule:@selector(preloadSounds) interval:0.2];
+    [self unschedule:@selector(startSinglePlay)];
 	[self initializeUI];
 	[self initializeTeams];
-	[self initializePlayer:pType];
+	[self initializePlayer:singlePlayPawnType];
 	[self initializeBots];
     [self delayedStart];
     
@@ -676,9 +674,18 @@ static GameWorld* CurrentGameWorld;
 -(void) preloadSounds
 {
     [self unschedule:@selector(preloadSounds)];
+    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Its Over Now.mp3"];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"TakeHit.aif"];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"Splat.mp3"];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"Fire.mp3"];
+    [self playBackgroundMusic];
+    [self schedule:@selector(preloadSoundsDone) interval:1];
+}
+
+-(void) preloadSoundsDone{
+    [self unschedule:@selector(preloadSoundsDone)];
+    [loadingScreen setProgress:100];
+    [self schedule:@selector(delayedStartDone) interval:1];
 }
 
 -(void) playBackgroundMusic
@@ -1018,7 +1025,11 @@ static GameWorld* CurrentGameWorld;
 -(void) onCharacterSelect:(SlideListItem)item
 {
 	[self removeChild:singlePlayCharacterPicker cleanup:false];
-	[self startSinglePlay:item.key];
+    loadingScreen = [[[LoadingScreen alloc] init] autorelease];
+    [loadingScreen setProgress:0];
+    [self addChild:loadingScreen z:10];
+    singlePlayPawnType = [NSString stringWithString:item.key];
+	[self schedule:@selector(startSinglePlay) interval:0.3];
 }
 
 -(void) onWorldSelect:(SlideListItem)item

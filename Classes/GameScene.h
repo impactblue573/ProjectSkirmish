@@ -73,6 +73,8 @@ typedef enum
     LoadingScreen* loadingScreen;
     bool gameStarted;
     GameTypes currentGameType;
+    uint16_t score;
+    NSString* singlePlayPawnType;
 }
 
 
@@ -95,7 +97,7 @@ typedef enum
 -(void) loadSprites;
 -(NSMutableArray*) generateTeamLeaderboard;
 -(void) initializeTeams;
--(void) startSinglePlay:(NSString*)pType;
+-(void) startSinglePlay;
 -(void) receiveData:(NSData *)data fromPeer:(NSString *)peer inSession: (GKSession *)session context:(void *)context;
 -(void) startGameScheduler;
 -(void) delayedStart;

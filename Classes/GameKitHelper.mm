@@ -251,6 +251,21 @@ static GameKitHelper *instanceOfGameKitHelper;
 	[rootVC dismissModalViewControllerAnimated:YES];
 }
 
+- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController{
+    [self dismissModalViewController];
+}
+
+- (void) showLeaderboard
+{
+    UIViewController* rootVC = [self getRootViewController];
+    GKLeaderboardViewController *leaderboardController = [[GKLeaderboardViewController alloc] init];
+    if (leaderboardController != nil)
+    {
+        leaderboardController.leaderboardDelegate = self;
+        [rootVC presentModalViewController: leaderboardController animated: YES];
+    }
+}
+
 //p2p
 -(void) hostServer:(NSString *)displayName delegate:(id<GKSessionDelegate>)del
 {

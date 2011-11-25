@@ -22,9 +22,9 @@
 -(id) initInWorld:(GameWorld*)world usingPawn:(NSString*)pType asTeam:(GameTeam*)t withPlayerID:(NSString*)pID withPlayerName:(NSString*)pName usingVariation:(int)variation
 {
 	if(pID != nil)
-		self.playerID = [NSString stringWithString:pID];
+		self.playerID = [[NSString stringWithString:pID] retain];
 	if(pName != nil)		
-		self.playerName = [NSString stringWithString:pName];
+		self.playerName = [[NSString stringWithString:pName] retain];
 	gameWorld = world;
 	team = t;
     spriteVariation = variation;

@@ -27,7 +27,7 @@
         toggleItem.value = [NSString stringWithString:[item.keys objectAtIndex:i]];
         [toggleItems addObject:[NSValue valueWithBytes:&toggleItem objCType:@encode(ToggleItem)]];
     }
-    toggler = [[Toggler alloc] initWithItemList:toggleItems toggleSprite:item.toggleSprite activeToggleSprite:item.activeToggleSprite labelSprite:item.labelSprite];
+    toggler = [[[Toggler alloc] initWithItemList:toggleItems toggleSprite:item.toggleSprite activeToggleSprite:item.activeToggleSprite labelSprite:item.labelSprite] autorelease];
     [toggler setTarget:self selector:@selector(togglerSelect:)];
     [self setContentSize:[toggler contentSize]];
     [self addChild:toggler];

@@ -52,6 +52,7 @@ typedef enum
 	LocalPlayUI* localPlayUI;
 	NSString* serverPeerID;
 	NSString* worldName;
+    NSString* worldImage;
 	uint clientInitCount;
 	uint clientSyncCount;
 	float lastBroadcast;
@@ -74,7 +75,9 @@ typedef enum
     bool gameStarted;
     GameTypes currentGameType;
     uint16_t score;
+    uint level;
     NSString* singlePlayPawnType;
+    CCMenu* quitMenu;
 }
 
 
@@ -86,6 +89,7 @@ typedef enum
 +(ViewPort) getViewPort;
 +(float) getDifficultyFactor;
 +(void) ReturnToTitle;
+-(void) ReturnToTitle;
 -(GameTeam*) getPlayerTeam;
 -(id) initWithGameMode:(GameMode)mode gameType:(GameTypes)type;
 -(NSString*) getPlayerId;
@@ -111,7 +115,10 @@ typedef enum
 -(void) playBackgroundMusic;
 -(void) stopBackgroundMusic;
 -(void) onQuitGame;
-
+-(void) onRetry;
+-(void) onNextLevel;
+-(void) onLevelSelect:(uint)lvl;
+-(void) terminateGame;
 -(void) onCharacterSelect:(SlideListItem)item;
 -(void) onWorldSelect:(SlideListItem)item;
 

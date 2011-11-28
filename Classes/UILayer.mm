@@ -80,11 +80,20 @@
 	int menuWidth = screenSize.width - 80;
 	resumeMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Resume.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"ResumeActive.png"] target:self selector:@selector(hidePauseMenu:)];
 	resumeMenuItem.selectedImage.position = ccp(-6,-2);
-	resumeMenuItem.position = ccp(-50,0);
+	resumeMenuItem.position = ccp(-150,0);
+    
+    nextMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Next.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"NextActive.png"] target:self selector:@selector(nextLevel)];
+	nextMenuItem.selectedImage.position = ccp(-6,-2);
+	nextMenuItem.position = ccp(-50,0);
+    
+    retryMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"Retry.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"RetryActive.png"] target:self selector:@selector(retry)];
+	retryMenuItem.selectedImage.position = ccp(-6,-2);
+	retryMenuItem.position = ccp(50,0);
+    
 	CCMenuItemImage* quitMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"QuitSmall.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"QuitSmallActive.png"] target:self selector:@selector(quitGame:)];
 	quitMenuItem.selectedImage.position = ccp(-6,-2);
-	quitMenuItem.position = ccp(50,0);
-	gameMenu = [CCMenu menuWithItems:resumeMenuItem,quitMenuItem,nil];
+	quitMenuItem.position = ccp(150,0);
+	gameMenu = [CCMenu menuWithItems:resumeMenuItem,nextMenuItem,retryMenuItem,quitMenuItem,nil];
 	gameMenu.position = ccp(menuWidth/2,17);
 	gameMenuParent = [[CCLayerColor layerWithColor:(ccColor4B){255,255,255,200} width:menuWidth height:34] retain];
 	gameMenuParent.position = ccp(40,6);
@@ -209,6 +218,22 @@
 		[self hidePauseMenu:nil];
 	}
 
+}
+
+-(void) showRetry:(bool)show{
+    [retryMenuItem setVisible:show];
+}
+
+-(void) showNext:(bool)show{
+    [nextMenuItem setVisible:show];
+}
+
+-(void) nextLevel{
+    [delegate onNextLevel];
+}
+
+-(void) retry{
+    [delegate onRetry];
 }
 
 -(void) hidePauseMenu:(id)sender

@@ -109,24 +109,33 @@ static GameKitHelper *instanceOfGameKitHelper;
 			
 			if (error == nil)
 			{
-                [self reloadHighScoresForCategory:@"PaintPawsTeamDeathmatch"];
-                [self reloadHighScoresForCategory:@"PaintPawsInfiltration"];
-                [self reloadHighScoresForCategory:@"PaintPawsResistance"];
-                [self reloadHighScoresForCategory:@"PaintPawsKills"];	
-                [self reloadHighScoresForCategory:@"PaintPawsProwess"];
+                [self reloadHighScores];
 			}
 		}];
 	}
+    else
+    {
+        [self reloadHighScores];
+    }
 }
 
 #pragma mark Scores and Leaderboard
+
+-(void) reloadHighScores{
+    [self reloadHighScoresForCategory:@"PaintPawsTeamDeathmatch"];
+    [self reloadHighScoresForCategory:@"PaintPawsInfiltration"];
+    [self reloadHighScoresForCategory:@"PaintPawsResistance"];
+    [self reloadHighScoresForCategory:@"PaintPawsKills"];	
+    [self reloadHighScoresForCategory:@"PaintPawsProwess"];
+}
+
 - (void) reloadHighScoresForCategory: (NSString*) category
 {
 //	GKLeaderboard* leaderBoard= [[[GKLeaderboard alloc] initWithPlayerIDs:[NSArray arrayWithObjects:[GKLocalPlayer localPlayer].playerID,nil]] autorelease];
     GKLeaderboard* leaderBoard= [[[GKLeaderboard alloc] init] autorelease];
-    leaderBoard.category = category;
-	leaderBoard.timeScope = GKLeaderboardTimeScopeAllTime;
-    leaderBoard.playerScope = GKLeaderboardPlayerScopeGlobal;
+    leaderBoard.category= category;
+	leaderBoard.timeScope= GKLeaderboardTimeScopeAllTime;
+	leaderBoard.range= NSMakeRange(1, 1);
 	
 	[leaderBoard loadScoresWithCompletionHandler:  ^(NSArray *scores, NSError *error)
     {
@@ -136,55 +145,45 @@ static GameKitHelper *instanceOfGameKitHelper;
         }
         else if(scores != nil)
         {
-            NSLog(@"%@ Scores Received", category);
-            for(uint i = 0; i < [scores count];i++)
-            {
-                GKScore* score = [scores objectAtIndex:i];
-                 NSLog(@"%d %@ %lld points",score.rank, score.playerID, score.value);
-            }
+            NSLog(@"%@ Score Received: %lld", category,leaderBoard.localPlayerScore.value);
 
-            [categoryScores setObject:scores forKey:category];            
+            [categoryScores setObject:leaderBoard.localPlayerScore forKey:category];            
         }
     }];
 }
 
 -(int64_t) getPlayerScoreForCategory:(NSString*)category{
-    NSMutableArray* scores = [categoryScores objectForKey:category];
-    if(scores != nil)
+    GKScore* score = [categoryScores objectForKey:category];
+    if(score != nil)
     {
-        for(uint i = 0; i < [scores count]; i++)
-        {
-            GKScore* score = [scores objectAtIndex:i];
-            if([score.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID])
-            {
-                return score.value;
-            }
-        }
+        return score.value;
     }
     return 0;
 }
 
 - (void) reportScore: (int64_t) score forCategory: (NSString*) category 
 {
+    NSLog(@"Reporting %lld score for %@",score,category);
     //update local
-    NSMutableArray* scores = [categoryScores objectForKey:category];
-    if(scores != nil)
-    {
-        for(uint i = 0; i < [scores count]; i++)
+    GKScore* currentScore = [categoryScores objectForKey:category];
+    if(currentScore != nil)
+    {        
+        if(score > currentScore.value)
         {
-            GKScore* gkScore = [scores objectAtIndex:i];
-            if([gkScore.playerID isEqualToString:[GKLocalPlayer localPlayer].playerID])
-            {
-                gkScore.value = score;
-            }
+            currentScore.value = score;
+        }
+        else
+        {
+            NSLog(@"Leaderboard score higher than local score...dont report");
+            return;
         }
     }
+    
 
 	GKScore *scoreReporter = [[[GKScore alloc] initWithCategory:category] autorelease];	
 	scoreReporter.value = score;
 	[scoreReporter reportScoreWithCompletionHandler: ^(NSError *error) 
-	 {
-         
+	 {         
          if(error != nil)
          {
              NSLog(@"Error Loading Scores: %@", error.localizedDescription);
@@ -192,7 +191,6 @@ static GameKitHelper *instanceOfGameKitHelper;
          else
          {
              NSLog(@"%@ Score Reported", category);
-//             [self reloadHighScoresForCategory:category];
          }
 	 }];
 }

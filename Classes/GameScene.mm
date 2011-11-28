@@ -106,6 +106,15 @@ static GameWorld* CurrentGameWorld;
         else if (type == GameType_Resistance)
             gameType = [[Resistance alloc] init];
         
+        CCMenuItemImage* quitMenuItem = [CCMenuItemImage itemFromNormalSprite:[CCSprite spriteWithSpriteFrameName:@"QuitSmall.png"] selectedSprite:[CCSprite spriteWithSpriteFrameName:@"QuitSmallActive.png"] target:self selector:@selector(ReturnToTitle)];
+        quitMenuItem.anchorPoint = ccp(1,0);
+        quitMenuItem.selectedImage.position = ccp(-6,-2);
+        quitMenu = [CCMenu menuWithItems:quitMenuItem, nil];
+        quitMenu.anchorPoint = ccp(1,0);
+        quitMenu.position = ccp(screenSize.width-4,4);
+        [self addChild:quitMenu z:10];
+        [quitMenu setVisible:false];
+        
         //No longer supported
 		if(gameMode == Game_Online)
 		{
@@ -127,6 +136,7 @@ static GameWorld* CurrentGameWorld;
 			singlePlayWorldPicker = [[WorldPicker alloc] init];
 			[singlePlayWorldPicker setTarget:self selector:@selector(onWorldSelect:)];
 			[self addChild:singlePlayWorldPicker z:5];
+            [quitMenu setVisible:true];
 		}
 	}
 	return self;
@@ -464,11 +474,15 @@ static GameWorld* CurrentGameWorld;
             {
                 uint64_t infScore = [[ScoreManager sharedScoreManager] GetTotalInfiltrationScore];
                 [gkHelper reportScore:infScore forCategory:[gameType GetScoreCategory]];
+                if(level < 10)
+                    [uiLayer showNext:true];
             }
             else if(currentGameType == GameType_Resistance)
             {
                 uint64_t infScore = [[ScoreManager sharedScoreManager] GetTotalResistanceScore];
                 [gkHelper reportScore:infScore forCategory:[gameType GetScoreCategory]];
+                if(level < 10)
+                    [uiLayer showNext:true];
             }
             else if(currentGameType == GameType_TeamDeathmatch)
             {
@@ -599,16 +613,32 @@ static GameWorld* CurrentGameWorld;
 
 -(void) endGame:(ccTime)delta
 {
-    [[GameKitHelper sharedGameKitHelper] clearDelegate];
 	[self unschedule:@selector(endGame:)];
 //	[self stopBackgroundMusic];
-    [GameScene ReturnToTitle];
+    if([gameType getGameType] == GameType_TeamDeathmatch)
+    {
+        [[GameKitHelper sharedGameKitHelper] clearDelegate];
+        [GameScene ReturnToTitle];
+    }
+    else
+    {
+        [self terminateGame];
+        SlideListItem item;
+        item.key = worldName;
+        item.image = worldImage;
+        [self onWorldSelect:item];
+    }
 }
 
 +(void) ReturnToTitle
 {
     [currentGameScene release];
     [[CCDirector sharedDirector] replaceScene:[TitleScene scene]];
+}
+
+-(void) ReturnToTitle
+{
+    [GameScene ReturnToTitle];
 }
 
 -(void) delayedStart
@@ -640,18 +670,25 @@ static GameWorld* CurrentGameWorld;
 	[self addChild:uiLayer];
 	uiLayer.delegate = self;
     
+    [uiLayer showRetry:false];
+    [uiLayer showNext:false];
+    
     //setup gametype ui
     if([gameType getGameType] == GameType_Infiltration){
         [uiLayer showScores:false];
         [uiLayer showTimer:true];
         [uiLayer setTimer:TimerType_StopWatch limit:[gameType getTargetTime]];
         [uiLayer showMessageBox:[gameType getObjective] fontSize:20 color:ccc3(0, 0, 0)];
+        [uiLayer showRetry:true];
+
     }
     else if([gameType getGameType] == GameType_Resistance){
         [uiLayer showScores:false];
         [uiLayer showTimer:true];
         [uiLayer setTimer:TimerType_Countdown limit:[gameType getTargetTime]];
         [uiLayer showMessageBox:[gameType getObjective] fontSize:20 color:ccc3(0, 0, 0)];
+        [uiLayer showRetry:true];
+
     }
     else if([gameType getGameType] == GameType_TeamDeathmatch){        
         [uiLayer showScores:true];
@@ -674,7 +711,7 @@ static GameWorld* CurrentGameWorld;
 -(void) preloadSounds
 {
     [self unschedule:@selector(preloadSounds)];
-    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Its Over Now.mp3"];
+//    [[SimpleAudioEngine sharedEngine] preloadEffect:@"Its Over Now.mp3"];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"TakeHit.aif"];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"Splat.mp3"];
     [[SimpleAudioEngine sharedEngine] preloadEffect:@"Fire.mp3"];
@@ -703,6 +740,19 @@ static GameWorld* CurrentGameWorld;
 -(void) onQuitGame
 {
 	[self endGame:0];
+}
+
+-(void) onRetry
+{
+    [self terminateGame];
+	[self onLevelSelect:level];
+}
+
+-(void) onNextLevel
+{
+    [self terminateGame];
+    [self onLevelSelect:level+1];
+
 }
 
 -(NSMutableArray*) getLeaderboardEntries
@@ -1024,6 +1074,7 @@ static GameWorld* CurrentGameWorld;
 #pragma mark SlideListProtocol
 -(void) onCharacterSelect:(SlideListItem)item
 {
+    [quitMenu setVisible:false];
 	[self removeChild:singlePlayCharacterPicker cleanup:false];
     loadingScreen = [[[LoadingScreen alloc] init] autorelease];
     [loadingScreen setProgress:0];
@@ -1034,14 +1085,19 @@ static GameWorld* CurrentGameWorld;
 
 -(void) onWorldSelect:(SlideListItem)item
 {
+    [quitMenu setVisible:true];
 	worldName = [NSString stringWithString:item.key];
-    [self removeChild:singlePlayWorldPicker cleanup:false];
+    worldImage = [NSString stringWithString:item.image];
+    if(singlePlayWorldPicker != nil)
+        [self removeChild:singlePlayWorldPicker cleanup:false];
     
     if(currentGameType == GameType_TeamDeathmatch)
     {
         singlePlayCharacterPicker = [[CharacterPicker alloc] init];
         [singlePlayCharacterPicker setTarget:self selector:@selector(onCharacterSelect:)];
         [self addChild:singlePlayCharacterPicker z:5];
+        [self removeChild:quitMenu cleanup:false];
+        [self addChild:quitMenu z:10];
     }
     else
     {
@@ -1061,12 +1117,58 @@ static GameWorld* CurrentGameWorld;
     }	
 }
 
--(void) onLevelSelect:(uint)level{
-    [self removeChild:singlePlayLevelPicker cleanup:false];
+-(void) onLevelSelect:(uint)lvl{
+    [quitMenu setVisible:true];
+    level = lvl;
+    if(singlePlayLevelPicker != nil)
+        [self removeChild:singlePlayLevelPicker cleanup:false];
     [gameType SetLevel:level ForWorld:worldName];
     singlePlayCharacterPicker = [[CharacterPicker alloc] init];
     [singlePlayCharacterPicker setTarget:self selector:@selector(onCharacterSelect:)];
     [self addChild:singlePlayCharacterPicker z:5];
+    [self removeChild:quitMenu cleanup:false];
+    [self addChild:quitMenu z:10];
+}
+
+-(void) terminateGame{
+    [self unschedule:@selector(tick:)];
+    [self removeChild:gameWorld cleanup:true];
+    [self removeChild:uiLayer cleanup:true];
+    if(singlePlayLevelPicker)
+    {
+        [singlePlayLevelPicker release];
+        singlePlayLevelPicker = nil;
+    }
+    if(singlePlayCharacterPicker)
+    {
+        [singlePlayCharacterPicker release];
+        singlePlayCharacterPicker = nil;
+    }
+    if(singlePlayWorldPicker)
+    {
+        [singlePlayWorldPicker release];
+        singlePlayWorldPicker = nil;
+    }
+    if(tapTarget)
+    {
+        [tapTarget release];
+        tapTarget = nil;
+    }
+    if(playerController)
+    {
+        [playerController release];
+        playerController = nil;
+    }
+    if(networkPlayerControllers)
+    {
+        [networkPlayerControllers release];
+        networkPlayerControllers = nil;
+    }
+    if(botControllers)
+    {
+        [botControllers release];
+        botControllers = nil;
+    }
 }
 
 -(void) dealloc
@@ -1074,24 +1176,11 @@ static GameWorld* CurrentGameWorld;
 //    [uiLayer release];
 //    [uiLayer removeChild:joystickBase cleanup:false];
 //    [joystickBase release];
-    if(singlePlayLevelPicker)
-        [singlePlayLevelPicker release];
-    if(singlePlayWorldPicker)
-        [singlePlayWorldPicker release];
-    if(singlePlayCharacterPicker)
-        [singlePlayCharacterPicker release];
-    [playerList release];
-    [gameType release];
-    [tapTarget release];
-    [playerController release];
-    if(networkPlayerControllers)
-    {
-        [networkPlayerControllers release];
-    }
-    if(botControllers)
-    {
-        [botControllers release];
-    }
+    [self terminateGame];
+    if(gameType)
+        [gameType release];
+    if(playerList)
+        [playerList release];
     if(onlinePlayUI)
         [onlinePlayUI release];
 	if(localPlayUI)

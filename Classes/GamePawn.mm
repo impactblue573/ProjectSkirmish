@@ -10,6 +10,7 @@
 #import "GameController.h"
 #import "GameScene.h"
 #import "SoundManager.h"
+#import "Helper.h"
 
 @class GameScene;
 @implementation GamePawn
@@ -146,6 +147,10 @@
 
 -(bool) fire:(CGPoint)target
 {
+    //disable firing in home area
+//    b2Vec2 pos = [self position];
+//    if([Helper point:ccp(pos.x, pos.y) isInRect:team.spawnPoint.homeArea])
+//        return false;
 	if(!isFiring && pawnState == Pawn_Alive)
 	{
 		CGPoint tiltPos = [self getWorldTiltPoint];

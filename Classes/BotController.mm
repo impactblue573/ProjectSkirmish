@@ -64,6 +64,8 @@
 }
 
 -(void) updateBotName{
+    if(playerName)
+        [playerName release];
     playerName = [[NSString stringWithFormat:@"%@ %@",pawn.pawnType,botName] retain];
 }
 
@@ -176,7 +178,7 @@
 							if([pawn jump:1.0])
 								netInput.hasJump = [NSNumber numberWithBool:true];
 						}		
-						else if(aiType != AI_Defender){
+						else {
 							if([pawn walk:b2Vec2(0,0)])
 								netInput.moveVector = [NSNumber numberWithFloat:0];
 						}

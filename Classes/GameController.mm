@@ -23,8 +23,12 @@
 {
 	if(pID != nil)
 		self.playerID = [[NSString stringWithString:pID] retain];
-	if(pName != nil)		
+	if(pName != nil)	
+    {
+        if(self.playerName)
+            [self.playerName release];
 		self.playerName = [[NSString stringWithString:pName] retain];
+    }
 	gameWorld = world;
 	team = t;
     spriteVariation = variation;

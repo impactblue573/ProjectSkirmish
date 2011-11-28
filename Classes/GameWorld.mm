@@ -50,7 +50,8 @@ static bool debugDraw = false;
 -(void) buildWorld:(NSString*)worldName
 {
 	//Load World Property List
-	NSDictionary* pListData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",worldName]]];
+    NSString* filePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",worldName]];
+	NSDictionary* pListData = [NSDictionary dictionaryWithContentsOfFile:filePath];
 	worldSize = CGSizeMake([[pListData objectForKey:@"WorldWidth"] floatValue], [[pListData objectForKey:@"WorldHeight"] floatValue]);
 	float floorHeight = [[pListData objectForKey:@"FloorHeight"] floatValue];
 	b2Vec2 gravityVec;

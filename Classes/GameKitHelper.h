@@ -29,6 +29,7 @@
 -(void) getPlayerInfo:(NSArray*)players;
 
 // Leaderboards
+-(void) reloadHighScores;
 - (void) reloadHighScoresForCategory: (NSString*) category;
 - (void) reportScore: (int64_t) score forCategory: (NSString*) category;
 - (void) showLeaderboard;

@@ -18,6 +18,8 @@
 }
 
 -(void) GameStart{
+    if(startDate)
+        [startDate release];
     startDate = [[NSDate date] retain];
 }
 
@@ -42,8 +44,8 @@
 }
 
 -(void) LoadLevel{
-    NSDictionary* pListData = [NSDictionary dictionaryWithContentsOfFile:[[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Infiltration.plist",world]]];
-    NSArray* levels = [pListData objectForKey:@"Levels"];
+    NSString* filePath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:[NSString stringWithFormat:@"%@_Infiltration.plist",world]];
+    NSDictionary* pListData = [NSDictionary dictionaryWithContentsOfFile:filePath];NSArray* levels = [pListData objectForKey:@"Levels"];
     NSDictionary* levelDefinition = [levels objectAtIndex:(level-1)];
     targetTime = [[levelDefinition objectForKey:@"TargetTime"] doubleValue];
     NSArray* botArray = [levelDefinition objectForKey:@"Bots"];

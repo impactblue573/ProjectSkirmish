@@ -34,7 +34,7 @@ static LoadManager* sharedLoadManager;
 
 -(void) cacheSounds{
     [self unschedule:@selector(cacheSounds)];
-    [[SoundManager sharedManager] preloadSound:@"Twinkle.mp3"];
+//    [[SoundManager sharedManager] preloadSound:@"Twinkle.mp3"];
     [loadingScreen setProgress:50];
     [[CCScheduler sharedScheduler] scheduleSelector:@selector(loadScores) forTarget:self interval:0.5 paused:false];
 }

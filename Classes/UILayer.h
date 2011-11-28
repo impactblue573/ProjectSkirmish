@@ -17,6 +17,8 @@
 @protocol UILayerProtocol
 
 -(void) onQuitGame;
+-(void) onNextLevel;
+-(void) onRetry;
 -(NSMutableArray*) getLeaderboardEntries;
 
 @end
@@ -31,6 +33,8 @@
 	CCLabelTTF* pingLabel;
 	CCLabelTTF* messageLabel;
 	CCMenuItemImage* resumeMenuItem;
+    CCMenuItemImage* nextMenuItem;
+    CCMenuItemImage* retryMenuItem;
 	CCMenu* pauseMenu;
 	CCMenu* gameMenu;
     CCSprite* winImage;
@@ -52,9 +56,13 @@
 -(void) showPauseMenu:(id)sender;
 -(void) hidePauseMenu:(id)sender;
 -(void) quitGame:(id)sender;
+-(void) nextLevel;
+-(void) retry;
 -(void) showCompletitionScreen;
 -(void) hideResume;
 -(void) hidePauseMenuItem;
+-(void) showRetry:(bool)show;
+-(void) showNext:(bool)show;
 -(void) showScores:(bool)show;
 -(void) showTimer:(bool)show;
 -(void) setTimer:(TimerTypes)type limit:(NSTimeInterval)limit;
